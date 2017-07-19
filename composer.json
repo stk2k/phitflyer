@@ -1,0 +1,26 @@
+{
+  "name": "stk2k/phitflyer",
+  "description": "PHP bitflyer API client library",
+  "keywords": ["bitflyer", "PHP", "library", "bitflyer api", "bitflyer lightning api"],
+  "homepage": "https://github.com/stk2k/pitflyer",
+  "type": "library",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Katsuki Shuto",
+      "email": "stk2k@sazysoft.com"
+    }
+  ],
+  "minimum-stability": "dev",
+  "require": {
+    "php": ">=5.3.0"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "3.7.*"
+  },
+  "autoload": {
+    "psr-4": {
+      "PhitFlyer\\": "src/"
+    }
+  }
+}
