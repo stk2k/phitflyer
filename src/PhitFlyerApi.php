@@ -26,7 +26,7 @@ final class PhitFlyerApi
     const BOARD         = '/v1/board';
     const TICKER        = '/v1/ticker';
     const EXECUTIONS    = '/v1/executions';
-    const GETBOARDSTATE = '/v1/getboardstate';
+    const GETBOARDSTATE = '/v1/getboardstate';                          // ... added at ver.0.2.0
     const GETHEALTH     = '/v1/gethealth';
     const GETCHATS      = '/v1/getchats';
     
