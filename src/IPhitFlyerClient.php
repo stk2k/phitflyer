@@ -5,6 +5,7 @@ use PhitFlyer\Object\Market;
 use PhitFlyer\Object\Board;
 use PhitFlyer\Object\Ticker;
 use PhitFlyer\Object\Execution;
+use PhitFlyer\Object\BoardState;
 use PhitFlyer\Object\Health;
 use PhitFlyer\Object\Chat;
 use PhitFlyer\Exception\BitflyerClientException;
@@ -63,6 +64,19 @@ interface IPhitFlyerClient
      * @throws BitflyerClientException
      */
     public function getExecutions($product_code = null, $before = null, $after = null, $count = null);
+    
+    
+    /**
+     * [public] get board state
+     *
+     * @param string $product_code
+     *
+     * @return BoardState
+     *
+     * @throws ServerResponseFormatException
+     * @throws BitflyerClientException
+     */
+    public function getBoardState($product_code = null);
     
     /**
      * get health
@@ -187,35 +201,6 @@ interface IPhitFlyerClient
      * @throws BitflyerClientException
      */
     public function meGetDeposits($before = null, $after = null, $count = null);
-    
-    /**
-     * [private] withdraw
-     *
-     * @param string $currency_code
-     * @param integer $bank_account_id
-     * @param integer $amount
-     * @param string|null $code
-     *
-     * @return object
-     *
-     * @throws ServerResponseFormatException
-     * @throws BitflyerClientException
-     */
-    public function meWithdraw($currency_code, $bank_account_id, $amount, $code = null);
-    
-    /**
-     * [private] get withdrawals
-     *
-     * @param integer $before
-     * @param integer $after
-     * @param integer $count
-     *
-     * @return array
-     *
-     * @throws ServerResponseFormatException
-     * @throws BitflyerClientException
-     */
-    public function meGetWithdrawals($before = null, $after = null, $count = null);
     
     /**
      * [private] send child order

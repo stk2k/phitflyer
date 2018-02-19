@@ -5,6 +5,7 @@ use PhitFlyer\Object\Market;
 use PhitFlyer\Object\Board;
 use PhitFlyer\Object\Ticker;
 use PhitFlyer\Object\Execution;
+use PhitFlyer\Object\BoardState;
 use PhitFlyer\Object\Health;
 use PhitFlyer\Object\Chat;
 use PhitFlyer\Object\MeBalance;
@@ -120,6 +121,24 @@ class PhitFlyerObjectClient implements IPhitFlyerClient
             $items[] = Execution::fromObject($item);
         }
         return $items;
+    }
+    
+    /**
+     * [public] get board state
+     *
+     * @param string $product_code
+     *
+     * @return BoardState
+     *
+     * @throws ServerResponseFormatException
+     * @throws BitflyerClientException
+     */
+    public function getBoardState($product_code = null)
+    {
+        // get result from server
+        $json = $this->flyer->getBoardState($product_code);
+        // make board state
+        return BoardState::fromObject($json);
     }
     
     /**

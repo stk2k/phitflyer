@@ -89,7 +89,7 @@ class PhitFlyerClient implements IPhitFlyerClient
         
         $request = new HttpGetRequest($this, $url, $query_data);
     
-        return $this->executeQeruest($request, $return_value);
+        return $this->executeRequest($request, $return_value);
     }
     
     /**
@@ -125,7 +125,7 @@ class PhitFlyerClient implements IPhitFlyerClient
         $url = self::getURL($api);
         $request = new HttpGetRequest($this, $url, $query_data, $options);
     
-        return $this->executeQeruest($request, $return_value);
+        return $this->executeRequest($request, $return_value);
     }
     
     /**
@@ -161,7 +161,7 @@ class PhitFlyerClient implements IPhitFlyerClient
         $url = self::getURL($api);
         $request = new JsonPostRequest($this, $url, $post_data, $options);
     
-        return $this->executeQeruest($request, $return_value);
+        return $this->executeRequest($request, $return_value);
     }
     
     /**
@@ -171,8 +171,10 @@ class PhitFlyerClient implements IPhitFlyerClient
      * @param bool $return_value
      *
      * @return mixed
+     *
+     * @throws BitflyerClientException
      */
-    private function executeQeruest($request, $return_value = true)
+    private function executeRequest($request, $return_value = true)
     {
         $json = $request->execute($this->curl_handle, $return_value);
     
@@ -274,6 +276,30 @@ class PhitFlyerClient implements IPhitFlyerClient
         // check return type
         if (!is_array($json)){
             throw new ServerResponseFormatException('response must be an array, but returned:' . gettype($json));
+        }
+        return $json;
+    }
+    
+    /**
+     * [public] get board state
+     *
+     * @param string $product_code
+     *
+     * @return object
+     *
+     * @throws ServerResponseFormatException
+     * @throws BitflyerClientException
+     */
+    public function getBoardState($product_code = null)
+    {
+        // HTTP GET
+        $query_data = array(
+            'product_code' => $product_code,
+        );
+        $json = $this->get(PhitFlyerApi::GETBOARDSTATE, $query_data);
+        // check return type
+        if (!is_object($json)){
+            throw new ServerResponseFormatException('response must be an object, but returned:' . gettype($json));
         }
         return $json;
     }
@@ -520,64 +546,6 @@ class PhitFlyerClient implements IPhitFlyerClient
     }
     
     /**
-     * [private] withdraw
-     *
-     * @param string $currency_code
-     * @param integer $bank_account_id
-     * @param integer $amount
-     * @param string|null $code
-     *
-     * @return object
-     *
-     * @throws ServerResponseFormatException
-     * @throws BitflyerClientException
-     */
-    public function meWithdraw($currency_code, $bank_account_id, $amount, $code = null)
-    {
-        // HTTP POST
-        $post_data = array(
-            'currency_code' => $currency_code,
-            'bank_account_id' => $bank_account_id,
-            'amount' => $amount,
-            'code' => $code,
-        );
-        $json = $this->privatePost(PhitFlyerApi::ME_WITHDRAW, $post_data);
-        // check return type
-        if (!is_object($json)){
-            throw new ServerResponseFormatException('response must be an object, but returned:' . gettype($json));
-        }
-        return $json;
-    }
-    
-    /**
-     * [private] get withdrawals
-     *
-     * @param integer $before
-     * @param integer $after
-     * @param integer $count
-     *
-     * @return array
-     *
-     * @throws ServerResponseFormatException
-     * @throws BitflyerClientException
-     */
-    public function meGetWithdrawals($before = null, $after = null, $count = null)
-    {
-        // HTTP GET
-        $query_data = array(
-            'before' => $before,
-            'after' => $after,
-            'count' => $count,
-        );
-        $json = $this->privateGet(PhitFlyerApi::ME_GETWITHDRAWALS, $query_data);
-        // check return type
-        if (!is_array($json)){
-            throw new ServerResponseFormatException('response must be an array, but returned:' . gettype($json));
-        }
-        return $json;
-    }
-    
-    /**
      * [private] send child order
      *
      * @param string $product_code
@@ -619,7 +587,6 @@ class PhitFlyerClient implements IPhitFlyerClient
      * @param string $product_code
      * @param string $child_order_id
      *
-     * @throws ServerResponseFormatException
      * @throws BitflyerClientException
      */
     public function meCancelChildOrder($product_code, $child_order_id)
@@ -637,7 +604,6 @@ class PhitFlyerClient implements IPhitFlyerClient
      *
      * @param string $product_code
      *
-     * @throws ServerResponseFormatException
      * @throws BitflyerClientException
      */
     public function meCancelAllChildOrders($product_code)

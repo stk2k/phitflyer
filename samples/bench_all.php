@@ -51,43 +51,43 @@ $from_date = date('Y-m-d\Th:i:s', strtotime('-10 min'));
 $chats = $flyer->getChats($from_date);
 
 // call API: /v1/getpermissions
-echo 'calling api: ' . PhitFlyerApi::ME_GETPERMISSIONS . PHP_EOL;
-$flyer->meGetPermissions();
+echo 'calling api: ' . PhitFlyerApi::GETPERMISSIONS . PHP_EOL;
+$flyer->getPermissions();
 
 sleep(1);
 
 // call API: /v1/getbalance
-echo 'calling api: ' . PhitFlyerApi::ME_GETBALANCE . PHP_EOL;
-$flyer->meGetBalance();
+echo 'calling api: ' . PhitFlyerApi::GETBALANCE . PHP_EOL;
+$flyer->getBalance();
 
 sleep(1);
 
 // call API: /v1/getcollateral
-echo 'calling api: ' . PhitFlyerApi::ME_GETCOLLATERAL . PHP_EOL;
-$flyer->meGetCollateral();
+echo 'calling api: ' . PhitFlyerApi::GETCOLLATERAL . PHP_EOL;
+$flyer->getCollateral();
 
 sleep(1);
 
 // call API: /v1/getcollateralaccounts
-echo 'calling api: ' . PhitFlyerApi::ME_GETCOLLATERALACCOUNTS . PHP_EOL;
-$flyer->meGetCollateralAccounts();
+echo 'calling api: ' . PhitFlyerApi::GETCOLLATERALACCOUNTS . PHP_EOL;
+$flyer->getCollateralAccounts();
 
 sleep(1);
 
 // call API: /v1/getaddresses
-echo 'calling api: ' . PhitFlyerApi::ME_GETADDRESS . PHP_EOL;
-$flyer->meGetAddress();
+echo 'calling api: ' . PhitFlyerApi::GETADDRESS . PHP_EOL;
+$flyer->getAddress();
 
 sleep(1);
 
 // call API: /v1/getcoinins
-echo 'calling api: ' . PhitFlyerApi::ME_GETCOININS . PHP_EOL;
-$flyer->meGetCoinIns();
+echo 'calling api: ' . PhitFlyerApi::GETCOININS . PHP_EOL;
+$flyer->getCoinIns();
 
 sleep(1);
 
 // call API: /v1/getcoinouts
-echo 'calling api: ' . PhitFlyerApi::ME_GETCOINOUTS . PHP_EOL;
-$flyer->meGetCoinOuts();
+echo 'calling api: ' . PhitFlyerApi::GETCOINOUTS . PHP_EOL;
+$flyer->getCoinOuts();
 
 sleep(1);

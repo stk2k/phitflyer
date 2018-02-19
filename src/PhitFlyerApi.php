@@ -26,6 +26,7 @@ final class PhitFlyerApi
     const BOARD         = '/v1/board';
     const TICKER        = '/v1/ticker';
     const EXECUTIONS    = '/v1/executions';
+    const GETBOARDSTATE = '/v1/getboardstate';
     const GETHEALTH     = '/v1/gethealth';
     const GETCHATS      = '/v1/getchats';
     
@@ -39,8 +40,8 @@ final class PhitFlyerApi
     const ME_GETCOINOUTS              = '/v1/me/getcoinouts';
     const ME_GETBANKACCOUNTS          = '/v1/me/getbankaccounts';
     const ME_GETDEPOSITS              = '/v1/me/getdeposits';
-    const ME_WITHDRAW                 = '/v1/me/withdraw';
-    const ME_GETWITHDRAWALS           = '/v1/me/getwithdrawals';
+    //const ME_WITHDRAW                 = '/v1/me/withdraw';                      ...removed at ver.0.2.0
+    //const ME_GETWITHDRAWALS           = '/v1/me/getwithdrawals';                ...removed at ver.0.2.0
     const ME_SENDCHILDORDER           = '/v1/me/sendchildorder';
     const ME_CANCELCHILDORDER         = '/v1/me/cancelchildorder';
     const ME_CANCELALLCHILDORDERS     = '/v1/me/cancelallchildorders';

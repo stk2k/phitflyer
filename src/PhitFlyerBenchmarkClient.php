@@ -7,8 +7,6 @@ use PhitFlyer\Object\Ticker;
 use PhitFlyer\Object\Execution;
 use PhitFlyer\Object\Health;
 use PhitFlyer\Object\Chat;
-use PhitFlyer\Exception\ServerResponseFormatException;
-use PhitFlyer\Exception\BitflyerClientException;
 
 
 /**
@@ -91,9 +89,6 @@ class PhitFlyerBenchmarkClient implements IPhitFlyerClient
      * [public] get markets
      *
      * @return Market[]|null
-     *
-     * @throws ServerResponseFormatException
-     * @throws BitflyerClientException
      */
     public function getMarkets()
     {
@@ -109,9 +104,6 @@ class PhitFlyerBenchmarkClient implements IPhitFlyerClient
      * @param string $product_code
      *
      * @return Board
-     *
-     * @throws ServerResponseFormatException
-     * @throws BitflyerClientException
      */
     public function getBoard($product_code = null)
     {
@@ -128,9 +120,6 @@ class PhitFlyerBenchmarkClient implements IPhitFlyerClient
      * @param string $product_code
      *
      * @return Ticker
-     *
-     * @throws ServerResponseFormatException
-     * @throws BitflyerClientException
      */
     public function getTicker($product_code = null)
     {
@@ -150,9 +139,6 @@ class PhitFlyerBenchmarkClient implements IPhitFlyerClient
      * @param integer $count
      *
      * @return Execution[]
-     *
-     * @throws ServerResponseFormatException
-     * @throws BitflyerClientException
      */
     public function getExecutions($product_code = null, $before = null, $after = null, $count = null)
     {
@@ -164,12 +150,25 @@ class PhitFlyerBenchmarkClient implements IPhitFlyerClient
     }
     
     /**
+     * [public] get board state
+     *
+     * @param string $product_code
+     *
+     * @return array
+     */
+    public function getBoardState($product_code = null)
+    {
+        $bench_func = array( $this->flyer, 'getBoardState' );
+        $args = array( $product_code );
+        list($result, $elapsed) = self::bench($bench_func, $args);
+        call_user_func_array($this->callback, array('getBoardState', $elapsed));
+        return $result;
+    }
+    
+    /**
      * [public] get health
      *
      * @return Health
-     *
-     * @throws ServerResponseFormatException
-     * @throws BitflyerClientException
      */
     public function getHealth()
     {
@@ -185,9 +184,6 @@ class PhitFlyerBenchmarkClient implements IPhitFlyerClient
      * @param string $from_date
      *
      * @return Chat[]
-     *
-     * @throws ServerResponseFormatException
-     * @throws BitflyerClientException
      */
     public function getChats($from_date = null)
     {
@@ -202,9 +198,6 @@ class PhitFlyerBenchmarkClient implements IPhitFlyerClient
      * [private] get permissions
      *
      * @return array
-     *
-     * @throws ServerResponseFormatException
-     * @throws BitflyerClientException
      */
     public function meGetPermissions()
     {
@@ -218,9 +211,6 @@ class PhitFlyerBenchmarkClient implements IPhitFlyerClient
      * [private] get balance
      *
      * @return array
-     *
-     * @throws ServerResponseFormatException
-     * @throws BitflyerClientException
      */
     public function meGetBalance()
     {
@@ -234,9 +224,6 @@ class PhitFlyerBenchmarkClient implements IPhitFlyerClient
      * [private] get collateral
      *
      * @return object
-     *
-     * @throws ServerResponseFormatException
-     * @throws BitflyerClientException
      */
     public function meGetCollateral()
     {
@@ -250,9 +237,6 @@ class PhitFlyerBenchmarkClient implements IPhitFlyerClient
      * [private] get collateral accounts
      *
      * @return array
-     *
-     * @throws ServerResponseFormatException
-     * @throws BitflyerClientException
      */
     public function meGetCollateralAccounts()
     {
@@ -266,9 +250,6 @@ class PhitFlyerBenchmarkClient implements IPhitFlyerClient
      * [private] get address
      *
      * @return array
-     *
-     * @throws ServerResponseFormatException
-     * @throws BitflyerClientException
      */
     public function meGetAddress()
     {
@@ -286,9 +267,6 @@ class PhitFlyerBenchmarkClient implements IPhitFlyerClient
      * @param integer $count
      *
      * @return array
-     *
-     * @throws ServerResponseFormatException
-     * @throws BitflyerClientException
      */
     public function meGetCoinIns($before = null, $after = null, $count = null)
     {
@@ -307,9 +285,6 @@ class PhitFlyerBenchmarkClient implements IPhitFlyerClient
      * @param integer $count
      *
      * @return array
-     *
-     * @throws ServerResponseFormatException
-     * @throws BitflyerClientException
      */
     public function meGetCoinOuts($before = null, $after = null, $count = null)
     {
@@ -324,9 +299,6 @@ class PhitFlyerBenchmarkClient implements IPhitFlyerClient
      * [private] get bank accounts
      *
      * @return array
-     *
-     * @throws ServerResponseFormatException
-     * @throws BitflyerClientException
      */
     public function meGetBankAccounts()
     {
@@ -344,9 +316,6 @@ class PhitFlyerBenchmarkClient implements IPhitFlyerClient
      * @param integer $count
      *
      * @return array
-     *
-     * @throws ServerResponseFormatException
-     * @throws BitflyerClientException
      */
     public function meGetDeposits($before = null, $after = null, $count = null)
     {
@@ -366,9 +335,6 @@ class PhitFlyerBenchmarkClient implements IPhitFlyerClient
      * @param string|null $code
      *
      * @return object
-     *
-     * @throws ServerResponseFormatException
-     * @throws BitflyerClientException
      */
     public function meWithdraw($currency_code, $bank_account_id, $amount, $code = null)
     {
@@ -387,9 +353,6 @@ class PhitFlyerBenchmarkClient implements IPhitFlyerClient
      * @param integer $count
      *
      * @return object
-     *
-     * @throws ServerResponseFormatException
-     * @throws BitflyerClientException
      */
     public function meGetWithdrawals($before = null, $after = null, $count = null)
     {
@@ -412,9 +375,6 @@ class PhitFlyerBenchmarkClient implements IPhitFlyerClient
      * @param string $time_in_force
      *
      * @return object
-     *
-     * @throws ServerResponseFormatException
-     * @throws BitflyerClientException
      */
     public function meSendChildOrder($product_code, $child_order_type, $side, $price, $size, $minute_to_expire = null, $time_in_force = null)
     {
@@ -430,9 +390,6 @@ class PhitFlyerBenchmarkClient implements IPhitFlyerClient
      *
      * @param string $product_code
      * @param string $child_order_id
-     *
-     * @throws ServerResponseFormatException
-     * @throws BitflyerClientException
      */
     public function meCancelChildOrder($product_code, $child_order_id)
     {
@@ -446,9 +403,6 @@ class PhitFlyerBenchmarkClient implements IPhitFlyerClient
      * [private] cancel all child orders
      *
      * @param string $product_code
-     *
-     * @throws ServerResponseFormatException
-     * @throws BitflyerClientException
      */
     public function meCancelAllChildOrders($product_code)
     {
@@ -469,9 +423,6 @@ class PhitFlyerBenchmarkClient implements IPhitFlyerClient
      * @param string $parent_order_id
      *
      * @return array
-     *
-     * @throws ServerResponseFormatException
-     * @throws BitflyerClientException
      */
     public function meGetChildOrders($product_code, $before = null, $after = null, $count = null, $child_order_state = null, $parent_order_id = null)
     {
@@ -493,9 +444,6 @@ class PhitFlyerBenchmarkClient implements IPhitFlyerClient
      * @param string $child_order_acceptance_id
      *
      * @return array
-     *
-     * @throws ServerResponseFormatException
-     * @throws BitflyerClientException
      */
     public function meGetExecutions($product_code, $before = null, $after = null, $count = null, $child_order_id = null, $child_order_acceptance_id = null)
     {
@@ -512,9 +460,6 @@ class PhitFlyerBenchmarkClient implements IPhitFlyerClient
      * @param string $product_code
      *
      * @return array
-     *
-     * @throws ServerResponseFormatException
-     * @throws BitflyerClientException
      */
     public function meGetPositions($product_code)
     {
@@ -531,9 +476,6 @@ class PhitFlyerBenchmarkClient implements IPhitFlyerClient
      * @param string $product_code
      *
      * @return object
-     *
-     * @throws ServerResponseFormatException
-     * @throws BitflyerClientException
      */
     public function meGetTradingCommission($product_code)
     {
