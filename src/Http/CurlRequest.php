@@ -4,6 +4,7 @@ namespace PhitFlyer\Http;
 use PhitFlyer\PhitFlyerClient;
 use PhitFlyer\Exception\BitflyerClientException;
 use PhitFlyer\Exception\BitflyerApiErrorResponseException;
+use PhitFlyer\Exception\BitflyerApiTimeoutException;
 use PhitFlyer\Exception\JsonFormatException;
 use PhitFlyer\Exception\CurlException;
 
@@ -75,29 +76,38 @@ abstract class CurlRequest
             
             $body = $response->getBody();
     
-            if ($response->getStatusCode() != 200){
-        
-                $json = json_decode($body, true);
-        
-                if ($json){
-                    $status = isset($json['status']) ? $json['status'] : '';
-                    $message = isset($json['error_message']) ? $json['error_message'] : '';
-                    $data = isset($json['data']) ? $json['data'] : '';
-        
-                    throw new BitflyerApiErrorResponseException($url,$status, $message, $data);
-                }
-                else{
-                    throw new BitflyerApiErrorResponseException($url,-1, $body);
-                }
-            }
+            $status_code = $response->getStatusCode();
+            switch ($status_code)
+            {
+                case 200:   // Success
+                    if ($return_value){
+                        // decode json
+                        $json = json_decode($body);
+                        if ($json===null){
+                            throw new JsonFormatException($body);
+                        }
+                        return $json;
+                    }
+                    break;
+    
+                case 524:   // Timeout
+                    throw new BitflyerApiTimeoutException($url,$status_code);
+                    break;
+    
+                default:
+                    $json = json_decode($body, true);
             
-            if ($return_value){
-                // decode json
-                $json = json_decode($body);
-                if ($json===null){
-                    throw new JsonFormatException($body);
-                }
-                return $json;
+                    if ($json){
+                        $status = isset($json['status']) ? $json['status'] : '';
+                        $message = isset($json['error_message']) ? $json['error_message'] : '';
+                        $data = isset($json['data']) ? $json['data'] : '';
+            
+                        throw new BitflyerApiErrorResponseException($url,$status, $message, $data);
+                    }
+                    else{
+                        throw new BitflyerApiErrorResponseException($url,-1, $body);
+                    }
+                    break;
             }
         }
         catch (\Exception $e){
