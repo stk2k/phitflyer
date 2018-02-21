@@ -74,7 +74,7 @@ class Ticker
             property_exists($obj,'timestamp') ? $obj->timestamp : null,
             property_exists($obj,'tick_id') ? $obj->tick_id : null,
             property_exists($obj,'best_bid') ? $obj->best_bid : null,
-            property_exists($obj,'best_bid_size') ? $obj->best_bid_size : null,
+            property_exists($obj,'best_ask') ? $obj->best_ask : null,
             property_exists($obj,'best_bid_size') ? $obj->best_bid_size : null,
             property_exists($obj,'best_ask_size') ? $obj->best_ask_size : null,
             property_exists($obj,'total_bid_depth') ? $obj->total_bid_depth : null,
