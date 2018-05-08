@@ -19,13 +19,13 @@ class Health
     /**
      * construct from stdObject
      *
-     * @param object $obj
+     * @param array $data
      *
      * @return Health
      */
-    public static function fromObject($obj){
+    public static function fromArray(array $data){
         return new self(
-            property_exists($obj,'status') ? $obj->status : null
+            isset($data['status']) ? $data['status'] : null
         );
     }
     

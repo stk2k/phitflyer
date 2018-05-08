@@ -49,19 +49,19 @@ class MeBankAccount
     /**
      * construct from stdObject
      *
-     * @param object $obj
+     * @param array $data
      *
      * @return MeBankAccount
      */
-    public static function fromObject($obj){
+    public static function fromArray(array $data){
         return new self(
-            property_exists($obj,'id') ? $obj->id : null,
-            property_exists($obj,'is_verified') ? $obj->is_verified : null,
-            property_exists($obj,'bank_name') ? $obj->bank_name : null,
-            property_exists($obj,'branch_name') ? $obj->branch_name : null,
-            property_exists($obj,'account_type') ? $obj->account_type : null,
-            property_exists($obj,'account_number') ? $obj->account_number : null,
-            property_exists($obj,'account_name') ? $obj->account_name : null
+            isset($data['id']) ? $data['id'] : null,
+            isset($data['is_verified']) ? $data['is_verified'] : null,
+            isset($data['bank_name']) ? $data['bank_name'] : null,
+            isset($data['branch_name']) ? $data['branch_name'] : null,
+            isset($data['account_type']) ? $data['account_type'] : null,
+            isset($data['account_number']) ? $data['account_number'] : null,
+            isset($data['account_name']) ? $data['account_name'] : null
         );
     }
     

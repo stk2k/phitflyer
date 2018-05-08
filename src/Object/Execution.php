@@ -44,19 +44,19 @@ class Execution
     /**
      * construct from stdObject
      *
-     * @param object $obj
+     * @param array $data
      *
      * @return Execution
      */
-    public static function fromObject($obj){
+    public static function fromArray(array $data){
         return new self(
-            property_exists($obj,'id') ? $obj->id : null,
-            property_exists($obj,'side') ? $obj->side : null,
-            property_exists($obj,'price') ? $obj->price : null,
-            property_exists($obj,'size') ? $obj->size : null,
-            property_exists($obj,'exec_date') ? $obj->exec_date : null,
-            property_exists($obj,'buy_child_order_acceptance_id') ? $obj->buy_child_order_acceptance_id : null,
-            property_exists($obj,'sell_child_order_acceptance_id') ? $obj->sell_child_order_acceptance_id : null
+            isset($data['id']) ? $data['id'] : null,
+            isset($data['side']) ? $data['side'] : null,
+            isset($data['price']) ? $data['price'] : null,
+            isset($data['size']) ? $data['size'] : null,
+            isset($data['exec_date']) ? $data['exec_date'] : null,
+            isset($data['buy_child_order_acceptance_id']) ? $data['buy_child_order_acceptance_id'] : null,
+            isset($data['sell_child_order_acceptance_id']) ? $data['sell_child_order_acceptance_id'] : null
         );
     }
     

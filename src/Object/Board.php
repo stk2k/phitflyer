@@ -29,19 +29,16 @@ class Board
     /**
      * construct from stdObject
      *
-     * @param object $obj
+     * @param array $data
      *
      * @return Board
      */
-    public static function fromObject($obj){
-        $mid_price = property_exists($obj,'mid_price') ? $obj->mid_price : null;
-        $bids = property_exists($obj,'bids') ? $obj->bids : array();
-        $asks = property_exists($obj,'asks') ? $obj->asks : array();
-    
-        $bids = array_map(function($i){ return Bid::fromObject($i); }, $bids);
-        $asks = array_map(function($i){ return Ask::fromObject($i); }, $asks);
-        
-        return new self($mid_price, $bids, $asks);
+    public static function fromArray(array $data){
+        return new self(
+            isset($data['mid_price']) ? $data['mid_price'] : null,
+            array_map(function($i){ return Bid::fromArray($i); }, isset($data['bids']) ? $data['bids'] : []),
+            array_map(function($i){ return Ask::fromArray($i); }, isset($data['asks']) ? $data['asks'] : [])
+        );
     }
     
     /**

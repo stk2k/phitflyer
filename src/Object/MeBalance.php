@@ -29,15 +29,15 @@ class MeBalance
     /**
      * construct from stdObject
      *
-     * @param object $obj
+     * @param array $data
      *
      * @return MeBalance
      */
-    public static function fromObject($obj){
+    public static function fromArray(array $data){
         return new self(
-            property_exists($obj,'currency_code') ? $obj->currency_code : null,
-            property_exists($obj,'amount') ? $obj->amount : null,
-            property_exists($obj,'available') ? $obj->available : null
+            isset($data['currency_code']) ? $data['currency_code'] : null,
+            isset($data['amount']) ? $data['amount'] : null,
+            isset($data['available']) ? $data['available'] : null
         );
     }
     

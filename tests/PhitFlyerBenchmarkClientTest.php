@@ -50,7 +50,7 @@ class PhitFlyerBenchmarkClientTest extends PHPUnit_Framework_TestCase
         
         $board = $flyer->getBoard();
         
-        $this->assertInternalType('object', $board );
+        $this->assertInternalType('array', $board );
         $this->assertEquals( 'getBoard', $method );
         $this->assertInternalType( 'float', $elapsed );
         $this->assertGreaterThanOrEqual( 0, $elapsed );
@@ -67,7 +67,7 @@ class PhitFlyerBenchmarkClientTest extends PHPUnit_Framework_TestCase
         
         $board = $flyer->getBoard('BTC_JPY');
         
-        $this->assertInternalType('object', $board );
+        $this->assertInternalType('array', $board );
         $this->assertEquals( 'getBoard', $method );
         $this->assertInternalType( 'float', $elapsed );
         $this->assertGreaterThanOrEqual( 0, $elapsed );
@@ -84,7 +84,7 @@ class PhitFlyerBenchmarkClientTest extends PHPUnit_Framework_TestCase
         
         $ticker = $flyer->getTicker();
         
-        $this->assertInternalType('object', $ticker );
+        $this->assertInternalType('array', $ticker );
         $this->assertEquals( 'getTicker', $method );
         $this->assertInternalType( 'float', $elapsed );
         $this->assertGreaterThanOrEqual( 0, $elapsed );
@@ -101,7 +101,7 @@ class PhitFlyerBenchmarkClientTest extends PHPUnit_Framework_TestCase
         
         $ticker = $flyer->getTicker('BTC_JPY');
         
-        $this->assertInternalType('object', $ticker );
+        $this->assertInternalType('array', $ticker );
         $this->assertEquals( 'getTicker', $method );
         $this->assertInternalType( 'float', $elapsed );
         $this->assertGreaterThanOrEqual( 0, $elapsed );
@@ -152,7 +152,7 @@ class PhitFlyerBenchmarkClientTest extends PHPUnit_Framework_TestCase
     
         $board_state = $flyer->getBoardState('BTC_JPY');
     
-        $this->assertInternalType('object', $board_state );
+        $this->assertInternalType('array', $board_state );
         $this->assertEquals( 'getBoardState', $method );
         $this->assertInternalType( 'float', $elapsed );
         $this->assertGreaterThanOrEqual( 0, $elapsed );
@@ -169,7 +169,7 @@ class PhitFlyerBenchmarkClientTest extends PHPUnit_Framework_TestCase
         
         $health = $flyer->getHealth();
         
-        $this->assertInternalType('object', $health );
+        $this->assertInternalType('array', $health );
         $this->assertEquals( 'getHealth', $method );
         $this->assertInternalType( 'float', $elapsed );
         $this->assertGreaterThanOrEqual( 0, $elapsed );
@@ -238,7 +238,7 @@ class PhitFlyerBenchmarkClientTest extends PHPUnit_Framework_TestCase
     
         $collateral = $flyer->meGetCollateral();
     
-        $this->assertInternalType('object', $collateral );
+        $this->assertInternalType('array', $collateral );
         $this->assertEquals( 'meGetCollateral', $method );
         $this->assertInternalType( 'float', $elapsed );
         $this->assertGreaterThanOrEqual( 0, $elapsed );
@@ -469,7 +469,7 @@ class PhitFlyerBenchmarkClientTest extends PHPUnit_Framework_TestCase
     
         $commissions = $flyer->meGetTradingCommission('FX_BTC_JPY');
     
-        $this->assertInternalType('object', $commissions );
+        $this->assertInternalType('array', $commissions );
         $this->assertEquals( 'meGetTradingCommission', $method );
         $this->assertInternalType( 'float', $elapsed );
         $this->assertGreaterThanOrEqual( 0, $elapsed );

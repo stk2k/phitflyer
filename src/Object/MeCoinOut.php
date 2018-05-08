@@ -41,7 +41,6 @@ class MeCoinOut
      * @param string $order_id
      * @param string $currency_code
      * @param float $amount
-     * @param string $currency_code
      * @param string $address
      * @param string $tx_hash
      * @param float $fee
@@ -65,22 +64,22 @@ class MeCoinOut
     /**
      * construct from stdObject
      *
-     * @param object $obj
+     * @param array $data
      *
      * @return MeCoinOut
      */
-    public static function fromObject($obj){
+    public static function fromArray(array $data){
         return new self(
-            property_exists($obj,'id') ? $obj->id : null,
-            property_exists($obj,'order_id') ? $obj->order_id : null,
-            property_exists($obj,'currency_code') ? $obj->currency_code : null,
-            property_exists($obj,'amount') ? $obj->amount : null,
-            property_exists($obj,'address') ? $obj->address : null,
-            property_exists($obj,'tx_hash') ? $obj->tx_hash : null,
-            property_exists($obj,'fee') ? $obj->fee : null,
-            property_exists($obj,'additional_fee') ? $obj->additional_fee : null,
-            property_exists($obj,'status') ? $obj->status : null,
-            property_exists($obj,'event_date') ? $obj->event_date : null
+            isset($data['id']) ? $data['id'] : null,
+            isset($data['order_id']) ? $data['order_id'] : null,
+            isset($data['currency_code']) ? $data['currency_code'] : null,
+            isset($data['amount']) ? $data['amount'] : null,
+            isset($data['address']) ? $data['address'] : null,
+            isset($data['tx_hash']) ? $data['tx_hash'] : null,
+            isset($data['fee']) ? $data['fee'] : null,
+            isset($data['additional_fee']) ? $data['additional_fee'] : null,
+            isset($data['status']) ? $data['status'] : null,
+            isset($data['event_date']) ? $data['event_date'] : null
         );
     }
     

@@ -34,16 +34,16 @@ class MeCollateral
     /**
      * construct from stdObject
      *
-     * @param object $obj
+     * @param array $data
      *
      * @return MeCollateral
      */
-    public static function fromObject($obj){
+    public static function fromArray(array $data){
         return new self(
-            property_exists($obj,'collateral') ? $obj->collateral : null,
-            property_exists($obj,'open_position_pnl') ? $obj->open_position_pnl : null,
-            property_exists($obj,'require_collateral') ? $obj->require_collateral : null,
-            property_exists($obj,'keep_rate') ? $obj->keep_rate : null
+            isset($data['collateral']) ? $data['collateral'] : null,
+            isset($data['open_position_pnl']) ? $data['open_position_pnl'] : null,
+            isset($data['require_collateral']) ? $data['require_collateral'] : null,
+            isset($data['keep_rate']) ? $data['keep_rate'] : null
         );
     }
     

@@ -75,22 +75,22 @@ class MePosition
     /**
      * construct from stdObject
      *
-     * @param object $obj
+     * @param array $data
      *
      * @return MePosition
      */
-    public static function fromObject($obj){
+    public static function fromArray(array $data){
         return new self(
-            property_exists($obj,'product_code') ? $obj->product_code : null,
-            property_exists($obj,'side') ? $obj->side : null,
-            property_exists($obj,'price') ? $obj->price : null,
-            property_exists($obj,'size') ? $obj->size : null,
-            property_exists($obj,'commission') ? $obj->commission : null,
-            property_exists($obj,'swap_point_accumulate') ? $obj->swap_point_accumulate : null,
-            property_exists($obj,'require_collateral') ? $obj->require_collateral : null,
-            property_exists($obj,'open_date') ? $obj->open_date : null,
-            property_exists($obj,'leverage') ? $obj->leverage : null,
-            property_exists($obj,'pnl') ? $obj->pnl : null
+            isset($data['product_code']) ? $data['product_code'] : null,
+            isset($data['side']) ? $data['side'] : null,
+            isset($data['price']) ? $data['price'] : null,
+            isset($data['size']) ? $data['size'] : null,
+            isset($data['commission']) ? $data['commission'] : null,
+            isset($data['swap_point_accumulate']) ? $data['swap_point_accumulate'] : null,
+            isset($data['require_collateral']) ? $data['require_collateral'] : null,
+            isset($data['open_date']) ? $data['open_date'] : null,
+            isset($data['leverage']) ? $data['leverage'] : null,
+            isset($data['pnl']) ? $data['pnl'] : null
         );
     }
 

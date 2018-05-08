@@ -16,8 +16,6 @@ use PhitFlyer\Object\MeCoinIn;
 use PhitFlyer\Object\MeCoinOut;
 use PhitFlyer\Object\MeBankAccount;
 use PhitFlyer\Object\MeDeposit;
-use PhitFlyer\Object\MeWithdrawMessage;
-use PhitFlyer\Object\MeWithdrawal;
 use PhitFlyer\Object\MeChildOrderResult;
 use PhitFlyer\Object\MeChildOrder;
 use PhitFlyer\Object\MeExecution;
@@ -57,7 +55,7 @@ class PhitFlyerObjectClient implements IPhitFlyerClient
         // make market list
         $items = array();
         foreach ($json as $item){
-            $items[] = Market::fromObject($item);
+            $items[] = Market::fromArray($item);
         }
         return $items;
     }
@@ -77,7 +75,7 @@ class PhitFlyerObjectClient implements IPhitFlyerClient
         // get result from server
         $json = $this->flyer->getBoard($product_code);
         // make board
-        return Board::fromObject($json);
+        return Board::fromArray($json);
     }
     
     /**
@@ -95,7 +93,7 @@ class PhitFlyerObjectClient implements IPhitFlyerClient
         // get result from server
         $json = $this->flyer->getTicker($product_code);
         // make ticker
-        return Ticker::fromObject($json);
+        return Ticker::fromArray($json);
     }
     
     /**
@@ -118,7 +116,7 @@ class PhitFlyerObjectClient implements IPhitFlyerClient
         // make execution list
         $items = array();
         foreach ($json as $item){
-            $items[] = Execution::fromObject($item);
+            $items[] = Execution::fromArray($item);
         }
         return $items;
     }
@@ -138,7 +136,7 @@ class PhitFlyerObjectClient implements IPhitFlyerClient
         // get result from server
         $json = $this->flyer->getBoardState($product_code);
         // make board state
-        return BoardState::fromObject($json);
+        return BoardState::fromArray($json);
     }
     
     /**
@@ -154,7 +152,7 @@ class PhitFlyerObjectClient implements IPhitFlyerClient
         // get result from server
         $json = $this->flyer->getHealth();
         // make health
-        return Health::fromObject($json);
+        return Health::fromArray($json);
     }
     
     /**
@@ -174,7 +172,7 @@ class PhitFlyerObjectClient implements IPhitFlyerClient
         // make chat list
         $items = array();
         foreach ($json as $item){
-            $items[] = Chat::fromObject($item);
+            $items[] = Chat::fromArray($item);
         }
         return $items;
     }
@@ -209,7 +207,7 @@ class PhitFlyerObjectClient implements IPhitFlyerClient
         // make balances list
         $items = array();
         foreach ($json as $item){
-            $items[] = MeBalance::fromObject($item);
+            $items[] = MeBalance::fromArray($item);
         }
         return $items;
     }
@@ -227,7 +225,7 @@ class PhitFlyerObjectClient implements IPhitFlyerClient
         // get result from server
         $json = $this->flyer->meGetCollateral();
         // make collateral
-        return MeCollateral::fromObject($json);
+        return MeCollateral::fromArray($json);
     }
     
     /**
@@ -245,7 +243,7 @@ class PhitFlyerObjectClient implements IPhitFlyerClient
         // make collateral account list
         $items = array();
         foreach ($json as $item){
-            $items[] = MeCollateralAccount::fromObject($item);
+            $items[] = MeCollateralAccount::fromArray($item);
         }
         return $items;
     }
@@ -265,7 +263,7 @@ class PhitFlyerObjectClient implements IPhitFlyerClient
         // make address list
         $items = array();
         foreach ($json as $item){
-            $items[] = MeAddress::fromObject($item);
+            $items[] = MeAddress::fromArray($item);
         }
         return $items;
     }
@@ -289,7 +287,7 @@ class PhitFlyerObjectClient implements IPhitFlyerClient
         // make coin in list
         $items = array();
         foreach ($json as $item){
-            $items[] = MeCoinIn::fromObject($item);
+            $items[] = MeCoinIn::fromArray($item);
         }
         return $items;
     }
@@ -313,7 +311,7 @@ class PhitFlyerObjectClient implements IPhitFlyerClient
         // make coin out list
         $items = array();
         foreach ($json as $item){
-            $items[] = MeCoinOut::fromObject($item);
+            $items[] = MeCoinOut::fromArray($item);
         }
         return $items;
     }
@@ -333,7 +331,7 @@ class PhitFlyerObjectClient implements IPhitFlyerClient
         // make bank account list
         $items = array();
         foreach ($json as $item){
-            $items[] = MeBankAccount::fromObject($item);
+            $items[] = MeBankAccount::fromArray($item);
         }
         return $items;
     }
@@ -357,56 +355,11 @@ class PhitFlyerObjectClient implements IPhitFlyerClient
         // make deposit list
         $items = array();
         foreach ($json as $item){
-            $items[] = MeDeposit::fromObject($item);
+            $items[] = MeDeposit::fromArray($item);
         }
         return $items;
     }
-    
-    /**
-     * [private] withdraw
-     *
-     * @param string $currency_code
-     * @param integer $bank_account_id
-     * @param integer $amount
-     * @param string|null $code
-     *
-     * @return MeWithdrawMessage
-     *
-     * @throws ServerResponseFormatException
-     * @throws BitflyerClientException
-     */
-    public function meWithdraw($currency_code, $bank_account_id, $amount, $code = null)
-    {
-        // get result from server
-        $json = $this->flyer->meWithdraw($currency_code, $bank_account_id, $amount, $code);
-        // make message
-        return MeWithdrawMessage::fromObject($json);
-    }
-    
-    /**
-     * [private] get withdrawals
-     *
-     * @param integer $before
-     * @param integer $after
-     * @param integer $count
-     *
-     * @return MeWithdrawal[]
-     *
-     * @throws ServerResponseFormatException
-     * @throws BitflyerClientException
-     */
-    public function meGetWithdrawals($before = null, $after = null, $count = null)
-    {
-        // get result from server
-        $json = $this->flyer->meGetWithdrawals($before, $after, $count);
-        // make withdrawal list
-        $items = array();
-        foreach ($json as $item){
-            $items[] = MeWithdrawal::fromObject($item);
-        }
-        return $items;
-    }
-    
+
     /**
      * [private] send child order
      *
@@ -428,7 +381,7 @@ class PhitFlyerObjectClient implements IPhitFlyerClient
         // get result from server
         $json = $this->flyer->meSendChildOrder($product_code, $child_order_type, $side, $price, $size, $minute_to_expire, $time_in_force);
         // make message
-        return MeChildOrderResult::fromObject($json);
+        return MeChildOrderResult::fromArray($json);
     }
     
     /**
@@ -482,7 +435,7 @@ class PhitFlyerObjectClient implements IPhitFlyerClient
         // make child order list
         $items = array();
         foreach ($json as $item){
-            $items[] = MeChildOrder::fromObject($item);
+            $items[] = MeChildOrder::fromArray($item);
         }
         return $items;
     }
@@ -509,7 +462,7 @@ class PhitFlyerObjectClient implements IPhitFlyerClient
         // make child order list
         $items = array();
         foreach ($json as $item){
-            $items[] = MeExecution::fromObject($item);
+            $items[] = MeExecution::fromArray($item);
         }
         return $items;
     }
@@ -531,7 +484,7 @@ class PhitFlyerObjectClient implements IPhitFlyerClient
         // make child order list
         $items = array();
         foreach ($json as $item){
-            $items[] = MePosition::fromObject($item);
+            $items[] = MePosition::fromArray($item);
         }
         return $items;
     }
@@ -551,6 +504,6 @@ class PhitFlyerObjectClient implements IPhitFlyerClient
         // get result from server
         $json = $this->flyer->meGetTradingCommission($product_code);
         // make comission
-        return MeCommission::fromObject($json);
+        return MeCommission::fromArray($json);
     }
 }

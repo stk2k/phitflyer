@@ -1,7 +1,7 @@
 <?php
-require dirname(dirname(__FILE__)) . '/vendor/autoload.php';
-
-require_once 'sample.inc.php';
+require_once dirname(dirname(__FILE__)) . '/vendor/autoload.php';
+require_once 'include/autoload.php';
+require_once 'include/sample.inc.php';
 
 use PhitFlyer\PhitFlyerClient;
 
@@ -18,16 +18,23 @@ list($product_code, $child_order_type, $side, $price, $size, $minute_to_expire, 
 
 list($api_key, $api_secret) = bitflyer_credentials();
 
-$flyer = new PhitFlyerClient($api_key, $api_secret);
+try{
+    $flyer = new PhitFlyerClient($api_key, $api_secret);
 
-// call web API
-$result = $flyer->meSendChildOrder($product_code, $child_order_type, $side, $price, $size, $minute_to_expire, $time_in_force);
+    // call web API
+    $result = $flyer->meSendChildOrder($product_code, $child_order_type, $side, $price, $size, $minute_to_expire, $time_in_force);
 
-// show request URI
-$uri = $flyer->getLastRequest()->getUrl();
-echo 'URI:' . PHP_EOL;
-echo ' ' . $uri . PHP_EOL;
+    // show request URI
+    $uri = $flyer->getLastRequest()->getUrl();
+    echo 'URI:' . PHP_EOL;
+    echo ' ' . $uri . PHP_EOL;
 
-// show result
-echo 'RESULT:' . PHP_EOL;
-echo '  child_order_acceptance_id:' . $result->child_order_acceptance_id . PHP_EOL;
+    // show result
+    echo 'RESULT:' . PHP_EOL;
+    echo '  child_order_acceptance_id:' . $result['child_order_acceptance_id'] . PHP_EOL;
+
+}
+catch(\Throwable $e)
+{
+    print_stacktrace($e);
+}

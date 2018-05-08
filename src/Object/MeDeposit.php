@@ -44,18 +44,18 @@ class MeDeposit
     /**
      * construct from stdObject
      *
-     * @param object $obj
+     * @param array $data
      *
      * @return MeDeposit
      */
-    public static function fromObject($obj){
+    public static function fromArray(array $data){
         return new self(
-            property_exists($obj,'id') ? $obj->id : null,
-            property_exists($obj,'order_id') ? $obj->order_id : null,
-            property_exists($obj,'currency_code') ? $obj->currency_code : null,
-            property_exists($obj,'amount') ? $obj->amount : null,
-            property_exists($obj,'status') ? $obj->status : null,
-            property_exists($obj,'event_date') ? $obj->event_date : null
+            isset($data['id']) ? $data['id'] : null,
+            isset($data['order_id']) ? $data['order_id'] : null,
+            isset($data['currency_code']) ? $data['currency_code'] : null,
+            isset($data['amount']) ? $data['amount'] : null,
+            isset($data['status']) ? $data['status'] : null,
+            isset($data['event_date']) ? $data['event_date'] : null
         );
     }
     

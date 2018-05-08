@@ -29,15 +29,15 @@ class MeAddress
     /**
      * construct from stdObject
      *
-     * @param object $obj
+     * @param array $data
      *
      * @return MeAddress
      */
-    public static function fromObject($obj){
+    public static function fromArray(array $data){
         return new self(
-            property_exists($obj,'type') ? $obj->type : null,
-            property_exists($obj,'currency_code') ? $obj->currency_code : null,
-            property_exists($obj,'address') ? $obj->address : null
+            isset($data['type']) ? $data['type'] : null,
+            isset($data['currency_code']) ? $data['currency_code'] : null,
+            isset($data['address']) ? $data['address'] : null
         );
     }
     

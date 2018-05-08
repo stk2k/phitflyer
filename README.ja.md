@@ -26,7 +26,7 @@ $markets = $flyer->getMarkets();
 foreach($markets as $idx => $market){
     echo $idx . '.' . PHP_EOL;
     echo 'product_code:' . $market->product_code . PHP_EOL;
-    echo 'alias:' . (property_exists($market,'alias') ? $market->alias : '') . PHP_EOL;
+    echo 'alias:' . (isset($market['alias']) ? $market['alias'] : '') . PHP_EOL;
 }
  
 ```

@@ -111,28 +111,28 @@ class MeChildOrder
     /**
      * construct from stdObject
      *
-     * @param object $obj
+     * @param array $data
      *
      * @return MeChildOrder
      */
-    public static function fromObject($obj){
+    public static function fromArray(array $data){
         return new self(
-            property_exists($obj,'id') ? $obj->id : null,
-            property_exists($obj,'child_order_id') ? $obj->child_order_id : null,
-            property_exists($obj,'product_code') ? $obj->product_code : null,
-            property_exists($obj,'side') ? $obj->side : null,
-            property_exists($obj,'child_order_type') ? $obj->child_order_type : null,
-            property_exists($obj,'price') ? $obj->price : null,
-            property_exists($obj,'average_price') ? $obj->average_price : null,
-            property_exists($obj,'size') ? $obj->size : null,
-            property_exists($obj,'child_order_state') ? $obj->child_order_state : null,
-            property_exists($obj,'expire_date') ? $obj->expire_date : null,
-            property_exists($obj,'child_order_date') ? $obj->child_order_date : null,
-            property_exists($obj,'child_order_acceptance_id') ? $obj->child_order_acceptance_id : null,
-            property_exists($obj,'outstanding_size') ? $obj->outstanding_size : null,
-            property_exists($obj,'cancel_size') ? $obj->cancel_size : null,
-            property_exists($obj,'executed_size') ? $obj->executed_size : null,
-            property_exists($obj,'total_commission') ? $obj->total_commission : null
+            isset($data['id']) ? $data['id'] : null,
+            isset($data['child_order_id']) ? $data['child_order_id'] : null,
+            isset($data['product_code']) ? $data['product_code'] : null,
+            isset($data['side']) ? $data['side'] : null,
+            isset($data['child_order_type']) ? $data['child_order_type'] : null,
+            isset($data['price']) ? $data['price'] : null,
+            isset($data['average_price']) ? $data['average_price']: null,
+            isset($data['size']) ? $data['size'] : null,
+            isset($data['child_order_state']) ? $data['child_order_state'] : null,
+            isset($data['expire_date']) ? $data['expire_date'] : null,
+            isset($data['child_order_date']) ? $data['child_order_date'] : null,
+            isset($data['child_order_acceptance_id']) ? $data['child_order_acceptance_id'] : null,
+            isset($data['outstanding_size']) ? $data['outstanding_size'] : null,
+            isset($data['cancel_size']) ? $data['cancel_size'] : null,
+            isset($data['executed_size']) ? $data['executed_size'] : null,
+            isset($data['total_commission']) ? $data['total_commission'] : null
         );
     }
     

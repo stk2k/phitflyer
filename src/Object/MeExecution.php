@@ -11,6 +11,7 @@ class MeExecution
     private $size;
     private $commission;
     private $exec_date;
+    private $child_order_acceptance_id;
     
     /**
      * construct
@@ -47,20 +48,20 @@ class MeExecution
     /**
      * construct from stdObject
      *
-     * @param object $obj
+     * @param array $data
      *
      * @return MeExecution
      */
-    public static function fromObject($obj){
+    public static function fromArray(array $data){
         return new self(
-            property_exists($obj,'id') ? $obj->id : null,
-            property_exists($obj,'child_order_id') ? $obj->child_order_id : null,
-            property_exists($obj,'side') ? $obj->side : null,
-            property_exists($obj,'price') ? $obj->price : null,
-            property_exists($obj,'size') ? $obj->size : null,
-            property_exists($obj,'commission') ? $obj->commission : null,
-            property_exists($obj,'exec_date') ? $obj->exec_date : null,
-            property_exists($obj,'child_order_acceptance_id') ? $obj->child_order_acceptance_id : null
+            isset($data['id']) ? $data['id'] : null,
+            isset($data['child_order_id']) ? $data['child_order_id'] : null,
+            isset($data['side']) ? $data['side'] : null,
+            isset($data['price']) ? $data['price'] : null,
+            isset($data['size']) ? $data['size'] : null,
+            isset($data['commission']) ? $data['commission'] : null,
+            isset($data['exec_date']) ? $data['exec_date'] : null,
+            isset($data['child_order_acceptance_id']) ? $data['child_order_acceptance_id'] : null
         );
     }
     

@@ -207,7 +207,7 @@ class PhitFlyerClient implements IPhitFlyerClient
      *
      * @param string $product_code
      *
-     * @return object
+     * @return array
      *
      * @throws ServerResponseFormatException
      * @throws BitflyerClientException
@@ -220,8 +220,8 @@ class PhitFlyerClient implements IPhitFlyerClient
         );
         $json = $this->get(PhitFlyerApi::BOARD, $query_data);
         // check return type
-        if (!is_object($json)){
-            throw new ServerResponseFormatException('response must be an object, but returned:' . gettype($json));
+        if (!is_array($json)){
+            throw new ServerResponseFormatException('response must be an array, but returned:' . gettype($json));
         }
         return $json;
     }
@@ -231,7 +231,7 @@ class PhitFlyerClient implements IPhitFlyerClient
      *
      * @param string $product_code
      *
-     * @return object
+     * @return array
      *
      * @throws ServerResponseFormatException
      * @throws BitflyerClientException
@@ -244,8 +244,8 @@ class PhitFlyerClient implements IPhitFlyerClient
         );
         $json = $this->get(PhitFlyerApi::TICKER, $query_data);
         // check return type
-        if (!is_object($json)){
-            throw new ServerResponseFormatException('response must be an object, but returned:' . gettype($json));
+        if (!is_array($json)){
+            throw new ServerResponseFormatException('response must be an array, but returned:' . gettype($json));
         }
         return $json;
     }
@@ -285,7 +285,7 @@ class PhitFlyerClient implements IPhitFlyerClient
      *
      * @param string $product_code
      *
-     * @return object
+     * @return array
      *
      * @throws ServerResponseFormatException
      * @throws BitflyerClientException
@@ -298,8 +298,8 @@ class PhitFlyerClient implements IPhitFlyerClient
         );
         $json = $this->get(PhitFlyerApi::GETBOARDSTATE, $query_data);
         // check return type
-        if (!is_object($json)){
-            throw new ServerResponseFormatException('response must be an object, but returned:' . gettype($json));
+        if (!is_array($json)){
+            throw new ServerResponseFormatException('response must be an array, but returned:' . gettype($json));
         }
         return $json;
     }
@@ -307,7 +307,7 @@ class PhitFlyerClient implements IPhitFlyerClient
     /**
      * [public] get health
      *
-     * @return object
+     * @return array
      *
      * @throws ServerResponseFormatException
      * @throws BitflyerClientException
@@ -317,8 +317,8 @@ class PhitFlyerClient implements IPhitFlyerClient
         // HTTP GET
         $json = $this->get(PhitFlyerApi::GETHEALTH);
         // check return type
-        if (!is_object($json)){
-            throw new ServerResponseFormatException('response must be an object, but returned:' . gettype($json));
+        if (!is_array($json)){
+            throw new ServerResponseFormatException('response must be an array, but returned:' . gettype($json));
         }
         return $json;
     }
@@ -388,7 +388,7 @@ class PhitFlyerClient implements IPhitFlyerClient
     /**
      * [private] get collateral
      *
-     * @return object
+     * @return array
      *
      * @throws ServerResponseFormatException
      * @throws BitflyerClientException
@@ -398,8 +398,8 @@ class PhitFlyerClient implements IPhitFlyerClient
         // HTTP GET
         $json = $this->privateGet(PhitFlyerApi::ME_GETCOLLATERAL);
         // check return type
-        if (!is_object($json)){
-            throw new ServerResponseFormatException('response must be an object, but returned:' . gettype($json));
+        if (!is_array($json)){
+            throw new ServerResponseFormatException('response must be an array, but returned:' . gettype($json));
         }
         return $json;
     }
@@ -556,7 +556,7 @@ class PhitFlyerClient implements IPhitFlyerClient
      * @param integer $minute_to_expire
      * @param string $time_in_force
      *
-     * @return object
+     * @return array
      *
      * @throws ServerResponseFormatException
      * @throws BitflyerClientException
@@ -575,8 +575,8 @@ class PhitFlyerClient implements IPhitFlyerClient
         );
         $json = $this->privatePost(PhitFlyerApi::ME_SENDCHILDORDER, $post_data);
         // check return type
-        if (!is_object($json)){
-            throw new ServerResponseFormatException('response must be an object, but returned:' . gettype($json));
+        if (!is_array($json)){
+            throw new ServerResponseFormatException('response must be an array, but returned:' . gettype($json));
         }
         return $json;
     }
@@ -712,7 +712,7 @@ class PhitFlyerClient implements IPhitFlyerClient
      *
      * @param string $product_code
      *
-     * @return object
+     * @return array
      *
      * @throws ServerResponseFormatException
      * @throws BitflyerClientException
@@ -725,8 +725,8 @@ class PhitFlyerClient implements IPhitFlyerClient
         );
         $json = $this->privateGet(PhitFlyerApi::ME_GETTRADINGCOMMISSION, $query_data);
         // check return type
-        if (!is_object($json)){
-            throw new ServerResponseFormatException('response must be an object, but returned:' . gettype($json));
+        if (!is_array($json)){
+            throw new ServerResponseFormatException('response must be an array, but returned:' . gettype($json));
         }
         return $json;
     }

@@ -49,7 +49,7 @@ class PhitFlyerClientTest extends PHPUnit_Framework_TestCase
         $req = $this->flyer->getLastRequest();
     
         $this->assertEquals(PhitFlyerApi::ENDPOINT . PhitFlyerApi::BOARD, $req->getUrl() );
-        $this->assertInternalType('object', $board );
+        $this->assertInternalType('array', $board );
     }
     
     /**
@@ -65,7 +65,7 @@ class PhitFlyerClientTest extends PHPUnit_Framework_TestCase
     
         $this->assertEquals(array('product_code'=>'BTC_JPY'), $req->getQueryData() );
         $this->assertEquals(PhitFlyerApi::ENDPOINT . PhitFlyerApi::BOARD . '?product_code=BTC_JPY', $req->getUrl() );
-        $this->assertInternalType('object', $board );
+        $this->assertInternalType('array', $board );
     }
     
     /**
@@ -80,7 +80,7 @@ class PhitFlyerClientTest extends PHPUnit_Framework_TestCase
         $req = $this->flyer->getLastRequest();
     
         $this->assertEquals(PhitFlyerApi::ENDPOINT . PhitFlyerApi::TICKER, $req->getUrl() );
-        $this->assertInternalType('object', $ticker );
+        $this->assertInternalType('array', $ticker );
     }
     
     /**
@@ -96,7 +96,7 @@ class PhitFlyerClientTest extends PHPUnit_Framework_TestCase
     
         $this->assertEquals(array('product_code'=>'BTC_JPY'), $req->getQueryData() );
         $this->assertEquals(PhitFlyerApi::ENDPOINT . PhitFlyerApi::TICKER . '?product_code=BTC_JPY', $req->getUrl() );
-        $this->assertInternalType('object', $ticker );
+        $this->assertInternalType('array', $ticker );
     }
     
     /**
@@ -142,7 +142,7 @@ class PhitFlyerClientTest extends PHPUnit_Framework_TestCase
         $req = $this->flyer->getLastRequest();
         
         $this->assertEquals(PhitFlyerApi::ENDPOINT . PhitFlyerApi::GETBOARDSTATE, $req->getUrl() );
-        $this->assertInternalType('object', $board_state );
+        $this->assertInternalType('array', $board_state );
     }
     
     /**
@@ -157,7 +157,7 @@ class PhitFlyerClientTest extends PHPUnit_Framework_TestCase
         $req = $this->flyer->getLastRequest();
     
         $this->assertEquals(PhitFlyerApi::ENDPOINT . PhitFlyerApi::GETHEALTH, $req->getUrl() );
-        $this->assertInternalType('object', $health );
+        $this->assertInternalType('array', $health );
     }
     
     /**
@@ -210,7 +210,7 @@ class PhitFlyerClientTest extends PHPUnit_Framework_TestCase
         $this->assertInternalType('array', $balances );
         
         foreach($balances as $item){
-            $this->assertInternalType('object', $item );
+            $this->assertInternalType('array', $item );
         }
     }
     
@@ -226,7 +226,7 @@ class PhitFlyerClientTest extends PHPUnit_Framework_TestCase
         $req = $this->flyer->getLastRequest();
     
         $this->assertEquals(PhitFlyerApi::ENDPOINT . PhitFlyerApi::ME_GETCOLLATERAL, $req->getUrl() );
-        $this->assertInternalType('object', $collateral );
+        $this->assertInternalType('array', $collateral );
     }
     
     /**
@@ -244,7 +244,7 @@ class PhitFlyerClientTest extends PHPUnit_Framework_TestCase
         $this->assertInternalType('array', $accounts );
         
         foreach($accounts as $item){
-            $this->assertInternalType('object', $item );
+            $this->assertInternalType('array', $item );
         }
     }
     
@@ -263,7 +263,7 @@ class PhitFlyerClientTest extends PHPUnit_Framework_TestCase
         $this->assertInternalType('array', $addresses );
         
         foreach($addresses as $item){
-            $this->assertInternalType('object', $item );
+            $this->assertInternalType('array', $item );
         }
     }
     
@@ -282,7 +282,7 @@ class PhitFlyerClientTest extends PHPUnit_Framework_TestCase
         $this->assertInternalType('array', $coinins );
         
         foreach($coinins as $item){
-            $this->assertInternalType('object', $item );
+            $this->assertInternalType('array', $item );
         }
     }
     
@@ -301,7 +301,7 @@ class PhitFlyerClientTest extends PHPUnit_Framework_TestCase
         $this->assertInternalType('array', $coinouts );
         
         foreach($coinouts as $item){
-            $this->assertInternalType('object', $item );
+            $this->assertInternalType('array', $item );
         }
     }
     
@@ -320,7 +320,7 @@ class PhitFlyerClientTest extends PHPUnit_Framework_TestCase
         $this->assertInternalType('array', $bank_accounts );
         
         foreach($bank_accounts as $item){
-            $this->assertInternalType('object', $item );
+            $this->assertInternalType('array', $item );
         }
     }
     
@@ -339,7 +339,7 @@ class PhitFlyerClientTest extends PHPUnit_Framework_TestCase
         $this->assertInternalType('array', $deposits );
         
         foreach($deposits as $item){
-            $this->assertInternalType('object', $item );
+            $this->assertInternalType('array', $item );
         }
     }
     
@@ -400,7 +400,7 @@ class PhitFlyerClientTest extends PHPUnit_Framework_TestCase
         $this->assertInternalType('array', $child_orders );
     
         foreach($child_orders as $item){
-            $this->assertInternalType('object', $item );
+            $this->assertInternalType('array', $item );
         }
     }
     
@@ -419,7 +419,7 @@ class PhitFlyerClientTest extends PHPUnit_Framework_TestCase
         $this->assertInternalType('array', $executions );
     
         foreach($executions as $item){
-            $this->assertInternalType('object', $item );
+            $this->assertInternalType('array', $item );
         }
     }
     
@@ -438,7 +438,7 @@ class PhitFlyerClientTest extends PHPUnit_Framework_TestCase
         $this->assertInternalType('array', $positions );
     
         foreach($positions as $item){
-            $this->assertInternalType('object', $item );
+            $this->assertInternalType('array', $item );
         }
     }
     
@@ -454,6 +454,6 @@ class PhitFlyerClientTest extends PHPUnit_Framework_TestCase
         $req = $this->flyer->getLastRequest();
     
         $this->assertEquals(PhitFlyerApi::ENDPOINT . PhitFlyerApi::ME_GETTRADINGCOMMISSION . '?product_code=FX_BTC_JPY', $req->getUrl() );
-        $this->assertInternalType('object', $commissions );
+        $this->assertInternalType('array', $commissions );
     }
 }

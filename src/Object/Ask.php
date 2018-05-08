@@ -24,14 +24,14 @@ class Ask
     /**
      * construct from stdObject
      *
-     * @param object $obj
+     * @param array $data
      *
      * @return Ask
      */
-    public static function fromObject($obj){
+    public static function fromArray(array $data){
         return new self(
-            property_exists($obj,'price') ? $obj->price : null,
-            property_exists($obj,'size') ? $obj->size : null
+            isset($data['price']) ? $data['price'] : null,
+            isset($data['size']) ? $data['size'] : null
         );
     }
     

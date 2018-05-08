@@ -29,15 +29,15 @@ class Chat
     /**
      * construct from stdObject
      *
-     * @param object $obj
+     * @param array $data
      *
      * @return Chat
      */
-    public static function fromObject($obj){
+    public static function fromArray(array $data){
         return new self(
-            property_exists($obj,'nickname') ? $obj->nickname : null,
-            property_exists($obj,'message') ? $obj->message : null,
-            property_exists($obj,'date') ? $obj->date : null
+            isset($data['nickname']) ? $data['nickname'] : null,
+            isset($data['message']) ? $data['message'] : null,
+            isset($data['date']) ? $data['date'] : null
         );
     }
     

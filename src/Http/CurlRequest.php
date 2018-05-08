@@ -82,7 +82,7 @@ abstract class CurlRequest
                 case 200:   // Success
                     if ($return_value){
                         // decode json
-                        $json = json_decode($body);
+                        $json = json_decode($body, true);
                         if ($json===null){
                             throw new JsonFormatException($body);
                         }

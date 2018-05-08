@@ -21,14 +21,14 @@ class Market
     /**
      * construct from stdObject
      *
-     * @param object $obj
+     * @param array $data
      *
      * @return Market
      */
-    public static function fromObject($obj){
+    public static function fromArray(array $data){
         return new self(
-            property_exists($obj,'product_code') ? $obj->product_code : null,
-            property_exists($obj,'alias') ? $obj->alias : null
+            isset($data['product_code']) ? $data['product_code'] : null,
+            isset($data['alias']) ? $data['alias'] : null
         );
     }
     

@@ -64,24 +64,24 @@ class Ticker
     /**
      * construct from stdObject
      *
-     * @param object $obj
+     * @param array $data
      *
      * @return Ticker
      */
-    public static function fromObject($obj){
+    public static function fromArray(array $data){
         return new self(
-            property_exists($obj,'product_code') ? $obj->product_code : null,
-            property_exists($obj,'timestamp') ? $obj->timestamp : null,
-            property_exists($obj,'tick_id') ? $obj->tick_id : null,
-            property_exists($obj,'best_bid') ? $obj->best_bid : null,
-            property_exists($obj,'best_ask') ? $obj->best_ask : null,
-            property_exists($obj,'best_bid_size') ? $obj->best_bid_size : null,
-            property_exists($obj,'best_ask_size') ? $obj->best_ask_size : null,
-            property_exists($obj,'total_bid_depth') ? $obj->total_bid_depth : null,
-            property_exists($obj,'total_ask_depth') ? $obj->total_ask_depth : null,
-            property_exists($obj,'ltp') ? $obj->ltp : null,
-            property_exists($obj,'volume') ? $obj->volume : null,
-            property_exists($obj,'volume_by_product') ? $obj->volume_by_product : null
+            isset($data['product_code']) ? $data['product_code'] : null,
+            isset($data['timestamp']) ? $data['timestamp'] : null,
+            isset($data['tick_id']) ? $data['tick_id'] : null,
+            isset($data['best_bid']) ? $data['best_bid'] : null,
+            isset($data['best_ask']) ? $data['best_ask'] : null,
+            isset($data['best_bid_size']) ? $data['best_bid_size'] : null,
+            isset($data['best_ask_size']) ? $data['best_ask_size'] : null,
+            isset($data['total_bid_depth']) ? $data['total_bid_depth'] : null,
+            isset($data['total_ask_depth']) ? $data['total_ask_depth'] : null,
+            isset($data['ltp']) ? $data['ltp'] : null,
+            isset($data['volume']) ? $data['volume'] : null,
+            isset($data['volume_by_product']) ? $data['volume_by_product'] : null
         );
     }
     

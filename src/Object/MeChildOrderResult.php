@@ -19,13 +19,13 @@ class MeChildOrderResult
     /**
      * construct from stdObject
      *
-     * @param object $obj
+     * @param array $data
      *
      * @return MeChildOrderResult
      */
-    public static function fromObject($obj){
+    public static function fromArray(array $data){
         return new self(
-            property_exists($obj,'child_order_acceptance_id') ? $obj->child_order_acceptance_id : null
+            isset($data['child_order_acceptance_id']) ? $data['child_order_acceptance_id'] : null
         );
     }
     

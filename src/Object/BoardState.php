@@ -29,15 +29,15 @@ class BoardState
     /**
      * construct from stdObject
      *
-     * @param object $obj
+     * @param array $data
      *
      * @return BoardState
      */
-    public static function fromObject($obj){
+    public static function fromArray(array $data){
         return new self(
-            property_exists($obj,'health') ? $obj->health : null,
-            property_exists($obj,'state') ? $obj->state : null,
-            property_exists($obj,'data') ? $obj->data : []
+            isset($data['health']) ? $data['health'] : null,
+            isset($data['state']) ? $data['state'] : null,
+            isset($data['data']) ? $data['data'] : []
         );
     }
     

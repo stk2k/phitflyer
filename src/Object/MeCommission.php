@@ -19,13 +19,13 @@ class MeCommission
     /**
      * construct from stdObject
      *
-     * @param object $obj
+     * @param array $data
      *
      * @return MeCommission
      */
-    public static function fromObject($obj){
+    public static function fromArray(array $data){
         return new self(
-            property_exists($obj,'commission_rate') ? $obj->commission_rate : null
+            isset($data['commission_rate']) ? $data['commission_rate'] : null
         );
     }
 
