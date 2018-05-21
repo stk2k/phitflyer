@@ -21,9 +21,6 @@ class PhitFlyerObjectClientTest extends PHPUnit_Framework_TestCase
         sleep(1);
     }
 
-    /**
-     * @throws \PhitFlyer\Exception\PhitFlyerClientException
-     */
     public function testGetMarkets()
     {
         $client = new PhitFlyerObjectClient($this->client);
@@ -38,9 +35,6 @@ class PhitFlyerObjectClientTest extends PHPUnit_Framework_TestCase
         }
     }
 
-    /**
-     * @throws \PhitFlyer\Exception\PhitFlyerClientException
-     */
     public function testGetBoard()
     {
         $client = new PhitFlyerObjectClient($this->client);
@@ -51,9 +45,6 @@ class PhitFlyerObjectClientTest extends PHPUnit_Framework_TestCase
         $this->assertInstanceOf('PhitFlyer\Object\Board', $board );
     }
 
-    /**
-     * @throws \PhitFlyer\Exception\PhitFlyerClientException
-     */
     public function testGetBoardWithProductCode()
     {
         $client = new PhitFlyerObjectClient($this->client);
@@ -64,9 +55,6 @@ class PhitFlyerObjectClientTest extends PHPUnit_Framework_TestCase
         $this->assertInstanceOf('PhitFlyer\Object\Board', $board );
     }
 
-    /**
-     * @throws \PhitFlyer\Exception\PhitFlyerClientException
-     */
     public function testTicker()
     {
         $client = new PhitFlyerObjectClient($this->client);
@@ -77,9 +65,6 @@ class PhitFlyerObjectClientTest extends PHPUnit_Framework_TestCase
         $this->assertInstanceOf('PhitFlyer\Object\Ticker', $ticker );
     }
 
-    /**
-     * @throws \PhitFlyer\Exception\PhitFlyerClientException
-     */
     public function testGetTickerWithProductCode()
     {
         $client = new PhitFlyerObjectClient($this->client);
@@ -90,9 +75,6 @@ class PhitFlyerObjectClientTest extends PHPUnit_Framework_TestCase
         $this->assertInstanceOf('PhitFlyer\Object\Ticker', $ticker );
     }
 
-    /**
-     * @throws \PhitFlyer\Exception\PhitFlyerClientException
-     */
     public function testGetExecutions()
     {
         $client = new PhitFlyerObjectClient($this->client);
@@ -107,9 +89,6 @@ class PhitFlyerObjectClientTest extends PHPUnit_Framework_TestCase
         }
     }
 
-    /**
-     * @throws \PhitFlyer\Exception\PhitFlyerClientException
-     */
     public function testGetExecutionsWithProductCode()
     {
         $client = new PhitFlyerObjectClient($this->client);
@@ -124,9 +103,6 @@ class PhitFlyerObjectClientTest extends PHPUnit_Framework_TestCase
         }
     }
 
-    /**
-     * @throws \PhitFlyer\Exception\PhitFlyerClientException
-     */
     public function testGetBoardState()
     {
         $client = new PhitFlyerObjectClient($this->client);
@@ -137,9 +113,6 @@ class PhitFlyerObjectClientTest extends PHPUnit_Framework_TestCase
         $this->assertInstanceOf('PhitFlyer\Object\BoardState', $board_state );
     }
 
-    /**
-     * @throws \PhitFlyer\Exception\PhitFlyerClientException
-     */
     public function testGetHealth()
     {
         $client = new PhitFlyerObjectClient($this->client);
@@ -150,9 +123,6 @@ class PhitFlyerObjectClientTest extends PHPUnit_Framework_TestCase
         $this->assertInstanceOf('PhitFlyer\Object\Health', $health );
     }
 
-    /**
-     * @throws \PhitFlyer\Exception\PhitFlyerClientException
-     */
     public function testGetChats()
     {
         $client = new PhitFlyerObjectClient($this->client);
@@ -168,9 +138,6 @@ class PhitFlyerObjectClientTest extends PHPUnit_Framework_TestCase
         }
     }
 
-    /**
-     * @throws \PhitFlyer\Exception\PhitFlyerClientException
-     */
     public function testMeGetPermissions()
     {
         $client = new PhitFlyerObjectClient($this->client);
@@ -185,9 +152,6 @@ class PhitFlyerObjectClientTest extends PHPUnit_Framework_TestCase
         }
     }
 
-    /**
-     * @throws \PhitFlyer\Exception\PhitFlyerClientException
-     */
     public function testMeGetBalance()
     {
         $client = new PhitFlyerObjectClient($this->client);
@@ -202,9 +166,6 @@ class PhitFlyerObjectClientTest extends PHPUnit_Framework_TestCase
         }
     }
 
-    /**
-     * @throws \PhitFlyer\Exception\PhitFlyerClientException
-     */
     public function testMeGetCollateral()
     {
         $client = new PhitFlyerObjectClient($this->client);
@@ -215,9 +176,6 @@ class PhitFlyerObjectClientTest extends PHPUnit_Framework_TestCase
         $this->assertInstanceOf('PhitFlyer\Object\MeCollateral', $collateral );
     }
 
-    /**
-     * @throws \PhitFlyer\Exception\PhitFlyerClientException
-     */
     public function testMeGetCollateralAccounts()
     {
         $client = new PhitFlyerObjectClient($this->client);
@@ -232,9 +190,6 @@ class PhitFlyerObjectClientTest extends PHPUnit_Framework_TestCase
         }
     }
 
-    /**
-     * @throws \PhitFlyer\Exception\PhitFlyerClientException
-     */
     public function testMeGetAddress()
     {
         $client = new PhitFlyerObjectClient($this->client);
@@ -249,9 +204,6 @@ class PhitFlyerObjectClientTest extends PHPUnit_Framework_TestCase
         }
     }
 
-    /**
-     * @throws \PhitFlyer\Exception\PhitFlyerClientException
-     */
     public function testMeGetCoinIns()
     {
         $client = new PhitFlyerObjectClient($this->client);
@@ -266,9 +218,6 @@ class PhitFlyerObjectClientTest extends PHPUnit_Framework_TestCase
         }
     }
 
-    /**
-     * @throws \PhitFlyer\Exception\PhitFlyerClientException
-     */
     public function testMeGetCoinOuts()
     {
         $client = new PhitFlyerObjectClient($this->client);
@@ -283,9 +232,6 @@ class PhitFlyerObjectClientTest extends PHPUnit_Framework_TestCase
         }
     }
 
-    /**
-     * @throws \PhitFlyer\Exception\PhitFlyerClientException
-     */
     public function testMeGetBankAccounts()
     {
         $client = new PhitFlyerObjectClient($this->client);
@@ -300,9 +246,6 @@ class PhitFlyerObjectClientTest extends PHPUnit_Framework_TestCase
         }
     }
 
-    /**
-     * @throws \PhitFlyer\Exception\PhitFlyerClientException
-     */
     public function testMeGetDeposits()
     {
         $client = new PhitFlyerObjectClient($this->client);
@@ -340,9 +283,6 @@ class PhitFlyerObjectClientTest extends PHPUnit_Framework_TestCase
         //$client->meCancelChildOrder('FX_BTC_JPY', 'JFX20170717-213404-907976F');
     }
 
-    /**
-     * @throws \PhitFlyer\Exception\PhitFlyerClientException
-     */
     public function testMeCancelAllChildOrders()
     {
         $client = new PhitFlyerObjectClient($this->client);
@@ -350,9 +290,6 @@ class PhitFlyerObjectClientTest extends PHPUnit_Framework_TestCase
         $client->meCancelAllChildOrders('FX_BTC_JPY');
     }
 
-    /**
-     * @throws \PhitFlyer\Exception\PhitFlyerClientException
-     */
     public function testMeGetChildOrders()
     {
         $client = new PhitFlyerObjectClient($this->client);
@@ -369,9 +306,6 @@ class PhitFlyerObjectClientTest extends PHPUnit_Framework_TestCase
         }
     }
 
-    /**
-     * @throws \PhitFlyer\Exception\PhitFlyerClientException
-     */
     public function testMeGetExecutions()
     {
         $client = new PhitFlyerObjectClient($this->client);
@@ -386,9 +320,6 @@ class PhitFlyerObjectClientTest extends PHPUnit_Framework_TestCase
         }
     }
 
-    /**
-     * @throws \PhitFlyer\Exception\PhitFlyerClientException
-     */
     public function testMeGetPositions()
     {
         $client = new PhitFlyerObjectClient($this->client);
@@ -403,9 +334,6 @@ class PhitFlyerObjectClientTest extends PHPUnit_Framework_TestCase
         }
     }
 
-    /**
-     * @throws \PhitFlyer\Exception\PhitFlyerClientException
-     */
     public function testMeGetTradingCommission()
     {
         $client = new PhitFlyerObjectClient($this->client);

@@ -22,10 +22,6 @@ class PhitFlyerClientTest extends PHPUnit_Framework_TestCase
         sleep(1);
     }
 
-    /**
-     * @throws \PhitFlyer\Exception\PhitFlyerClientException
-     * @throws \PhitFlyer\Exception\ServerResponseFormatException
-     */
     public function testGetMarkets()
     {
         $markets = $this->client->getMarkets();
@@ -38,10 +34,6 @@ class PhitFlyerClientTest extends PHPUnit_Framework_TestCase
         $this->assertGreaterThanOrEqual(0, count($markets) );
     }
 
-    /**
-     * @throws \PhitFlyer\Exception\PhitFlyerClientException
-     * @throws \PhitFlyer\Exception\ServerResponseFormatException
-     */
     public function testGetBoard()
     {
         $board = $this->client->getBoard();
@@ -53,10 +45,6 @@ class PhitFlyerClientTest extends PHPUnit_Framework_TestCase
         $this->assertInternalType('array', $board );
     }
 
-    /**
-     * @throws \PhitFlyer\Exception\PhitFlyerClientException
-     * @throws \PhitFlyer\Exception\ServerResponseFormatException
-     */
     public function testGetBoardWithProductCode()
     {
         $board = $this->client->getBoard('BTC_JPY');
@@ -68,10 +56,6 @@ class PhitFlyerClientTest extends PHPUnit_Framework_TestCase
         $this->assertInternalType('array', $board );
     }
 
-    /**
-     * @throws \PhitFlyer\Exception\PhitFlyerClientException
-     * @throws \PhitFlyer\Exception\ServerResponseFormatException
-     */
     public function testTicker()
     {
         $ticker = $this->client->getTicker();
@@ -83,10 +67,6 @@ class PhitFlyerClientTest extends PHPUnit_Framework_TestCase
         $this->assertInternalType('array', $ticker );
     }
 
-    /**
-     * @throws \PhitFlyer\Exception\PhitFlyerClientException
-     * @throws \PhitFlyer\Exception\ServerResponseFormatException
-     */
     public function testGetTickerWithProductCode()
     {
         $ticker = $this->client->getTicker('BTC_JPY');
@@ -98,10 +78,6 @@ class PhitFlyerClientTest extends PHPUnit_Framework_TestCase
         $this->assertInternalType('array', $ticker );
     }
 
-    /**
-     * @throws \PhitFlyer\Exception\PhitFlyerClientException
-     * @throws \PhitFlyer\Exception\ServerResponseFormatException
-     */
     public function testGetExecutions()
     {
         $executions = $this->client->getExecutions();
@@ -113,10 +89,6 @@ class PhitFlyerClientTest extends PHPUnit_Framework_TestCase
         $this->assertInternalType('array', $executions );
     }
 
-    /**
-     * @throws \PhitFlyer\Exception\PhitFlyerClientException
-     * @throws \PhitFlyer\Exception\ServerResponseFormatException
-     */
     public function testGetExecutionsWithProductCode()
     {
         $executions = $this->client->getExecutions('BTC_JPY');
@@ -128,10 +100,6 @@ class PhitFlyerClientTest extends PHPUnit_Framework_TestCase
         $this->assertInternalType('array', $executions );
     }
 
-    /**
-     * @throws \PhitFlyer\Exception\PhitFlyerClientException
-     * @throws \PhitFlyer\Exception\ServerResponseFormatException
-     */
     public function testGetBoardState()
     {
         $board_state = $this->client->getBoardState();
@@ -143,10 +111,6 @@ class PhitFlyerClientTest extends PHPUnit_Framework_TestCase
         $this->assertInternalType('array', $board_state );
     }
 
-    /**
-     * @throws \PhitFlyer\Exception\PhitFlyerClientException
-     * @throws \PhitFlyer\Exception\ServerResponseFormatException
-     */
     public function testGetHealth()
     {
         $health = $this->client->getHealth();
@@ -158,10 +122,6 @@ class PhitFlyerClientTest extends PHPUnit_Framework_TestCase
         $this->assertInternalType('array', $health );
     }
 
-    /**
-     * @throws \PhitFlyer\Exception\PhitFlyerClientException
-     * @throws \PhitFlyer\Exception\ServerResponseFormatException
-     */
     public function testGetChats()
     {
         $from_date = date('Y-m-d\Th:i:s', strtotime('-1 min'));
@@ -174,10 +134,6 @@ class PhitFlyerClientTest extends PHPUnit_Framework_TestCase
         $this->assertInternalType('array', $chats );
     }
 
-    /**
-     * @throws \PhitFlyer\Exception\PhitFlyerClientException
-     * @throws \PhitFlyer\Exception\ServerResponseFormatException
-     */
     public function testMeGetPermissions()
     {
         $permissions = $this->client->meGetPermissions();
@@ -193,10 +149,6 @@ class PhitFlyerClientTest extends PHPUnit_Framework_TestCase
         }
     }
 
-    /**
-     * @throws \PhitFlyer\Exception\PhitFlyerClientException
-     * @throws \PhitFlyer\Exception\ServerResponseFormatException
-     */
     public function testMeGetBalance()
     {
         $balances = $this->client->meGetBalance();
@@ -212,10 +164,6 @@ class PhitFlyerClientTest extends PHPUnit_Framework_TestCase
         }
     }
 
-    /**
-     * @throws \PhitFlyer\Exception\PhitFlyerClientException
-     * @throws \PhitFlyer\Exception\ServerResponseFormatException
-     */
     public function testMeGetCollateral()
     {
         $collateral = $this->client->meGetCollateral();
@@ -227,10 +175,6 @@ class PhitFlyerClientTest extends PHPUnit_Framework_TestCase
         $this->assertInternalType('array', $collateral );
     }
 
-    /**
-     * @throws \PhitFlyer\Exception\PhitFlyerClientException
-     * @throws \PhitFlyer\Exception\ServerResponseFormatException
-     */
     public function testMeGetCollateralAccounts()
     {
         $accounts = $this->client->meGetCollateralAccounts();
@@ -246,10 +190,6 @@ class PhitFlyerClientTest extends PHPUnit_Framework_TestCase
         }
     }
 
-    /**
-     * @throws \PhitFlyer\Exception\PhitFlyerClientException
-     * @throws \PhitFlyer\Exception\ServerResponseFormatException
-     */
     public function testMeGetAddress()
     {
         $addresses = $this->client->meGetAddress();
@@ -265,10 +205,6 @@ class PhitFlyerClientTest extends PHPUnit_Framework_TestCase
         }
     }
 
-    /**
-     * @throws \PhitFlyer\Exception\PhitFlyerClientException
-     * @throws \PhitFlyer\Exception\ServerResponseFormatException
-     */
     public function testMeGetCoinIns()
     {
         $coinins = $this->client->meGetCoinIns();
@@ -284,10 +220,6 @@ class PhitFlyerClientTest extends PHPUnit_Framework_TestCase
         }
     }
 
-    /**
-     * @throws \PhitFlyer\Exception\PhitFlyerClientException
-     * @throws \PhitFlyer\Exception\ServerResponseFormatException
-     */
     public function testMeGetCoinOuts()
     {
         $coinouts = $this->client->meGetCoinOuts();
@@ -303,10 +235,6 @@ class PhitFlyerClientTest extends PHPUnit_Framework_TestCase
         }
     }
 
-    /**
-     * @throws \PhitFlyer\Exception\PhitFlyerClientException
-     * @throws \PhitFlyer\Exception\ServerResponseFormatException
-     */
     public function testMeGetBankAccounts()
     {
         $bank_accounts = $this->client->meGetBankAccounts();
@@ -322,10 +250,6 @@ class PhitFlyerClientTest extends PHPUnit_Framework_TestCase
         }
     }
 
-    /**
-     * @throws \PhitFlyer\Exception\PhitFlyerClientException
-     * @throws \PhitFlyer\Exception\ServerResponseFormatException
-     */
     public function testMeGetDeposits()
     {
         $deposits = $this->client->meGetDeposits();
@@ -368,9 +292,6 @@ class PhitFlyerClientTest extends PHPUnit_Framework_TestCase
         //$this->assertEquals(PhitFlyerApi::ENDPOINT . PhitFlyerApi::ME_CANCELCHILDORDER, $req->getUrl() );
     }
 
-    /**
-     * @throws \PhitFlyer\Exception\PhitFlyerClientException
-     */
     public function testMeCancelAllChildOrders()
     {
         $this->client->meCancelAllChildOrders('FX_BTC_JPY');
@@ -381,10 +302,6 @@ class PhitFlyerClientTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(PhitFlyerApi::ENDPOINT . PhitFlyerApi::ME_CANCELALLCHILDORDERS, $req->getUrl() );
     }
 
-    /**
-     * @throws \PhitFlyer\Exception\PhitFlyerClientException
-     * @throws \PhitFlyer\Exception\ServerResponseFormatException
-     */
     public function testMeGetChildOrders()
     {
         $child_orders = $this->client->meGetChildOrders(
@@ -402,10 +319,6 @@ class PhitFlyerClientTest extends PHPUnit_Framework_TestCase
         }
     }
 
-    /**
-     * @throws \PhitFlyer\Exception\PhitFlyerClientException
-     * @throws \PhitFlyer\Exception\ServerResponseFormatException
-     */
     public function testMeGetExecutions()
     {
         $executions = $this->client->meGetExecutions( 'FX_BTC_JPY', null, null, 10 );
@@ -421,10 +334,6 @@ class PhitFlyerClientTest extends PHPUnit_Framework_TestCase
         }
     }
 
-    /**
-     * @throws \PhitFlyer\Exception\PhitFlyerClientException
-     * @throws \PhitFlyer\Exception\ServerResponseFormatException
-     */
     public function testMeGetPositions()
     {
         $positions = $this->client->meGetPositions('FX_BTC_JPY');
@@ -440,10 +349,6 @@ class PhitFlyerClientTest extends PHPUnit_Framework_TestCase
         }
     }
 
-    /**
-     * @throws \PhitFlyer\Exception\PhitFlyerClientException
-     * @throws \PhitFlyer\Exception\ServerResponseFormatException
-     */
     public function testMeGetTradingCommission()
     {
         $commissions = $this->client->meGetTradingCommission('FX_BTC_JPY');
