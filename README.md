@@ -18,9 +18,9 @@ It provides multiple access methods, such as array, class.
 ```php
 use PhitFlyer\PhitFlyerClient;
  
-$flyer = new PhitFlyerClient();
+$client = new PhitFlyerClient();
  
-$markets = $flyer->getMarkets();
+$markets = $client->getMarkets();
  
 foreach($markets as $idx => $market){
     echo $idx . '.' . PHP_EOL;
@@ -35,9 +35,9 @@ foreach($markets as $idx => $market){
 use PhitFlyer\PhitFlyerClient;
 use PhitFlyer\PhitFlyerObjectClient;
  
-$flyer = new PhitFlyerObjectClient(new PhitFlyerClient());
+$client = new PhitFlyerObjectClient(new PhitFlyerClient());
  
-$markets = $flyer->getMarkets();
+$markets = $client->getMarkets();
  
 foreach($markets as $idx => $market){
     echo $idx . '.' . PHP_EOL;
@@ -52,15 +52,43 @@ foreach($markets as $idx => $market){
 use PhitFlyer\PhitFlyerClient;
 use PhitFlyer\PhitFlyerBenchmarkClient;
  
-$flyer = new PhitFlyerBenchmarkClient(
+$client = new PhitFlyerBenchmarkClient(
             new PhitFlyerClient(), 
             function ($m, $e) use(&$method, &$elapsed){
                  echo "[$m]finished in $e sec" . PHP_EOL;
              }
         );
  
-$flyer->getMarkets();
+$client->getMarkets();
  
+```
+
+### benchmark sample:
+```php
+use PhitFlyer\PhitFlyerClient;
+use PhitFlyer\PhitFlyerBenchmarkClient;
+
+$client = new PhitFlyerBenchmarkClient(
+            new PhitFlyerClient(),
+            function ($m, $e) use(&$method, &$elapsed){
+                 echo "[$m]finished in $e sec" . PHP_EOL;
+             }
+        );
+
+$client->getMarkets();
+
+```
+
+### logger client sample:
+```php
+use PhitFlyer\PhitFlyerClient;
+use PhitFlyer\PhitFlyerLoggerClient;
+
+$client = new PhitFlyerLoggerClient(
+            new PhitFlyerClient(),
+            new PhitFlyerClient(), new YourLogger());    // YourLogger: Psr-3 compliant logger
+        );
+
 ```
 
 ## Usage

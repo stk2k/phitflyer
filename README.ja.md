@@ -19,9 +19,9 @@ phitFlyerはbitFLyer-APIを呼び出す機能を持つPHPライブラリです�
 ```php
 use PhitFlyer\PhitFlyerClient;
  
-$flyer = new PhitFlyerClient();
+$client = new PhitFlyerClient();
  
-$markets = $flyer->getMarkets();
+$markets = $client->getMarkets();
  
 foreach($markets as $idx => $market){
     echo $idx . '.' . PHP_EOL;
@@ -36,9 +36,9 @@ foreach($markets as $idx => $market){
 use PhitFlyer\PhitFlyerClient;
 use PhitFlyer\PhitFlyerObjectClient;
  
-$flyer = new PhitFlyerObjectClient(new PhitFlyerClient());
+$client = new PhitFlyerObjectClient(new PhitFlyerClient());
  
-$markets = $flyer->getMarkets();
+$markets = $client->getMarkets();
  
 foreach($markets as $idx => $market){
     echo $idx . '.' . PHP_EOL;
@@ -53,14 +53,26 @@ foreach($markets as $idx => $market){
 use PhitFlyer\PhitFlyerClient;
 use PhitFlyer\PhitFlyerBenchmarkClient;
  
-$flyer = new PhitFlyerBenchmarkClient(
+$client = new PhitFlyerBenchmarkClient(
             new PhitFlyerClient(), 
             function ($m, $e) use(&$method, &$elapsed){
                  echo "[$m]finished in $e sec" . PHP_EOL;
              }
         );
  
-$flyer->getMarkets();
+$client->getMarkets();
+ 
+```
+
+### ロガーの例:
+```php
+use PhitFlyer\PhitFlyerClient;
+use PhitFlyer\PhitFlyerLoggerClient;
+ 
+$client = new PhitFlyerLoggerClient(
+            new PhitFlyerClient(), 
+            new YourLogger()            // YourLoggerはPSR-3 Loggerに準拠している必要があります
+        );
  
 ```
 

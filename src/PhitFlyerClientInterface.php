@@ -1,28 +1,35 @@
 <?php
 namespace PhitFlyer;
 
-use PhitFlyer\Object\Market;
-use PhitFlyer\Object\Board;
-use PhitFlyer\Object\Ticker;
-use PhitFlyer\Object\Execution;
-use PhitFlyer\Object\BoardState;
-use PhitFlyer\Object\Health;
-use PhitFlyer\Object\Chat;
-use PhitFlyer\Exception\BitflyerClientException;
-use PhitFlyer\Exception\ServerResponseFormatException;
+use NetDriver\Http\HttpRequest;
+
+use PhitFlyer\Exception\PhitFlyerClientException;
 
 /**
  * PhitFlyer interface
  */
-interface IPhitFlyerClient
+interface PhitFlyerClientInterface
 {
+    /**
+     * get last request
+     *
+     * @return HttpRequest
+     */
+    public function getLastRequest();
+
+    /**
+     * add net driver change listener
+     *
+     * @param NetDriverChangeListenerInterface|callable $listener
+     */
+    public function addNetDriverChangeListener($listener);
+
     /**
      * [public] get markets
      *
-     * @return Market[]|null
+     * @return array
      *
-     * @throws ServerResponseFormatException
-     * @throws BitflyerClientException
+     * @throws PhitFlyerClientException
      */
     public function getMarkets();
     
@@ -31,10 +38,9 @@ interface IPhitFlyerClient
      *
      * @param string $product_code
      *
-     * @return Board
+     * @return array
      *
-     * @throws ServerResponseFormatException
-     * @throws BitflyerClientException
+     * @throws PhitFlyerClientException
      */
     public function getBoard($product_code = null);
     
@@ -43,10 +49,9 @@ interface IPhitFlyerClient
      *
      * @param string $product_code
      *
-     * @return Ticker
+     * @return array
      *
-     * @throws ServerResponseFormatException
-     * @throws BitflyerClientException
+     * @throws PhitFlyerClientException
      */
     public function getTicker($product_code = null);
     
@@ -58,10 +63,9 @@ interface IPhitFlyerClient
      * @param integer $after
      * @param integer $count
      *
-     * @return Execution[]
+     * @return array
      *
-     * @throws ServerResponseFormatException
-     * @throws BitflyerClientException
+     * @throws PhitFlyerClientException
      */
     public function getExecutions($product_code = null, $before = null, $after = null, $count = null);
     
@@ -71,20 +75,18 @@ interface IPhitFlyerClient
      *
      * @param string $product_code
      *
-     * @return BoardState
+     * @return array
      *
-     * @throws ServerResponseFormatException
-     * @throws BitflyerClientException
+     * @throws PhitFlyerClientException
      */
     public function getBoardState($product_code = null);
     
     /**
      * get health
      *
-     * @return Health
+     * @return array
      *
-     * @throws ServerResponseFormatException
-     * @throws BitflyerClientException
+     * @throws PhitFlyerClientException
      */
     public function getHealth();
     
@@ -93,10 +95,9 @@ interface IPhitFlyerClient
      *
      * @param string $from_date
      *
-     * @return Chat[]
+     * @return array
      *
-     * @throws ServerResponseFormatException
-     * @throws BitflyerClientException
+     * @throws PhitFlyerClientException
      */
     public function getChats($from_date = null);
     
@@ -105,8 +106,7 @@ interface IPhitFlyerClient
      *
      * @return array
      *
-     * @throws ServerResponseFormatException
-     * @throws BitflyerClientException
+     * @throws PhitFlyerClientException
      */
     public function meGetPermissions();
     
@@ -115,18 +115,16 @@ interface IPhitFlyerClient
      *
      * @return array
      *
-     * @throws ServerResponseFormatException
-     * @throws BitflyerClientException
+     * @throws PhitFlyerClientException
      */
     public function meGetBalance();
     
     /**
      * [private] get collateral
      *
-     * @return object
+     * @return array
      *
-     * @throws ServerResponseFormatException
-     * @throws BitflyerClientException
+     * @throws PhitFlyerClientException
      */
     public function meGetCollateral();
     
@@ -135,8 +133,7 @@ interface IPhitFlyerClient
      *
      * @return array
      *
-     * @throws ServerResponseFormatException
-     * @throws BitflyerClientException
+     * @throws PhitFlyerClientException
      */
     public function meGetCollateralAccounts();
     
@@ -145,8 +142,7 @@ interface IPhitFlyerClient
      *
      * @return array
      *
-     * @throws ServerResponseFormatException
-     * @throws BitflyerClientException
+     * @throws PhitFlyerClientException
      */
     public function meGetAddress();
     
@@ -159,8 +155,7 @@ interface IPhitFlyerClient
      *
      * @return array
      *
-     * @throws ServerResponseFormatException
-     * @throws BitflyerClientException
+     * @throws PhitFlyerClientException
      */
     public function meGetCoinIns($before = null, $after = null, $count = null);
     
@@ -173,8 +168,7 @@ interface IPhitFlyerClient
      *
      * @return array
      *
-     * @throws ServerResponseFormatException
-     * @throws BitflyerClientException
+     * @throws PhitFlyerClientException
      */
     public function meGetCoinOuts($before = null, $after = null, $count = null);
     
@@ -183,8 +177,7 @@ interface IPhitFlyerClient
      *
      * @return array
      *
-     * @throws ServerResponseFormatException
-     * @throws BitflyerClientException
+     * @throws PhitFlyerClientException
      */
     public function meGetBankAccounts();
     
@@ -197,8 +190,7 @@ interface IPhitFlyerClient
      *
      * @return array
      *
-     * @throws ServerResponseFormatException
-     * @throws BitflyerClientException
+     * @throws PhitFlyerClientException
      */
     public function meGetDeposits($before = null, $after = null, $count = null);
     
@@ -213,10 +205,9 @@ interface IPhitFlyerClient
      * @param integer $minute_to_expire
      * @param string $time_in_force
      *
-     * @return object
+     * @return array
      *
-     * @throws ServerResponseFormatException
-     * @throws BitflyerClientException
+     * @throws PhitFlyerClientException
      */
     public function meSendChildOrder($product_code, $child_order_type, $side, $price, $size, $minute_to_expire = null, $time_in_force = null);
     
@@ -226,8 +217,7 @@ interface IPhitFlyerClient
      * @param string $product_code
      * @param string $child_order_id
      *
-     * @throws ServerResponseFormatException
-     * @throws BitflyerClientException
+     * @throws PhitFlyerClientException
      */
     public function meCancelChildOrder($product_code, $child_order_id);
     
@@ -236,8 +226,7 @@ interface IPhitFlyerClient
      *
      * @param string $product_code
      *
-     * @throws ServerResponseFormatException
-     * @throws BitflyerClientException
+     * @throws PhitFlyerClientException
      */
     public function meCancelAllChildOrders($product_code);
     
@@ -253,8 +242,7 @@ interface IPhitFlyerClient
      *
      * @return array
      *
-     * @throws ServerResponseFormatException
-     * @throws BitflyerClientException
+     * @throws PhitFlyerClientException
      */
     public function meGetChildOrders($product_code, $before = null, $after = null, $count = null, $child_order_state = null, $parent_order_id = null);
     
@@ -270,8 +258,7 @@ interface IPhitFlyerClient
      *
      * @return array
      *
-     * @throws ServerResponseFormatException
-     * @throws BitflyerClientException
+     * @throws PhitFlyerClientException
      */
     public function meGetExecutions($product_code, $before = null, $after = null, $count = null, $child_order_id = null, $child_order_acceptance_id = null);
     
@@ -282,8 +269,7 @@ interface IPhitFlyerClient
      *
      * @return array
      *
-     * @throws ServerResponseFormatException
-     * @throws BitflyerClientException
+     * @throws PhitFlyerClientException
      */
     public function meGetPositions($product_code);
     
@@ -292,10 +278,9 @@ interface IPhitFlyerClient
      *
      * @param string $product_code
      *
-     * @return object
+     * @return array
      *
-     * @throws ServerResponseFormatException
-     * @throws BitflyerClientException
+     * @throws PhitFlyerClientException
      */
     public function meGetTradingCommission($product_code);
     

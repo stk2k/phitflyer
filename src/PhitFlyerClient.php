@@ -1,26 +1,39 @@
 <?php
 namespace PhitFlyer;
 
-use PhitFlyer\Exception\BitflyerClientException;
-use PhitFlyer\Exception\ServerResponseFormatException;
-use PhitFlyer\Http\CurlRequest;
-use PhitFlyer\Http\HttpGetRequest;
-use PhitFlyer\Http\JsonPostRequest;
-use PhitFlyer\Http\CurlHandle;
+use NetDriver\NetDriverInterface;
+use NetDriver\NetDriverHandleInterface;
+use NetDriver\Http\HttpRequest;
+use NetDriver\Http\HttpGetRequest;
+use NetDriver\Http\JsonPostRequest;
+use NetDriver\NetDriver\Curl\CurlNetDriver;
 
+use PhitFlyer\Exception\PhitFlyerClientException;
+use PhitFlyer\Exception\WebApiCallException;
+use PhitFlyer\Exception\ServerResponseFormatException;
 
 /**
  * PhitFlyer client class
  */
-class PhitFlyerClient implements IPhitFlyerClient
+class PhitFlyerClient implements PhitFlyerClientInterface
 {
-    const DEFAULT_USERAGENT    = 'phitFlyer';
-    
+    /** @var null|string  */
     private $api_key;
+    
+    /** @var null|string  */
     private $api_secret;
-    private $user_agent;
-    private $curl_handle;
+
+    /** @var NetDriverHandleInterface  */
+    private $netdriver_handle;
+    
+    /** @var null */
     private $last_request;
+    
+    /** @var NetDriverInterface */
+    private $net_driver;
+
+    /** @var NetDriverChangeListenerInterface[] */
+    private $listeners;
     
     /**
      * construct
@@ -31,41 +44,107 @@ class PhitFlyerClient implements IPhitFlyerClient
     public function __construct($api_key = null, $api_secret = null){
         $this->api_key = $api_key;
         $this->api_secret = $api_secret;
-        $this->user_agent = self::DEFAULT_USERAGENT;
-        $this->curl_handle = new CurlHandle();
+        $this->netdriver_handle = null;
         $this->last_request = null;
+        $this->listeners = [];
     }
-    
+
     /**
      * get last request
      *
-     * @return CurlRequest
+     * @return HttpRequest
      */
     public function getLastRequest()
     {
         return $this->last_request;
     }
-    
+
     /**
-     * get user agent
+     * add net driver change listener
      *
-     * @return string
+     * @param NetDriverChangeListenerInterface|callable $listener
      */
-    public function getUserAgent()
+    public function addNetDriverChangeListener($listener)
     {
-        return $this->user_agent;
+        if (is_callable($listener) || $listener instanceof NetDriverChangeListenerInterface)
+        $this->listeners[] = $listener;
     }
-    
+
+    /**
+     * set net driver
+     * 
+     * @param NetDriverInterface $net_driver
+     */
+    public function setNetDriver(NetDriverInterface $net_driver)
+    {
+        $this->net_driver = $net_driver;
+
+        // callback
+        $this->fireNetDriverChangeEvent($net_driver);
+    }
+
+    /**
+     * net driver change callback
+     *
+     * @param NetDriverInterface $net_driver
+     */
+    private function fireNetDriverChangeEvent(NetDriverInterface $net_driver)
+    {
+        foreach($this->listeners as $l) {
+            if ($l instanceof NetDriverChangeListenerInterface) {
+                $l->onNetDriverChanged($net_driver);
+            }
+            else if (is_callable($l)) {
+                $l($net_driver);
+            }
+        }
+    }
+
+    /**
+     * get net friver
+     *
+     * @return CurlNetDriver|NetDriverInterface
+     */
+    public function getNetDriver()
+    {
+        if ($this->net_driver){
+            return $this->net_driver;
+        }
+        $this->net_driver = new CurlNetDriver();
+        // callback
+        $this->fireNetDriverChangeEvent($this->net_driver);
+        return $this->net_driver;
+    }
+
+    /**
+     * get net driver handle
+     *
+     * @return NetDriverHandleInterface|null
+     */
+    public function getNetDriverHandle()
+    {
+        if ($this->netdriver_handle){
+            return $this->netdriver_handle;
+        }
+        $this->netdriver_handle = $this->getNetDriver()->newHandle();
+        return $this->netdriver_handle;
+    }
+
     /**
      * make request URL
      *
      * @param string $api
+     * @param array $query_data
      *
      * @return string
      */
-    private static function getURL($api)
+    private static function getURL($api, array $query_data = null)
     {
-        return PhitFlyerApi::ENDPOINT . $api;
+        $url = PhitFlyerApi::ENDPOINT . $api;
+        if ($query_data){
+            $url .= '?' . http_build_query($query_data);
+        }
+        return $url;
     }
     
     /**
@@ -73,23 +152,22 @@ class PhitFlyerClient implements IPhitFlyerClient
      *
      * @param string $api
      * @param array|null $query_data
-     * @param bool $return_value
      *
      * @return mixed
      *
-     * @throws BitflyerClientException
+     * @throws PhitFlyerClientException
      */
-    private function get($api, $query_data = null, $return_value = true)
+    private function get($api, array $query_data = [])
     {
-        $url = self::getURL($api);
-    
-        $query_data = is_array($query_data) ? array_filter($query_data, function($v){
+        $query_data = array_filter($query_data, function($v){
             return $v !== null;
-        }) : null;
+        });
+
+        $url = self::getURL($api, $query_data);
         
-        $request = new HttpGetRequest($this, $url, $query_data);
+        $request = new HttpGetRequest($this->getNetDriver(), $url);
     
-        return $this->executeRequest($request, $return_value);
+        return $this->executeRequest($request);
     }
     
     /**
@@ -97,35 +175,33 @@ class PhitFlyerClient implements IPhitFlyerClient
      *
      * @param string $api
      * @param array|null $query_data
-     * @param bool $return_value
      *
      * @return mixed
      *
-     * @throws BitflyerClientException
+     * @throws PhitFlyerClientException
      */
-    private function privateGet($api, $query_data = null, $return_value = true)
+    private function privateGet($api, array $query_data = [])
     {
-        $query_data = is_array($query_data) ? array_filter($query_data, function($v){
+        $query_data = array_filter($query_data, function($v){
             return $v !== null;
-        }) : null;
-        
+        });
+
         $timestamp = time();
         $method = 'GET';
         $body = !empty($query_data) ? '?' . http_build_query($query_data) : '';
         $text = $timestamp . $method . $api . $body;
         $sign = hash_hmac('sha256', $text, $this->api_secret);
         
-        $options['http_headers'] = array(
+        $options['http-headers'] = array(
             'ACCESS-KEY' => $this->api_key,
             'ACCESS-TIMESTAMP' => $timestamp,
             'ACCESS-SIGN' => $sign,
         );
-        //$options['verbose'] = 1;
         
-        $url = self::getURL($api);
-        $request = new HttpGetRequest($this, $url, $query_data, $options);
+        $url = self::getURL($api, $query_data);
+        $request = new HttpGetRequest($this->getNetDriver(), $url, $options);
     
-        return $this->executeRequest($request, $return_value);
+        return $this->executeRequest($request);
     }
     
     /**
@@ -133,17 +209,16 @@ class PhitFlyerClient implements IPhitFlyerClient
      *
      * @param string $api
      * @param array $post_data
-     * @param bool $return_value
      *
      * @return mixed
      *
-     * @throws BitflyerClientException
+     * @throws PhitFlyerClientException
      */
-    private function privatePost($api, $post_data = null, $return_value = true)
+    private function privatePost($api, array $post_data = null)
     {
-        $post_data = is_array($post_data) ? array_filter($post_data, function($v){
+        $post_data = array_filter($post_data, function($v){
             return $v !== null;
-        }) : null;
+        });
         
         $timestamp = time();
         $method = 'POST';
@@ -151,7 +226,7 @@ class PhitFlyerClient implements IPhitFlyerClient
         $text = $timestamp . $method . $api . $body;
         $sign = hash_hmac('sha256', $text, $this->api_secret);
         
-        $options['http_headers'] = array(
+        $options['http-headers'] = array(
             'Content-Type' => 'application/json',
             'ACCESS-KEY' => $this->api_key,
             'ACCESS-TIMESTAMP' => $timestamp,
@@ -159,28 +234,37 @@ class PhitFlyerClient implements IPhitFlyerClient
         );
         
         $url = self::getURL($api);
-        $request = new JsonPostRequest($this, $url, $post_data, $options);
+        $request = new JsonPostRequest($this->getNetDriver(), $url, $post_data, $options);
     
-        return $this->executeRequest($request, $return_value);
+        return $this->executeRequest($request);
     }
     
     /**
      * execute request
      *
-     * @param CurlRequest $request
-     * @param bool $return_value
+     * @param HttpRequest $request
      *
      * @return mixed
      *
-     * @throws BitflyerClientException
+     * @throws PhitFlyerClientException
      */
-    private function executeRequest($request, $return_value = true)
+    private function executeRequest($request)
     {
-        $json = $request->execute($this->curl_handle, $return_value);
-    
-        $this->last_request = $request;
-    
-        return $json;
+        try{
+            $response = $this->net_driver->sendRequest($this->getNetDriverHandle(), $request);
+
+            $this->last_request = $request;
+
+            $json = @json_decode($response->getBody(), true);
+            if ($json === null){
+                throw new WebApiCallException(json_last_error_msg() . '/' . $response->getBody());
+            }
+            return $json;
+        }
+        catch(\Throwable $e)
+        {
+            throw new PhitFlyerClientException('NetDriver#sendRequest() failed: ' . $e->getMessage(), $e);
+        }
     }
     
     /**
@@ -189,7 +273,7 @@ class PhitFlyerClient implements IPhitFlyerClient
      * @return array
      *
      * @throws ServerResponseFormatException
-     * @throws BitflyerClientException
+     * @throws PhitFlyerClientException
      */
     public function getMarkets()
     {
@@ -210,7 +294,7 @@ class PhitFlyerClient implements IPhitFlyerClient
      * @return array
      *
      * @throws ServerResponseFormatException
-     * @throws BitflyerClientException
+     * @throws PhitFlyerClientException
      */
     public function getBoard($product_code = null)
     {
@@ -234,7 +318,7 @@ class PhitFlyerClient implements IPhitFlyerClient
      * @return array
      *
      * @throws ServerResponseFormatException
-     * @throws BitflyerClientException
+     * @throws PhitFlyerClientException
      */
     public function getTicker($product_code = null)
     {
@@ -261,7 +345,7 @@ class PhitFlyerClient implements IPhitFlyerClient
      * @return array
      *
      * @throws ServerResponseFormatException
-     * @throws BitflyerClientException
+     * @throws PhitFlyerClientException
      */
     public function getExecutions($product_code = null, $before = null, $after = null, $count = null)
     {
@@ -288,7 +372,7 @@ class PhitFlyerClient implements IPhitFlyerClient
      * @return array
      *
      * @throws ServerResponseFormatException
-     * @throws BitflyerClientException
+     * @throws PhitFlyerClientException
      */
     public function getBoardState($product_code = null)
     {
@@ -310,7 +394,7 @@ class PhitFlyerClient implements IPhitFlyerClient
      * @return array
      *
      * @throws ServerResponseFormatException
-     * @throws BitflyerClientException
+     * @throws PhitFlyerClientException
      */
     public function getHealth()
     {
@@ -331,7 +415,7 @@ class PhitFlyerClient implements IPhitFlyerClient
      * @return array
      *
      * @throws ServerResponseFormatException
-     * @throws BitflyerClientException
+     * @throws PhitFlyerClientException
      */
     public function getChats($from_date = null)
     {
@@ -353,7 +437,7 @@ class PhitFlyerClient implements IPhitFlyerClient
      * @return array
      *
      * @throws ServerResponseFormatException
-     * @throws BitflyerClientException
+     * @throws PhitFlyerClientException
      */
     public function meGetPermissions()
     {
@@ -372,7 +456,7 @@ class PhitFlyerClient implements IPhitFlyerClient
      * @return array
      *
      * @throws ServerResponseFormatException
-     * @throws BitflyerClientException
+     * @throws PhitFlyerClientException
      */
     public function meGetBalance()
     {
@@ -391,7 +475,7 @@ class PhitFlyerClient implements IPhitFlyerClient
      * @return array
      *
      * @throws ServerResponseFormatException
-     * @throws BitflyerClientException
+     * @throws PhitFlyerClientException
      */
     public function meGetCollateral()
     {
@@ -410,7 +494,7 @@ class PhitFlyerClient implements IPhitFlyerClient
      * @return array
      *
      * @throws ServerResponseFormatException
-     * @throws BitflyerClientException
+     * @throws PhitFlyerClientException
      */
     public function meGetCollateralAccounts()
     {
@@ -429,7 +513,7 @@ class PhitFlyerClient implements IPhitFlyerClient
      * @return array
      *
      * @throws ServerResponseFormatException
-     * @throws BitflyerClientException
+     * @throws PhitFlyerClientException
      */
     public function meGetAddress()
     {
@@ -452,7 +536,7 @@ class PhitFlyerClient implements IPhitFlyerClient
      * @return array
      *
      * @throws ServerResponseFormatException
-     * @throws BitflyerClientException
+     * @throws PhitFlyerClientException
      */
     public function meGetCoinIns($before = null, $after = null, $count = null)
     {
@@ -480,7 +564,7 @@ class PhitFlyerClient implements IPhitFlyerClient
      * @return array
      *
      * @throws ServerResponseFormatException
-     * @throws BitflyerClientException
+     * @throws PhitFlyerClientException
      */
     public function meGetCoinOuts($before = null, $after = null, $count = null)
     {
@@ -504,7 +588,7 @@ class PhitFlyerClient implements IPhitFlyerClient
      * @return array
      *
      * @throws ServerResponseFormatException
-     * @throws BitflyerClientException
+     * @throws PhitFlyerClientException
      */
     public function meGetBankAccounts()
     {
@@ -527,7 +611,7 @@ class PhitFlyerClient implements IPhitFlyerClient
      * @return array
      *
      * @throws ServerResponseFormatException
-     * @throws BitflyerClientException
+     * @throws PhitFlyerClientException
      */
     public function meGetDeposits($before = null, $after = null, $count = null)
     {
@@ -559,7 +643,7 @@ class PhitFlyerClient implements IPhitFlyerClient
      * @return array
      *
      * @throws ServerResponseFormatException
-     * @throws BitflyerClientException
+     * @throws PhitFlyerClientException
      */
     public function meSendChildOrder($product_code, $child_order_type, $side, $price, $size, $minute_to_expire = null, $time_in_force = null)
     {
@@ -587,7 +671,7 @@ class PhitFlyerClient implements IPhitFlyerClient
      * @param string $product_code
      * @param string $child_order_id
      *
-     * @throws BitflyerClientException
+     * @throws PhitFlyerClientException
      */
     public function meCancelChildOrder($product_code, $child_order_id)
     {
@@ -596,7 +680,7 @@ class PhitFlyerClient implements IPhitFlyerClient
             'product_code' => $product_code,
             'child_order_id' => $child_order_id,
         );
-        $this->privatePost(PhitFlyerApi::ME_CANCELCHILDORDER, $post_data, false);
+        $this->privatePost(PhitFlyerApi::ME_CANCELCHILDORDER, $post_data);
     }
     
     /**
@@ -604,7 +688,7 @@ class PhitFlyerClient implements IPhitFlyerClient
      *
      * @param string $product_code
      *
-     * @throws BitflyerClientException
+     * @throws PhitFlyerClientException
      */
     public function meCancelAllChildOrders($product_code)
     {
@@ -612,7 +696,7 @@ class PhitFlyerClient implements IPhitFlyerClient
         $post_data = array(
             'product_code' => $product_code,
         );
-        $this->privatePost(PhitFlyerApi::ME_CANCELALLCHILDORDERS, $post_data, false);
+        $this->privatePost(PhitFlyerApi::ME_CANCELALLCHILDORDERS, $post_data);
     }
     
     /**
@@ -628,7 +712,7 @@ class PhitFlyerClient implements IPhitFlyerClient
      * @return array
      *
      * @throws ServerResponseFormatException
-     * @throws BitflyerClientException
+     * @throws PhitFlyerClientException
      */
     public function meGetChildOrders($product_code, $before = null, $after = null, $count = null, $child_order_state = null, $parent_order_id = null)
     {
@@ -662,7 +746,7 @@ class PhitFlyerClient implements IPhitFlyerClient
      * @return array
      *
      * @throws ServerResponseFormatException
-     * @throws BitflyerClientException
+     * @throws PhitFlyerClientException
      */
     public function meGetExecutions($product_code, $before = null, $after = null, $count = null, $child_order_id = null, $child_order_acceptance_id = null)
     {
@@ -691,7 +775,7 @@ class PhitFlyerClient implements IPhitFlyerClient
      * @return array
      *
      * @throws ServerResponseFormatException
-     * @throws BitflyerClientException
+     * @throws PhitFlyerClientException
      */
     public function meGetPositions($product_code)
     {
@@ -715,7 +799,7 @@ class PhitFlyerClient implements IPhitFlyerClient
      * @return array
      *
      * @throws ServerResponseFormatException
-     * @throws BitflyerClientException
+     * @throws PhitFlyerClientException
      */
     public function meGetTradingCommission($product_code)
     {

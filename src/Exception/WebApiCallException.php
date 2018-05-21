@@ -1,7 +1,7 @@
 <?php
 namespace PhitFlyer\Exception;
 
-class ServerResponseFormatException extends \Exception implements PhitFlyerClientExceptionInterface
+class WebApiCallException extends \Exception implements PhitFlyerClientExceptionInterface
 {
     /**
      * construct

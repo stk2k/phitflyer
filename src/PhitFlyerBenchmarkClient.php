@@ -1,6 +1,8 @@
 <?php
 namespace PhitFlyer;
 
+use NetDriver\Http\HttpRequest;
+
 use PhitFlyer\Object\Market;
 use PhitFlyer\Object\Board;
 use PhitFlyer\Object\Ticker;
@@ -8,17 +10,12 @@ use PhitFlyer\Object\Execution;
 use PhitFlyer\Object\Health;
 use PhitFlyer\Object\Chat;
 
-
 /**
  * Benchmark decorator
  */
-class PhitFlyerBenchmarkClient implements IPhitFlyerClient
+class PhitFlyerBenchmarkClient implements PhitFlyerClientInterface
 {
-    const ENDPOINT_URL            = 'https://api.bitflyer.jp/v1/';
-    const BITFLYER_API_MARKETS    = 'markets';
-    const BITFLYER_API_BOARD      = 'board';
-    
-    private $flyer;
+    private $client;
     private $callback;
     
     /**
@@ -31,14 +28,34 @@ class PhitFlyerBenchmarkClient implements IPhitFlyerClient
      *    echo 'elapsed:' . $elapsed . PHP_EOL;
      * }
      *
-     * @param IPhitFlyerClient $flyer
+     * @param PhitFlyerClientInterface $flyer
      * @param callable $callback
      */
     public function __construct($flyer, $callback){
-        $this->flyer = $flyer;
+        $this->client = $flyer;
         $this->callback = $callback;
     }
-    
+
+    /**
+     * get last request
+     *
+     * @return HttpRequest
+     */
+    public function getLastRequest()
+    {
+        return $this->client->getLastRequest();
+    }
+
+    /**
+     * add net driver change listener
+     *
+     * @param NetDriverChangeListenerInterface|callable $listener
+     */
+    public function addNetDriverChangeListener($listener)
+    {
+        $this->client->addNetDriverChangeListener($listener);
+    }
+
     /**
      * execute benchmark with result
      *
@@ -92,7 +109,7 @@ class PhitFlyerBenchmarkClient implements IPhitFlyerClient
      */
     public function getMarkets()
     {
-        $bench_func = array( $this->flyer, 'getMarkets' );
+        $bench_func = array( $this->client, 'getMarkets' );
         list($result, $elapsed) = self::bench($bench_func);
         call_user_func_array($this->callback, array('getMarkets', $elapsed));
         return $result;
@@ -107,7 +124,7 @@ class PhitFlyerBenchmarkClient implements IPhitFlyerClient
      */
     public function getBoard($product_code = null)
     {
-        $bench_func = array( $this->flyer, 'getBoard' );
+        $bench_func = array( $this->client, 'getBoard' );
         $args = array( $product_code );
         list($result, $elapsed) = self::bench($bench_func, $args);
         call_user_func_array($this->callback, array('getBoard', $elapsed));
@@ -123,7 +140,7 @@ class PhitFlyerBenchmarkClient implements IPhitFlyerClient
      */
     public function getTicker($product_code = null)
     {
-        $bench_func = array( $this->flyer, 'getTicker' );
+        $bench_func = array( $this->client, 'getTicker' );
         $args = array( $product_code );
         list($result, $elapsed) = self::bench($bench_func, $args);
         call_user_func_array($this->callback, array('getTicker', $elapsed));
@@ -142,7 +159,7 @@ class PhitFlyerBenchmarkClient implements IPhitFlyerClient
      */
     public function getExecutions($product_code = null, $before = null, $after = null, $count = null)
     {
-        $bench_func = array( $this->flyer, 'getExecutions' );
+        $bench_func = array( $this->client, 'getExecutions' );
         $args = array( $product_code, $before, $after, $count );
         list($result, $elapsed) = self::bench($bench_func, $args);
         call_user_func_array($this->callback, array('getExecutions', $elapsed));
@@ -158,7 +175,7 @@ class PhitFlyerBenchmarkClient implements IPhitFlyerClient
      */
     public function getBoardState($product_code = null)
     {
-        $bench_func = array( $this->flyer, 'getBoardState' );
+        $bench_func = array( $this->client, 'getBoardState' );
         $args = array( $product_code );
         list($result, $elapsed) = self::bench($bench_func, $args);
         call_user_func_array($this->callback, array('getBoardState', $elapsed));
@@ -172,7 +189,7 @@ class PhitFlyerBenchmarkClient implements IPhitFlyerClient
      */
     public function getHealth()
     {
-        $bench_func = array( $this->flyer, 'getHealth' );
+        $bench_func = array( $this->client, 'getHealth' );
         list($result, $elapsed) = self::bench($bench_func);
         call_user_func_array($this->callback, array('getHealth', $elapsed));
         return $result;
@@ -187,7 +204,7 @@ class PhitFlyerBenchmarkClient implements IPhitFlyerClient
      */
     public function getChats($from_date = null)
     {
-        $bench_func = array( $this->flyer, 'getChats' );
+        $bench_func = array( $this->client, 'getChats' );
         $args = array( $from_date );
         list($result, $elapsed) = self::bench($bench_func, $args);
         call_user_func_array($this->callback, array('getChats', $elapsed));
@@ -201,7 +218,7 @@ class PhitFlyerBenchmarkClient implements IPhitFlyerClient
      */
     public function meGetPermissions()
     {
-        $bench_func = array( $this->flyer, 'meGetPermissions' );
+        $bench_func = array( $this->client, 'meGetPermissions' );
         list($result, $elapsed) = self::bench($bench_func);
         call_user_func_array($this->callback, array('meGetPermissions', $elapsed));
         return $result;
@@ -214,7 +231,7 @@ class PhitFlyerBenchmarkClient implements IPhitFlyerClient
      */
     public function meGetBalance()
     {
-        $bench_func = array( $this->flyer, 'meGetBalance' );
+        $bench_func = array( $this->client, 'meGetBalance' );
         list($result, $elapsed) = self::bench($bench_func);
         call_user_func_array($this->callback, array('meGetBalance', $elapsed));
         return $result;
@@ -227,7 +244,7 @@ class PhitFlyerBenchmarkClient implements IPhitFlyerClient
      */
     public function meGetCollateral()
     {
-        $bench_func = array( $this->flyer, 'meGetCollateral' );
+        $bench_func = array( $this->client, 'meGetCollateral' );
         list($result, $elapsed) = self::bench($bench_func);
         call_user_func_array($this->callback, array('meGetCollateral', $elapsed));
         return $result;
@@ -240,7 +257,7 @@ class PhitFlyerBenchmarkClient implements IPhitFlyerClient
      */
     public function meGetCollateralAccounts()
     {
-        $bench_func = array( $this->flyer, 'meGetCollateralAccounts' );
+        $bench_func = array( $this->client, 'meGetCollateralAccounts' );
         list($result, $elapsed) = self::bench($bench_func);
         call_user_func_array($this->callback, array('meGetCollateralAccounts', $elapsed));
         return $result;
@@ -253,7 +270,7 @@ class PhitFlyerBenchmarkClient implements IPhitFlyerClient
      */
     public function meGetAddress()
     {
-        $bench_func = array( $this->flyer, 'meGetAddress' );
+        $bench_func = array( $this->client, 'meGetAddress' );
         list($result, $elapsed) = self::bench($bench_func);
         call_user_func_array($this->callback, array('meGetAddress', $elapsed));
         return $result;
@@ -270,7 +287,7 @@ class PhitFlyerBenchmarkClient implements IPhitFlyerClient
      */
     public function meGetCoinIns($before = null, $after = null, $count = null)
     {
-        $bench_func = array( $this->flyer, 'meGetCoinIns' );
+        $bench_func = array( $this->client, 'meGetCoinIns' );
         $args = array( $before, $after, $count );
         list($result, $elapsed) = self::bench($bench_func, $args);
         call_user_func_array($this->callback, array('meGetCoinIns', $elapsed));
@@ -288,7 +305,7 @@ class PhitFlyerBenchmarkClient implements IPhitFlyerClient
      */
     public function meGetCoinOuts($before = null, $after = null, $count = null)
     {
-        $bench_func = array( $this->flyer, 'meGetCoinOuts' );
+        $bench_func = array( $this->client, 'meGetCoinOuts' );
         $args = array( $before, $after, $count );
         list($result, $elapsed) = self::bench($bench_func, $args);
         call_user_func_array($this->callback, array('meGetCoinOuts', $elapsed));
@@ -302,7 +319,7 @@ class PhitFlyerBenchmarkClient implements IPhitFlyerClient
      */
     public function meGetBankAccounts()
     {
-        $bench_func = array( $this->flyer, 'meGetBankAccounts' );
+        $bench_func = array( $this->client, 'meGetBankAccounts' );
         list($result, $elapsed) = self::bench($bench_func);
         call_user_func_array($this->callback, array('meGetBankAccounts', $elapsed));
         return $result;
@@ -319,7 +336,7 @@ class PhitFlyerBenchmarkClient implements IPhitFlyerClient
      */
     public function meGetDeposits($before = null, $after = null, $count = null)
     {
-        $bench_func = array( $this->flyer, 'meGetDeposits' );
+        $bench_func = array( $this->client, 'meGetDeposits' );
         $args = array( $before, $after, $count );
         list($result, $elapsed) = self::bench($bench_func, $args);
         call_user_func_array($this->callback, array('meGetDeposits', $elapsed));
@@ -338,31 +355,13 @@ class PhitFlyerBenchmarkClient implements IPhitFlyerClient
      */
     public function meWithdraw($currency_code, $bank_account_id, $amount, $code = null)
     {
-        $bench_func = array( $this->flyer, 'meWithdraw' );
+        $bench_func = array( $this->client, 'meWithdraw' );
         $args = array( $currency_code, $bank_account_id, $amount, $code );
         list($result, $elapsed) = self::bench($bench_func, $args);
         call_user_func_array($this->callback, array('meWithdraw', $elapsed));
         return $result;
     }
-    
-    /**
-     * [private] get withdrawals
-     *
-     * @param integer $before
-     * @param integer $after
-     * @param integer $count
-     *
-     * @return object
-     */
-    public function meGetWithdrawals($before = null, $after = null, $count = null)
-    {
-        $bench_func = array( $this->flyer, 'meGetWithdrawals' );
-        $args = array( $before, $after, $count );
-        list($result, $elapsed) = self::bench($bench_func, $args);
-        call_user_func_array($this->callback, array('meGetWithdrawals', $elapsed));
-        return $result;
-    }
-    
+
     /**
      * [private] send child order
      *
@@ -378,7 +377,7 @@ class PhitFlyerBenchmarkClient implements IPhitFlyerClient
      */
     public function meSendChildOrder($product_code, $child_order_type, $side, $price, $size, $minute_to_expire = null, $time_in_force = null)
     {
-        $bench_func = array( $this->flyer, 'meSendChildOrder' );
+        $bench_func = array( $this->client, 'meSendChildOrder' );
         $args = array( $product_code, $child_order_type, $side, $price, $size, $minute_to_expire, $time_in_force );
         list($result, $elapsed) = self::bench($bench_func, $args);
         call_user_func_array($this->callback, array('meSendChildOrder', $elapsed));
@@ -393,7 +392,7 @@ class PhitFlyerBenchmarkClient implements IPhitFlyerClient
      */
     public function meCancelChildOrder($product_code, $child_order_id)
     {
-        $bench_func = array( $this->flyer, 'meCancelChildOrder' );
+        $bench_func = array( $this->client, 'meCancelChildOrder' );
         $args = array( $product_code, $child_order_id );
         $elapsed = self::benchNoResult($bench_func, $args);
         call_user_func_array($this->callback, array('meCancelChildOrder', $elapsed));
@@ -406,7 +405,7 @@ class PhitFlyerBenchmarkClient implements IPhitFlyerClient
      */
     public function meCancelAllChildOrders($product_code)
     {
-        $bench_func = array( $this->flyer, 'meCancelAllChildOrders' );
+        $bench_func = array( $this->client, 'meCancelAllChildOrders' );
         $args = array( $product_code, );
         $elapsed = self::benchNoResult($bench_func, $args);
         call_user_func_array($this->callback, array('meCancelAllChildOrders', $elapsed));
@@ -426,7 +425,7 @@ class PhitFlyerBenchmarkClient implements IPhitFlyerClient
      */
     public function meGetChildOrders($product_code, $before = null, $after = null, $count = null, $child_order_state = null, $parent_order_id = null)
     {
-        $bench_func = array( $this->flyer, 'meGetChildOrders' );
+        $bench_func = array( $this->client, 'meGetChildOrders' );
         $args = array( $product_code, $before, $after, $count, $child_order_state, $parent_order_id );
         list($result, $elapsed) = self::bench($bench_func, $args);
         call_user_func_array($this->callback, array('meGetChildOrders', $elapsed));
@@ -447,7 +446,7 @@ class PhitFlyerBenchmarkClient implements IPhitFlyerClient
      */
     public function meGetExecutions($product_code, $before = null, $after = null, $count = null, $child_order_id = null, $child_order_acceptance_id = null)
     {
-        $bench_func = array( $this->flyer, 'meGetExecutions' );
+        $bench_func = array( $this->client, 'meGetExecutions' );
         $args = array( $product_code, $before, $after, $count, $child_order_id, $child_order_acceptance_id );
         list($result, $elapsed) = self::bench($bench_func, $args);
         call_user_func_array($this->callback, array('meGetExecutions', $elapsed));
@@ -463,7 +462,7 @@ class PhitFlyerBenchmarkClient implements IPhitFlyerClient
      */
     public function meGetPositions($product_code)
     {
-        $bench_func = array( $this->flyer, 'meGetPositions' );
+        $bench_func = array( $this->client, 'meGetPositions' );
         $args = array( $product_code );
         list($result, $elapsed) = self::bench($bench_func, $args);
         call_user_func_array($this->callback, array('meGetPositions', $elapsed));
@@ -479,7 +478,7 @@ class PhitFlyerBenchmarkClient implements IPhitFlyerClient
      */
     public function meGetTradingCommission($product_code)
     {
-        $bench_func = array( $this->flyer, 'meGetTradingCommission' );
+        $bench_func = array( $this->client, 'meGetTradingCommission' );
         $args = array( $product_code );
         list($result, $elapsed) = self::bench($bench_func, $args);
         call_user_func_array($this->callback, array('meGetTradingCommission', $elapsed));
