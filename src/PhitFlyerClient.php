@@ -258,7 +258,7 @@ class PhitFlyerClient implements PhitFlyerClientInterface
 
             $json = @json_decode($response->getBody(), true);
             if ($json === null){
-                throw new WebApiCallException(json_last_error_msg() . '/' . $response->getBody());
+                throw new WebApiCallException(json_last_error_msg());
             }
             return $json;
         }
