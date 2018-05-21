@@ -6,7 +6,7 @@ use NetDriver\NetDriverInterface;
 
 use Psr\Log\LoggerInterface;
 
-use PhitFlyer\Exception\PhitFlyerClientException;
+use PhitFlyer\Exception\PhitFlyerClientExceptionInterface;
 
 /**
  * Logger decorator
@@ -67,7 +67,7 @@ class PhitFlyerLoggerClient implements PhitFlyerClientInterface, NetDriverChange
      *
      * @return array
      *
-     * @throws PhitFlyerClientException
+     * @throws PhitFlyerClientExceptionInterface
      */
     public function getMarkets()
     {
@@ -84,7 +84,7 @@ class PhitFlyerLoggerClient implements PhitFlyerClientInterface, NetDriverChange
      *
      * @return array
      *
-     * @throws PhitFlyerClientException
+     * @throws PhitFlyerClientExceptionInterface
      */
     public function getBoard($product_code = null)
     {
@@ -101,7 +101,7 @@ class PhitFlyerLoggerClient implements PhitFlyerClientInterface, NetDriverChange
      *
      * @return array
      *
-     * @throws PhitFlyerClientException
+     * @throws PhitFlyerClientExceptionInterface
      */
     public function getTicker($product_code = null)
     {
@@ -121,7 +121,7 @@ class PhitFlyerLoggerClient implements PhitFlyerClientInterface, NetDriverChange
      *
      * @return array
      *
-     * @throws PhitFlyerClientException
+     * @throws PhitFlyerClientExceptionInterface
      */
     public function getExecutions($product_code = null, $before = null, $after = null, $count = null)
     {
@@ -138,7 +138,7 @@ class PhitFlyerLoggerClient implements PhitFlyerClientInterface, NetDriverChange
      *
      * @return array
      *
-     * @throws PhitFlyerClientException
+     * @throws PhitFlyerClientExceptionInterface
      */
     public function getBoardState($product_code = null)
     {
@@ -153,7 +153,7 @@ class PhitFlyerLoggerClient implements PhitFlyerClientInterface, NetDriverChange
      *
      * @return array
      *
-     * @throws PhitFlyerClientException
+     * @throws PhitFlyerClientExceptionInterface
      */
     public function getHealth()
     {
@@ -170,7 +170,7 @@ class PhitFlyerLoggerClient implements PhitFlyerClientInterface, NetDriverChange
      *
      * @return array
      *
-     * @throws PhitFlyerClientException
+     * @throws PhitFlyerClientExceptionInterface
      */
     public function getChats($from_date = null)
     {
@@ -185,7 +185,7 @@ class PhitFlyerLoggerClient implements PhitFlyerClientInterface, NetDriverChange
      *
      * @return array
      *
-     * @throws PhitFlyerClientException
+     * @throws PhitFlyerClientExceptionInterface
      */
     public function meGetPermissions()
     {
@@ -200,7 +200,7 @@ class PhitFlyerLoggerClient implements PhitFlyerClientInterface, NetDriverChange
      *
      * @return array
      *
-     * @throws PhitFlyerClientException
+     * @throws PhitFlyerClientExceptionInterface
      */
     public function meGetBalance()
     {
@@ -215,7 +215,7 @@ class PhitFlyerLoggerClient implements PhitFlyerClientInterface, NetDriverChange
      *
      * @return array
      *
-     * @throws PhitFlyerClientException
+     * @throws PhitFlyerClientExceptionInterface
      */
     public function meGetCollateral()
     {
@@ -230,7 +230,7 @@ class PhitFlyerLoggerClient implements PhitFlyerClientInterface, NetDriverChange
      *
      * @return array
      *
-     * @throws PhitFlyerClientException
+     * @throws PhitFlyerClientExceptionInterface
      */
     public function meGetCollateralAccounts()
     {
@@ -245,7 +245,7 @@ class PhitFlyerLoggerClient implements PhitFlyerClientInterface, NetDriverChange
      *
      * @return array
      *
-     * @throws PhitFlyerClientException
+     * @throws PhitFlyerClientExceptionInterface
      */
     public function meGetAddress()
     {
@@ -264,7 +264,7 @@ class PhitFlyerLoggerClient implements PhitFlyerClientInterface, NetDriverChange
      *
      * @return array
      *
-     * @throws PhitFlyerClientException
+     * @throws PhitFlyerClientExceptionInterface
      */
     public function meGetCoinIns($before = null, $after = null, $count = null)
     {
@@ -283,7 +283,7 @@ class PhitFlyerLoggerClient implements PhitFlyerClientInterface, NetDriverChange
      *
      * @return array
      *
-     * @throws PhitFlyerClientException
+     * @throws PhitFlyerClientExceptionInterface
      */
     public function meGetCoinOuts($before = null, $after = null, $count = null)
     {
@@ -298,7 +298,7 @@ class PhitFlyerLoggerClient implements PhitFlyerClientInterface, NetDriverChange
      *
      * @return array
      *
-     * @throws PhitFlyerClientException
+     * @throws PhitFlyerClientExceptionInterface
      */
     public function meGetBankAccounts()
     {
@@ -317,7 +317,7 @@ class PhitFlyerLoggerClient implements PhitFlyerClientInterface, NetDriverChange
      *
      * @return array
      *
-     * @throws PhitFlyerClientException
+     * @throws PhitFlyerClientExceptionInterface
      */
     public function meGetDeposits($before = null, $after = null, $count = null)
     {
@@ -339,7 +339,7 @@ class PhitFlyerLoggerClient implements PhitFlyerClientInterface, NetDriverChange
      * @param string $time_in_force
      *
      * @return  array
-     * @throws PhitFlyerClientException
+     * @throws PhitFlyerClientExceptionInterface
      */
     public function meSendChildOrder($product_code, $child_order_type, $side, $price, $size, $minute_to_expire = null, $time_in_force = null)
     {
@@ -355,7 +355,7 @@ class PhitFlyerLoggerClient implements PhitFlyerClientInterface, NetDriverChange
      * @param string $product_code
      * @param string $child_order_id
      *
-     * @throws PhitFlyerClientException
+     * @throws PhitFlyerClientExceptionInterface
      */
     public function meCancelChildOrder($product_code, $child_order_id)
     {
@@ -369,7 +369,7 @@ class PhitFlyerLoggerClient implements PhitFlyerClientInterface, NetDriverChange
      *
      * @param string $product_code
      *
-     * @throws PhitFlyerClientException
+     * @throws PhitFlyerClientExceptionInterface
      */
     public function meCancelAllChildOrders($product_code)
     {
@@ -389,7 +389,7 @@ class PhitFlyerLoggerClient implements PhitFlyerClientInterface, NetDriverChange
      * @param string $parent_order_id
      *
      * @return array
-     * @throws PhitFlyerClientException
+     * @throws PhitFlyerClientExceptionInterface
      */
     public function meGetChildOrders($product_code, $before = null, $after = null, $count = null, $child_order_state = null, $parent_order_id = null)
     {
@@ -410,7 +410,7 @@ class PhitFlyerLoggerClient implements PhitFlyerClientInterface, NetDriverChange
      * @param string $child_order_acceptance_id
      *
      * @return array
-     * @throws PhitFlyerClientException
+     * @throws PhitFlyerClientExceptionInterface
      */
     public function meGetExecutions($product_code, $before = null, $after = null, $count = null, $child_order_id = null, $child_order_acceptance_id = null)
     {
@@ -426,7 +426,7 @@ class PhitFlyerLoggerClient implements PhitFlyerClientInterface, NetDriverChange
      * @param string $product_code
      *
      * @return array
-     * @throws PhitFlyerClientException
+     * @throws PhitFlyerClientExceptionInterface
      */
     public function meGetPositions($product_code)
     {
@@ -442,7 +442,7 @@ class PhitFlyerLoggerClient implements PhitFlyerClientInterface, NetDriverChange
      * @param string $product_code
      *
      * @return array
-     * @throws PhitFlyerClientException
+     * @throws PhitFlyerClientExceptionInterface
      */
     public function meGetTradingCommission($product_code)
     {

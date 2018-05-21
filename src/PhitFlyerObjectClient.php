@@ -23,7 +23,8 @@ use PhitFlyer\Object\MeChildOrder;
 use PhitFlyer\Object\MeExecution;
 use PhitFlyer\Object\MePosition;
 use PhitFlyer\Object\MeCommission;
-use PhitFlyer\Exception\PhitFlyerClientException;
+
+use PhitFlyer\Exception\PhitFlyerClientExceptionInterface;
 
 /**
  * Object decorator
@@ -66,7 +67,7 @@ class PhitFlyerObjectClient implements PhitFlyerClientInterface
      *
      * @return Market[]|null
      *
-     * @throws PhitFlyerClientException
+     * @throws PhitFlyerClientExceptionInterface
      */
     public function getMarkets()
     {
@@ -87,7 +88,7 @@ class PhitFlyerObjectClient implements PhitFlyerClientInterface
      *
      * @return Board
      *
-     * @throws PhitFlyerClientException
+     * @throws PhitFlyerClientExceptionInterface
      */
     public function getBoard($product_code = null)
     {
@@ -104,7 +105,7 @@ class PhitFlyerObjectClient implements PhitFlyerClientInterface
      *
      * @return Ticker
      *
-     * @throws PhitFlyerClientException
+     * @throws PhitFlyerClientExceptionInterface
      */
     public function getTicker($product_code = null)
     {
@@ -124,7 +125,7 @@ class PhitFlyerObjectClient implements PhitFlyerClientInterface
      *
      * @return Execution[]
      *
-     * @throws PhitFlyerClientException
+     * @throws PhitFlyerClientExceptionInterface
      */
     public function getExecutions($product_code = null, $before = null, $after = null, $count = null)
     {
@@ -145,7 +146,7 @@ class PhitFlyerObjectClient implements PhitFlyerClientInterface
      *
      * @return BoardState
      *
-     * @throws PhitFlyerClientException
+     * @throws PhitFlyerClientExceptionInterface
      */
     public function getBoardState($product_code = null)
     {
@@ -160,7 +161,7 @@ class PhitFlyerObjectClient implements PhitFlyerClientInterface
      *
      * @return Health
      *
-     * @throws PhitFlyerClientException
+     * @throws PhitFlyerClientExceptionInterface
      */
     public function getHealth()
     {
@@ -177,7 +178,7 @@ class PhitFlyerObjectClient implements PhitFlyerClientInterface
      *
      * @return Chat[]
      *
-     * @throws PhitFlyerClientException
+     * @throws PhitFlyerClientExceptionInterface
      */
     public function getChats($from_date = null)
     {
@@ -196,7 +197,7 @@ class PhitFlyerObjectClient implements PhitFlyerClientInterface
      *
      * @return string[]
      *
-     * @throws PhitFlyerClientException
+     * @throws PhitFlyerClientExceptionInterface
      */
     public function meGetPermissions()
     {
@@ -210,7 +211,7 @@ class PhitFlyerObjectClient implements PhitFlyerClientInterface
      *
      * @return MeBalance[]
      *
-     * @throws PhitFlyerClientException
+     * @throws PhitFlyerClientExceptionInterface
      */
     public function meGetBalance()
     {
@@ -229,7 +230,7 @@ class PhitFlyerObjectClient implements PhitFlyerClientInterface
      *
      * @return MeCollateral
      *
-     * @throws PhitFlyerClientException
+     * @throws PhitFlyerClientExceptionInterface
      */
     public function meGetCollateral()
     {
@@ -244,7 +245,7 @@ class PhitFlyerObjectClient implements PhitFlyerClientInterface
      *
      * @return MeCollateralAccount[]
      *
-     * @throws PhitFlyerClientException
+     * @throws PhitFlyerClientExceptionInterface
      */
     public function meGetCollateralAccounts()
     {
@@ -263,7 +264,7 @@ class PhitFlyerObjectClient implements PhitFlyerClientInterface
      *
      * @return MeAddress[]
      *
-     * @throws PhitFlyerClientException
+     * @throws PhitFlyerClientExceptionInterface
      */
     public function meGetAddress()
     {
@@ -286,7 +287,7 @@ class PhitFlyerObjectClient implements PhitFlyerClientInterface
      *
      * @return MeCoinIn[]
      *
-     * @throws PhitFlyerClientException
+     * @throws PhitFlyerClientExceptionInterface
      */
     public function meGetCoinIns($before = null, $after = null, $count = null)
     {
@@ -309,7 +310,7 @@ class PhitFlyerObjectClient implements PhitFlyerClientInterface
      *
      * @return MeCoinOut[]
      *
-     * @throws PhitFlyerClientException
+     * @throws PhitFlyerClientExceptionInterface
      */
     public function meGetCoinOuts($before = null, $after = null, $count = null)
     {
@@ -328,7 +329,7 @@ class PhitFlyerObjectClient implements PhitFlyerClientInterface
      *
      * @return MeBankAccount[]
      *
-     * @throws PhitFlyerClientException
+     * @throws PhitFlyerClientExceptionInterface
      */
     public function meGetBankAccounts()
     {
@@ -351,7 +352,7 @@ class PhitFlyerObjectClient implements PhitFlyerClientInterface
      *
      * @return MeDeposit[]
      *
-     * @throws PhitFlyerClientException
+     * @throws PhitFlyerClientExceptionInterface
      */
     public function meGetDeposits($before = null, $after = null, $count = null)
     {
@@ -378,7 +379,7 @@ class PhitFlyerObjectClient implements PhitFlyerClientInterface
      *
      * @return MeChildOrderResult
      *
-     * @throws PhitFlyerClientException
+     * @throws PhitFlyerClientExceptionInterface
      */
     public function meSendChildOrder($product_code, $child_order_type, $side, $price, $size, $minute_to_expire = null, $time_in_force = null)
     {
@@ -394,7 +395,7 @@ class PhitFlyerObjectClient implements PhitFlyerClientInterface
      * @param string $product_code
      * @param string $child_order_id
      *
-     * @throws PhitFlyerClientException
+     * @throws PhitFlyerClientExceptionInterface
      */
     public function meCancelChildOrder($product_code, $child_order_id)
     {
@@ -407,7 +408,7 @@ class PhitFlyerObjectClient implements PhitFlyerClientInterface
      *
      * @param string $product_code
      *
-     * @throws PhitFlyerClientException
+     * @throws PhitFlyerClientExceptionInterface
      */
     public function meCancelAllChildOrders($product_code)
     {
@@ -427,7 +428,7 @@ class PhitFlyerObjectClient implements PhitFlyerClientInterface
      *
      * @return MeChildOrder[]
      *
-     * @throws PhitFlyerClientException
+     * @throws PhitFlyerClientExceptionInterface
      */
     public function meGetChildOrders($product_code, $before = null, $after = null, $count = null, $child_order_state = null, $parent_order_id = null)
     {
@@ -453,7 +454,7 @@ class PhitFlyerObjectClient implements PhitFlyerClientInterface
      *
      * @return MeExecution[]
      *
-     * @throws PhitFlyerClientException
+     * @throws PhitFlyerClientExceptionInterface
      */
     public function meGetExecutions($product_code, $before = null, $after = null, $count = null, $child_order_id = null, $child_order_acceptance_id = null)
     {
@@ -474,7 +475,7 @@ class PhitFlyerObjectClient implements PhitFlyerClientInterface
      *
      * @return MePosition[]
      *
-     * @throws PhitFlyerClientException
+     * @throws PhitFlyerClientExceptionInterface
      */
     public function meGetPositions($product_code)
     {
@@ -495,7 +496,7 @@ class PhitFlyerObjectClient implements PhitFlyerClientInterface
      *
      * @return MeCommission
      *
-     * @throws PhitFlyerClientException
+     * @throws PhitFlyerClientExceptionInterface
      */
     public function meGetTradingCommission($product_code)
     {

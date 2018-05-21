@@ -8,6 +8,7 @@ use NetDriver\Http\HttpGetRequest;
 use NetDriver\Http\JsonPostRequest;
 use NetDriver\NetDriver\Curl\CurlNetDriver;
 
+use PhitFlyer\Exception\PhitFlyerClientExceptionInterface;
 use PhitFlyer\Exception\PhitFlyerClientException;
 use PhitFlyer\Exception\WebApiCallException;
 use PhitFlyer\Exception\ServerResponseFormatException;
@@ -155,7 +156,7 @@ class PhitFlyerClient implements PhitFlyerClientInterface
      *
      * @return mixed
      *
-     * @throws PhitFlyerClientException
+     * @throws PhitFlyerClientExceptionInterface
      */
     private function get($api, array $query_data = [])
     {
@@ -178,7 +179,7 @@ class PhitFlyerClient implements PhitFlyerClientInterface
      *
      * @return mixed
      *
-     * @throws PhitFlyerClientException
+     * @throws PhitFlyerClientExceptionInterface
      */
     private function privateGet($api, array $query_data = [])
     {
@@ -212,7 +213,7 @@ class PhitFlyerClient implements PhitFlyerClientInterface
      *
      * @return mixed
      *
-     * @throws PhitFlyerClientException
+     * @throws PhitFlyerClientExceptionInterface
      */
     private function privatePost($api, array $post_data = null)
     {
@@ -246,7 +247,7 @@ class PhitFlyerClient implements PhitFlyerClientInterface
      *
      * @return mixed
      *
-     * @throws PhitFlyerClientException
+     * @throws PhitFlyerClientExceptionInterface
      */
     private function executeRequest($request)
     {
@@ -272,8 +273,7 @@ class PhitFlyerClient implements PhitFlyerClientInterface
      *
      * @return array
      *
-     * @throws ServerResponseFormatException
-     * @throws PhitFlyerClientException
+     * @throws PhitFlyerClientExceptionInterface
      */
     public function getMarkets()
     {
@@ -293,8 +293,7 @@ class PhitFlyerClient implements PhitFlyerClientInterface
      *
      * @return array
      *
-     * @throws ServerResponseFormatException
-     * @throws PhitFlyerClientException
+     * @throws PhitFlyerClientExceptionInterface
      */
     public function getBoard($product_code = null)
     {
@@ -317,8 +316,7 @@ class PhitFlyerClient implements PhitFlyerClientInterface
      *
      * @return array
      *
-     * @throws ServerResponseFormatException
-     * @throws PhitFlyerClientException
+     * @throws PhitFlyerClientExceptionInterface
      */
     public function getTicker($product_code = null)
     {
@@ -344,8 +342,7 @@ class PhitFlyerClient implements PhitFlyerClientInterface
      *
      * @return array
      *
-     * @throws ServerResponseFormatException
-     * @throws PhitFlyerClientException
+     * @throws PhitFlyerClientExceptionInterface
      */
     public function getExecutions($product_code = null, $before = null, $after = null, $count = null)
     {
@@ -371,8 +368,7 @@ class PhitFlyerClient implements PhitFlyerClientInterface
      *
      * @return array
      *
-     * @throws ServerResponseFormatException
-     * @throws PhitFlyerClientException
+     * @throws PhitFlyerClientExceptionInterface
      */
     public function getBoardState($product_code = null)
     {
@@ -393,8 +389,7 @@ class PhitFlyerClient implements PhitFlyerClientInterface
      *
      * @return array
      *
-     * @throws ServerResponseFormatException
-     * @throws PhitFlyerClientException
+     * @throws PhitFlyerClientExceptionInterface
      */
     public function getHealth()
     {
@@ -414,8 +409,7 @@ class PhitFlyerClient implements PhitFlyerClientInterface
      *
      * @return array
      *
-     * @throws ServerResponseFormatException
-     * @throws PhitFlyerClientException
+     * @throws PhitFlyerClientExceptionInterface
      */
     public function getChats($from_date = null)
     {
@@ -436,8 +430,7 @@ class PhitFlyerClient implements PhitFlyerClientInterface
      *
      * @return array
      *
-     * @throws ServerResponseFormatException
-     * @throws PhitFlyerClientException
+     * @throws PhitFlyerClientExceptionInterface
      */
     public function meGetPermissions()
     {
@@ -455,8 +448,7 @@ class PhitFlyerClient implements PhitFlyerClientInterface
      *
      * @return array
      *
-     * @throws ServerResponseFormatException
-     * @throws PhitFlyerClientException
+     * @throws PhitFlyerClientExceptionInterface
      */
     public function meGetBalance()
     {
@@ -474,8 +466,7 @@ class PhitFlyerClient implements PhitFlyerClientInterface
      *
      * @return array
      *
-     * @throws ServerResponseFormatException
-     * @throws PhitFlyerClientException
+     * @throws PhitFlyerClientExceptionInterface
      */
     public function meGetCollateral()
     {
@@ -493,8 +484,7 @@ class PhitFlyerClient implements PhitFlyerClientInterface
      *
      * @return array
      *
-     * @throws ServerResponseFormatException
-     * @throws PhitFlyerClientException
+     * @throws PhitFlyerClientExceptionInterface
      */
     public function meGetCollateralAccounts()
     {
@@ -512,8 +502,7 @@ class PhitFlyerClient implements PhitFlyerClientInterface
      *
      * @return array
      *
-     * @throws ServerResponseFormatException
-     * @throws PhitFlyerClientException
+     * @throws PhitFlyerClientExceptionInterface
      */
     public function meGetAddress()
     {
@@ -535,8 +524,7 @@ class PhitFlyerClient implements PhitFlyerClientInterface
      *
      * @return array
      *
-     * @throws ServerResponseFormatException
-     * @throws PhitFlyerClientException
+     * @throws PhitFlyerClientExceptionInterface
      */
     public function meGetCoinIns($before = null, $after = null, $count = null)
     {
@@ -563,8 +551,7 @@ class PhitFlyerClient implements PhitFlyerClientInterface
      *
      * @return array
      *
-     * @throws ServerResponseFormatException
-     * @throws PhitFlyerClientException
+     * @throws PhitFlyerClientExceptionInterface
      */
     public function meGetCoinOuts($before = null, $after = null, $count = null)
     {
@@ -587,8 +574,7 @@ class PhitFlyerClient implements PhitFlyerClientInterface
      *
      * @return array
      *
-     * @throws ServerResponseFormatException
-     * @throws PhitFlyerClientException
+     * @throws PhitFlyerClientExceptionInterface
      */
     public function meGetBankAccounts()
     {
@@ -610,8 +596,7 @@ class PhitFlyerClient implements PhitFlyerClientInterface
      *
      * @return array
      *
-     * @throws ServerResponseFormatException
-     * @throws PhitFlyerClientException
+     * @throws PhitFlyerClientExceptionInterface
      */
     public function meGetDeposits($before = null, $after = null, $count = null)
     {
@@ -642,8 +627,7 @@ class PhitFlyerClient implements PhitFlyerClientInterface
      *
      * @return array
      *
-     * @throws ServerResponseFormatException
-     * @throws PhitFlyerClientException
+     * @throws PhitFlyerClientExceptionInterface
      */
     public function meSendChildOrder($product_code, $child_order_type, $side, $price, $size, $minute_to_expire = null, $time_in_force = null)
     {
@@ -671,7 +655,7 @@ class PhitFlyerClient implements PhitFlyerClientInterface
      * @param string $product_code
      * @param string $child_order_id
      *
-     * @throws PhitFlyerClientException
+     * @throws PhitFlyerClientExceptionInterface
      */
     public function meCancelChildOrder($product_code, $child_order_id)
     {
@@ -688,7 +672,7 @@ class PhitFlyerClient implements PhitFlyerClientInterface
      *
      * @param string $product_code
      *
-     * @throws PhitFlyerClientException
+     * @throws PhitFlyerClientExceptionInterface
      */
     public function meCancelAllChildOrders($product_code)
     {
@@ -711,8 +695,7 @@ class PhitFlyerClient implements PhitFlyerClientInterface
      *
      * @return array
      *
-     * @throws ServerResponseFormatException
-     * @throws PhitFlyerClientException
+     * @throws PhitFlyerClientExceptionInterface
      */
     public function meGetChildOrders($product_code, $before = null, $after = null, $count = null, $child_order_state = null, $parent_order_id = null)
     {
@@ -745,8 +728,7 @@ class PhitFlyerClient implements PhitFlyerClientInterface
      *
      * @return array
      *
-     * @throws ServerResponseFormatException
-     * @throws PhitFlyerClientException
+     * @throws PhitFlyerClientExceptionInterface
      */
     public function meGetExecutions($product_code, $before = null, $after = null, $count = null, $child_order_id = null, $child_order_acceptance_id = null)
     {
@@ -774,8 +756,7 @@ class PhitFlyerClient implements PhitFlyerClientInterface
      *
      * @return array
      *
-     * @throws ServerResponseFormatException
-     * @throws PhitFlyerClientException
+     * @throws PhitFlyerClientExceptionInterface
      */
     public function meGetPositions($product_code)
     {
@@ -798,8 +779,7 @@ class PhitFlyerClient implements PhitFlyerClientInterface
      *
      * @return array
      *
-     * @throws ServerResponseFormatException
-     * @throws PhitFlyerClientException
+     * @throws PhitFlyerClientExceptionInterface
      */
     public function meGetTradingCommission($product_code)
     {
