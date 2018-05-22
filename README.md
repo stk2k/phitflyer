@@ -17,7 +17,7 @@ It provides multiple access methods, such as array, class.
 ### simple and fastest sample:
 ```php
 use PhitFlyer\PhitFlyerClient;
- 
+
 $client = new PhitFlyerClient();
  
 $markets = $client->getMarkets();
@@ -34,7 +34,7 @@ foreach($markets as $idx => $market){
 ```php
 use PhitFlyer\PhitFlyerClient;
 use PhitFlyer\PhitFlyerObjectClient;
- 
+
 $client = new PhitFlyerObjectClient(new PhitFlyerClient());
  
 $markets = $client->getMarkets();
@@ -51,7 +51,7 @@ foreach($markets as $idx => $market){
 ```php
 use PhitFlyer\PhitFlyerClient;
 use PhitFlyer\PhitFlyerBenchmarkClient;
- 
+
 $client = new PhitFlyerBenchmarkClient(
             new PhitFlyerClient(), 
             function ($m, $e) use(&$method, &$elapsed){
@@ -68,11 +68,22 @@ $client->getMarkets();
 use PhitFlyer\PhitFlyerClient;
 use PhitFlyer\PhitFlyerLoggerClient;
 
-    $client = new PhitFlyerLoggerClient(
-        new PhitFlyerClient(),
-        new YourLogger()    // YourLogger: Psr-3 compliant logger
-    );
-    $client->getNetDriver()->setVerbose(true);      // ouput detail log
+$client = new PhitFlyerLoggerClient(
+    new PhitFlyerClient(),
+    new YourLogger()    // YourLogger: Psr-3 compliant logger
+);
+$client->getNetDriver()->setVerbose(true);      // ouput detail log
+```
+
+### using different net driver sample:
+```php
+use PhitFlyer\PhitFlyerClient;
+use NetDriver\NetDriver\Php\PhpNetDriver;
+
+$client = new PhitFlyerClient();
+$client->setNetDriver(new PhpNetDriver());      // use file_get_contents to call web api instead of cURL function
+
+$markets = $client->getMarkets();
 ```
 
 ## Usage

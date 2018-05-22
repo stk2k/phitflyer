@@ -68,6 +68,16 @@ class PhitFlyerBenchmarkClient implements PhitFlyerClientInterface
     }
 
     /**
+     * set net driver
+     *
+     * @param NetDriverInterface $net_driver
+     */
+    public function setNetDriver(NetDriverInterface $net_driver)
+    {
+        $this->client->setNetDriver($net_driver);
+    }
+
+    /**
      * execute benchmark with result
      *
      * @param callable $bench_func

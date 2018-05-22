@@ -76,6 +76,17 @@ $client = new PhitFlyerLoggerClient(
 $client->getNetDriver()->setVerbose(true);      // 詳細なログを出力
 ```
 
+### 独自ネットドライバの使用例:
+```php
+use PhitFlyer\PhitFlyerClient;
+use NetDriver\NetDriver\Php\PhpNetDriver;
+
+$client = new PhitFlyerClient();
+$client->setNetDriver(new PhpNetDriver());      // cURL関数の代わりにfile_get_contentsを使ってWebAPIをコールします
+
+$markets = $client->getMarkets();
+```
+
 ## 使い方
 
 1. PhitFlyerClientオブジェクトを作成する。
