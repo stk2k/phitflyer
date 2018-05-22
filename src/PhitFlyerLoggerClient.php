@@ -63,6 +63,16 @@ class PhitFlyerLoggerClient implements PhitFlyerClientInterface, NetDriverChange
     }
 
     /**
+     * get net driver
+     *
+     * @return NetDriverInterface
+     */
+    public function getNetDriver()
+    {
+        return $this->client->getNetDriver();
+    }
+
+    /**
      * [public] get markets
      *
      * @return array

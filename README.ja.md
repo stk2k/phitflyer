@@ -73,7 +73,7 @@ $client = new PhitFlyerLoggerClient(
             new PhitFlyerClient(), 
             new YourLogger()            // YourLoggerはPSR-3 Loggerに準拠している必要があります
         );
- 
+$client->getNetDriver()->setVerbose(true);      // 詳細なログを出力
 ```
 
 ## 使い方

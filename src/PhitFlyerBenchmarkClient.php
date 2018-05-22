@@ -2,6 +2,7 @@
 namespace PhitFlyer;
 
 use NetDriver\Http\HttpRequest;
+use NetDriver\NetDriverInterface;
 
 use PhitFlyer\Object\Market;
 use PhitFlyer\Object\Board;
@@ -54,6 +55,16 @@ class PhitFlyerBenchmarkClient implements PhitFlyerClientInterface
     public function addNetDriverChangeListener($listener)
     {
         $this->client->addNetDriverChangeListener($listener);
+    }
+
+    /**
+     * get net driver
+     *
+     * @return NetDriverInterface
+     */
+    public function getNetDriver()
+    {
+        return $this->client->getNetDriver();
     }
 
     /**

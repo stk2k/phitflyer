@@ -2,6 +2,7 @@
 namespace PhitFlyer;
 
 use NetDriver\Http\HttpRequest;
+use NetDriver\NetDriverInterface;
 
 use PhitFlyer\Exception\PhitFlyerClientExceptionInterface;
 
@@ -23,6 +24,13 @@ interface PhitFlyerClientInterface
      * @param NetDriverChangeListenerInterface|callable $listener
      */
     public function addNetDriverChangeListener($listener);
+
+    /**
+     * get net driver
+     *
+     * @return NetDriverInterface
+     */
+    public function getNetDriver();
 
     /**
      * [public] get markets

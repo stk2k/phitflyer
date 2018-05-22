@@ -68,11 +68,11 @@ $client->getMarkets();
 use PhitFlyer\PhitFlyerClient;
 use PhitFlyer\PhitFlyerLoggerClient;
 
-$client = new PhitFlyerLoggerClient(
-            new PhitFlyerClient(),
-            new YourLogger());    // YourLogger: Psr-3 compliant logger
-        );
-
+    $client = new PhitFlyerLoggerClient(
+        new PhitFlyerClient(),
+        new YourLogger()    // YourLogger: Psr-3 compliant logger
+    );
+    $client->getNetDriver()->setVerbose(true);      // ouput detail log
 ```
 
 ## Usage

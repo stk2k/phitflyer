@@ -3,9 +3,14 @@ require_once dirname(dirname(__FILE__)) . '/vendor/autoload.php';
 require_once 'include/autoload.php';
 require_once 'include/sample.inc.php';
 
+use Wa72\SimpleLogger\EchoLogger;
+
 use PhitFlyer\PhitFlyerClient;
 use PhitFlyer\PhitFlyerObjectClient;
 use PhitFlyer\PhitFlyerBenchmarkClient;
+use PhitFlyer\PhitFlyerLoggerClient;
+
+class YourLogger extends EchoLogger {}
 
 echo '===[ simple and fastest sample ]===', PHP_EOL;
 
@@ -45,6 +50,14 @@ try{
     );
 
     $flyer->getMarkets();
+
+    echo '===[ logger client sample ]===', PHP_EOL;
+
+    $client = new PhitFlyerLoggerClient(
+        new PhitFlyerClient(),
+        new YourLogger()    // YourLogger: Psr-3 compliant logger
+    );
+    $client->getNetDriver()->setVerbose(true);
 
 }
 catch(\Throwable $e)
