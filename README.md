@@ -63,22 +63,6 @@ $client->getMarkets();
  
 ```
 
-### benchmark sample:
-```php
-use PhitFlyer\PhitFlyerClient;
-use PhitFlyer\PhitFlyerBenchmarkClient;
-
-$client = new PhitFlyerBenchmarkClient(
-            new PhitFlyerClient(),
-            function ($m, $e) use(&$method, &$elapsed){
-                 echo "[$m]finished in $e sec" . PHP_EOL;
-             }
-        );
-
-$client->getMarkets();
-
-```
-
 ### logger client sample:
 ```php
 use PhitFlyer\PhitFlyerClient;
@@ -86,7 +70,7 @@ use PhitFlyer\PhitFlyerLoggerClient;
 
 $client = new PhitFlyerLoggerClient(
             new PhitFlyerClient(),
-            new PhitFlyerClient(), new YourLogger());    // YourLogger: Psr-3 compliant logger
+            new YourLogger());    // YourLogger: Psr-3 compliant logger
         );
 
 ```
