@@ -6,13 +6,6 @@ namespace Stk2k\PhitFlyer;
 use Stk2k\NetDriver\Http\HttpRequest;
 use Stk2k\NetDriver\NetDriverInterface;
 
-use Stk2k\PhitFlyer\Object\Market;
-use Stk2k\PhitFlyer\Object\Board;
-use Stk2k\PhitFlyer\Object\Ticker;
-use Stk2k\PhitFlyer\Object\Execution;
-use Stk2k\PhitFlyer\Object\Health;
-use Stk2k\PhitFlyer\Object\Chat;
-
 /**
  * Benchmark decorator
  */
@@ -34,7 +27,7 @@ class PhitFlyerBenchmarkClient implements PhitFlyerClientInterface
      * @param PhitFlyerClientInterface $flyer
      * @param callable $callback
      */
-    public function __construct($flyer, $callback){
+    public function __construct(PhitFlyerClientInterface $flyer, callable $callback){
         $this->client = $flyer;
         $this->callback = $callback;
     }
@@ -42,9 +35,9 @@ class PhitFlyerBenchmarkClient implements PhitFlyerClientInterface
     /**
      * get last request
      *
-     * @return HttpRequest
+     * @return HttpRequest|null
      */
-    public function getLastRequest()
+    public function getLastRequest() : ?HttpRequest
     {
         return $this->client->getLastRequest();
     }
@@ -62,9 +55,9 @@ class PhitFlyerBenchmarkClient implements PhitFlyerClientInterface
     /**
      * get net driver
      *
-     * @return NetDriverInterface
+     * @return NetDriverInterface|null
      */
-    public function getNetDriver()
+    public function getNetDriver() : ?NetDriverInterface
     {
         return $this->client->getNetDriver();
     }
@@ -84,11 +77,11 @@ class PhitFlyerBenchmarkClient implements PhitFlyerClientInterface
      *
      * @param callable $bench_func
      * @param array|null $args
-     * @param integer $precision
+     * @param int $precision
      *
      * @return array
      */
-    private static function bench($bench_func, $args = null, $precision = 4)
+    private static function bench(callable $bench_func, array $args = null, int $precision = 4) : array
     {
         $start = microtime(true);
         if ($args){
@@ -99,7 +92,7 @@ class PhitFlyerBenchmarkClient implements PhitFlyerClientInterface
         }
         $end = microtime(true);
         $elapsed = round($end - $start, $precision);
-        return array( $result, $elapsed );
+        return [$result, $elapsed];
     }
     
     /**
@@ -107,11 +100,11 @@ class PhitFlyerBenchmarkClient implements PhitFlyerClientInterface
      *
      * @param callable $bench_func
      * @param array|null $args
-     * @param integer $precision
+     * @param int $precision
      *
      * @return float
      */
-    private static function benchNoResult($bench_func, $args = null, $precision = 4)
+    private static function benchNoResult(callable $bench_func, array $args = null, $precision = 4) : float
     {
         $start = microtime(true);
         if ($args){
@@ -121,14 +114,13 @@ class PhitFlyerBenchmarkClient implements PhitFlyerClientInterface
             call_user_func($bench_func);
         }
         $end = microtime(true);
-        $elapsed = round($end - $start, $precision);
-        return $elapsed;
+        return round($end - $start, $precision);
     }
     
     /**
      * [public] get markets
      *
-     * @return Market[]|null
+     * @return mixed
      */
     public function getMarkets()
     {
@@ -141,11 +133,11 @@ class PhitFlyerBenchmarkClient implements PhitFlyerClientInterface
     /**
      * [public] get boards
      *
-     * @param string $product_code
+     * @param string|null $product_code
      *
-     * @return Board
+     * @return mixed
      */
-    public function getBoard($product_code = null)
+    public function getBoard(string $product_code = null)
     {
         $bench_func = array( $this->client, 'getBoard' );
         $args = array( $product_code );
@@ -157,11 +149,11 @@ class PhitFlyerBenchmarkClient implements PhitFlyerClientInterface
     /**
      * [public] get ticker
      *
-     * @param string $product_code
+     * @param string|null $product_code
      *
-     * @return Ticker
+     * @return mixed
      */
-    public function getTicker($product_code = null)
+    public function getTicker(string $product_code = null)
     {
         $bench_func = array( $this->client, 'getTicker' );
         $args = array( $product_code );
@@ -173,14 +165,14 @@ class PhitFlyerBenchmarkClient implements PhitFlyerClientInterface
     /**
      * [public] get executions
      *
-     * @param string $product_code
-     * @param integer $before
-     * @param integer $after
-     * @param integer $count
+     * @param string|null $product_code
+     * @param int|null $before
+     * @param int|null $after
+     * @param int|null $count
      *
-     * @return Execution[]
+     * @return mixed
      */
-    public function getExecutions($product_code = null, $before = null, $after = null, $count = null)
+    public function getExecutions(string $product_code = null, int $before = null, int $after = null, int $count = null)
     {
         $bench_func = array( $this->client, 'getExecutions' );
         $args = array( $product_code, $before, $after, $count );
@@ -192,11 +184,11 @@ class PhitFlyerBenchmarkClient implements PhitFlyerClientInterface
     /**
      * [public] get board state
      *
-     * @param string $product_code
+     * @param string|null $product_code
      *
-     * @return array
+     * @return mixed
      */
-    public function getBoardState($product_code = null)
+    public function getBoardState(string $product_code = null)
     {
         $bench_func = array( $this->client, 'getBoardState' );
         $args = array( $product_code );
@@ -208,7 +200,7 @@ class PhitFlyerBenchmarkClient implements PhitFlyerClientInterface
     /**
      * [public] get health
      *
-     * @return Health
+     * @return mixed
      */
     public function getHealth()
     {
@@ -221,11 +213,11 @@ class PhitFlyerBenchmarkClient implements PhitFlyerClientInterface
     /**
      * [public] get chats
      *
-     * @param string $from_date
+     * @param string|null $from_date
      *
-     * @return Chat[]
+     * @return mixed
      */
-    public function getChats($from_date = null)
+    public function getChats(string $from_date = null)
     {
         $bench_func = array( $this->client, 'getChats' );
         $args = array( $from_date );
@@ -237,7 +229,7 @@ class PhitFlyerBenchmarkClient implements PhitFlyerClientInterface
     /**
      * [private] get permissions
      *
-     * @return array
+     * @return mixed
      */
     public function meGetPermissions()
     {
@@ -250,7 +242,7 @@ class PhitFlyerBenchmarkClient implements PhitFlyerClientInterface
     /**
      * [private] get balance
      *
-     * @return array
+     * @return mixed
      */
     public function meGetBalance()
     {
@@ -263,7 +255,7 @@ class PhitFlyerBenchmarkClient implements PhitFlyerClientInterface
     /**
      * [private] get collateral
      *
-     * @return object
+     * @return mixed
      */
     public function meGetCollateral()
     {
@@ -276,7 +268,7 @@ class PhitFlyerBenchmarkClient implements PhitFlyerClientInterface
     /**
      * [private] get collateral accounts
      *
-     * @return array
+     * @return mixed
      */
     public function meGetCollateralAccounts()
     {
@@ -289,7 +281,7 @@ class PhitFlyerBenchmarkClient implements PhitFlyerClientInterface
     /**
      * [private] get address
      *
-     * @return array
+     * @return mixed
      */
     public function meGetAddress()
     {
@@ -302,13 +294,13 @@ class PhitFlyerBenchmarkClient implements PhitFlyerClientInterface
     /**
      * [private] get coin ins
      *
-     * @param integer $before
-     * @param integer $after
-     * @param integer $count
+     * @param int|null $before
+     * @param int|null $after
+     * @param int|null $count
      *
-     * @return array
+     * @return mixed
      */
-    public function meGetCoinIns($before = null, $after = null, $count = null)
+    public function meGetCoinIns(int $before = null, int $after = null, int $count = null)
     {
         $bench_func = array( $this->client, 'meGetCoinIns' );
         $args = array( $before, $after, $count );
@@ -320,13 +312,13 @@ class PhitFlyerBenchmarkClient implements PhitFlyerClientInterface
     /**
      * [private] get coin outs
      *
-     * @param integer $before
-     * @param integer $after
-     * @param integer $count
+     * @param int|null $before
+     * @param int|null $after
+     * @param int|null $count
      *
-     * @return array
+     * @return mixed
      */
-    public function meGetCoinOuts($before = null, $after = null, $count = null)
+    public function meGetCoinOuts(int $before = null, int $after = null, int $count = null)
     {
         $bench_func = array( $this->client, 'meGetCoinOuts' );
         $args = array( $before, $after, $count );
@@ -338,7 +330,7 @@ class PhitFlyerBenchmarkClient implements PhitFlyerClientInterface
     /**
      * [private] get bank accounts
      *
-     * @return array
+     * @return mixed
      */
     public function meGetBankAccounts()
     {
@@ -351,13 +343,13 @@ class PhitFlyerBenchmarkClient implements PhitFlyerClientInterface
     /**
      * [private] get deposits
      *
-     * @param integer $before
-     * @param integer $after
-     * @param integer $count
+     * @param int|null $before
+     * @param int|null $after
+     * @param int|null $count
      *
-     * @return array
+     * @return mixed
      */
-    public function meGetDeposits($before = null, $after = null, $count = null)
+    public function meGetDeposits(int $before = null, int $after = null, int $count = null)
     {
         $bench_func = array( $this->client, 'meGetDeposits' );
         $args = array( $before, $after, $count );
@@ -370,13 +362,14 @@ class PhitFlyerBenchmarkClient implements PhitFlyerClientInterface
      * [private] withdraw
      *
      * @param string $currency_code
-     * @param integer $bank_account_id
-     * @param integer $amount
+     * @param int $bank_account_id
+     * @param int $amount
      * @param string|null $code
      *
-     * @return object
+     * @return mixed
+     * @noinspection PhpUnused
      */
-    public function meWithdraw($currency_code, $bank_account_id, $amount, $code = null)
+    public function meWithdraw(string $currency_code, int $bank_account_id, int $amount, string $code = null)
     {
         $bench_func = array( $this->client, 'meWithdraw' );
         $args = array( $currency_code, $bank_account_id, $amount, $code );
@@ -391,14 +384,15 @@ class PhitFlyerBenchmarkClient implements PhitFlyerClientInterface
      * @param string $product_code
      * @param string $child_order_type
      * @param string $side
-     * @param integer $price
+     * @param int $price
      * @param float $size
-     * @param integer $minute_to_expire
-     * @param string $time_in_force
+     * @param int|null $minute_to_expire
+     * @param string|null $time_in_force
      *
-     * @return object
+     * @return mixed
      */
-    public function meSendChildOrder($product_code, $child_order_type, $side, $price, $size, $minute_to_expire = null, $time_in_force = null)
+    public function meSendChildOrder(string $product_code, string $child_order_type, string $side, int $price, float $size,
+                                     int $minute_to_expire = null, string $time_in_force = null)
     {
         $bench_func = array( $this->client, 'meSendChildOrder' );
         $args = array( $product_code, $child_order_type, $side, $price, $size, $minute_to_expire, $time_in_force );
@@ -413,7 +407,7 @@ class PhitFlyerBenchmarkClient implements PhitFlyerClientInterface
      * @param string $product_code
      * @param string $child_order_id
      */
-    public function meCancelChildOrder($product_code, $child_order_id)
+    public function meCancelChildOrder(string $product_code, string $child_order_id)
     {
         $bench_func = array( $this->client, 'meCancelChildOrder' );
         $args = array( $product_code, $child_order_id );
@@ -426,7 +420,7 @@ class PhitFlyerBenchmarkClient implements PhitFlyerClientInterface
      *
      * @param string $product_code
      */
-    public function meCancelAllChildOrders($product_code)
+    public function meCancelAllChildOrders(string $product_code)
     {
         $bench_func = array( $this->client, 'meCancelAllChildOrders' );
         $args = array( $product_code, );
@@ -438,15 +432,16 @@ class PhitFlyerBenchmarkClient implements PhitFlyerClientInterface
      * [private] get child orders
      *
      * @param string $product_code
-     * @param integer $before
-     * @param integer $after
-     * @param integer $count
-     * @param string $child_order_state
-     * @param string $parent_order_id
+     * @param int|null $before
+     * @param int|null $after
+     * @param int|null $count
+     * @param string|null $child_order_state
+     * @param string|null $parent_order_id
      *
-     * @return array
+     * @return mixed
      */
-    public function meGetChildOrders($product_code, $before = null, $after = null, $count = null, $child_order_state = null, $parent_order_id = null)
+    public function meGetChildOrders(string $product_code, int $before = null, int $after = null, int $count = null,
+                                     string $child_order_state = null, string $parent_order_id = null)
     {
         $bench_func = array( $this->client, 'meGetChildOrders' );
         $args = array( $product_code, $before, $after, $count, $child_order_state, $parent_order_id );
@@ -459,15 +454,16 @@ class PhitFlyerBenchmarkClient implements PhitFlyerClientInterface
      * [private] get executions
      *
      * @param string $product_code
-     * @param integer $before
-     * @param integer $after
-     * @param integer $count
-     * @param string $child_order_id
-     * @param string $child_order_acceptance_id
+     * @param int|null $before
+     * @param int|null $after
+     * @param int|null $count
+     * @param string|null $child_order_id
+     * @param string|null $child_order_acceptance_id
      *
-     * @return array
+     * @return mixed
      */
-    public function meGetExecutions($product_code, $before = null, $after = null, $count = null, $child_order_id = null, $child_order_acceptance_id = null)
+    public function meGetExecutions(string $product_code, int $before = null, int $after = null, int $count = null,
+                                    string $child_order_id = null, string $child_order_acceptance_id = null)
     {
         $bench_func = array( $this->client, 'meGetExecutions' );
         $args = array( $product_code, $before, $after, $count, $child_order_id, $child_order_acceptance_id );
@@ -481,9 +477,9 @@ class PhitFlyerBenchmarkClient implements PhitFlyerClientInterface
      *
      * @param string $product_code
      *
-     * @return array
+     * @return mixed
      */
-    public function meGetPositions($product_code)
+    public function meGetPositions(string $product_code)
     {
         $bench_func = array( $this->client, 'meGetPositions' );
         $args = array( $product_code );
@@ -497,9 +493,9 @@ class PhitFlyerBenchmarkClient implements PhitFlyerClientInterface
      *
      * @param string $product_code
      *
-     * @return object
+     * @return mixed
      */
-    public function meGetTradingCommission($product_code)
+    public function meGetTradingCommission(string $product_code)
     {
         $bench_func = array( $this->client, 'meGetTradingCommission' );
         $args = array( $product_code );

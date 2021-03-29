@@ -30,15 +30,16 @@ class MeBankAccount
     /**
      * construct
      *
-     * @param integer $id
-     * @param boolean $is_verified
+     * @param int $id
+     * @param bool $is_verified
      * @param string $bank_name
      * @param string $branch_name
      * @param string $account_type
      * @param string $account_number
      * @param string $account_name
      */
-    public function __construct($id, $is_verified, $bank_name, $branch_name, $account_type, $account_number, $account_name){
+    public function __construct(int $id, bool $is_verified, string $bank_name, string $branch_name, string $account_type,
+                                string $account_number, string $account_name){
         $this->id = $id;
         $this->is_verified = $is_verified;
         $this->bank_name = $bank_name;
@@ -55,33 +56,36 @@ class MeBankAccount
      *
      * @return MeBankAccount
      */
-    public static function fromArray(array $data){
+    public static function fromArray(array $data) : MeBankAccount
+    {
         return new self(
-            isset($data['id']) ? $data['id'] : null,
-            isset($data['is_verified']) ? $data['is_verified'] : null,
-            isset($data['bank_name']) ? $data['bank_name'] : null,
-            isset($data['branch_name']) ? $data['branch_name'] : null,
-            isset($data['account_type']) ? $data['account_type'] : null,
-            isset($data['account_number']) ? $data['account_number'] : null,
-            isset($data['account_name']) ? $data['account_name'] : null
+            $data['id'] ?? null,
+            $data['is_verified'] ?? null,
+            $data['bank_name'] ?? null,
+            $data['branch_name'] ?? null,
+            $data['account_type'] ?? null,
+            $data['account_number'] ?? null,
+            $data['account_name'] ?? null
         );
     }
     
     /**
      * get id
      *
-     * @return integer
+     * @return int
      */
-    public function getId(){
+    public function getId() : int
+    {
         return $this->id;
     }
     
     /**
      * is verified
      *
-     * @return boolean
+     * @return bool
      */
-    public function getIsVerified(){
+    public function getIsVerified() : bool
+    {
         return $this->is_verified;
     }
     
@@ -89,8 +93,10 @@ class MeBankAccount
      * get bank name
      *
      * @return string
+     * @noinspection PhpUnused
      */
-    public function getBankName(){
+    public function getBankName() : string
+    {
         return $this->bank_name;
     }
     
@@ -98,8 +104,10 @@ class MeBankAccount
      * get branch name
      *
      * @return string
+     * @noinspection PhpUnused
      */
-    public function getBranchName(){
+    public function getBranchName() : string
+    {
         return $this->branch_name;
     }
     
@@ -108,7 +116,8 @@ class MeBankAccount
      *
      * @return string
      */
-    public function getAccountType(){
+    public function getAccountType() : string
+    {
         return $this->account_type;
     }
     
@@ -117,7 +126,8 @@ class MeBankAccount
      *
      * @return string
      */
-    public function getAccountNumber(){
+    public function getAccountNumber() : string
+    {
         return $this->account_number;
     }
     
@@ -126,7 +136,8 @@ class MeBankAccount
      *
      * @return string
      */
-    public function getAccountName(){
+    public function getAccountName() : string
+    {
         return $this->account_name;
     }
     

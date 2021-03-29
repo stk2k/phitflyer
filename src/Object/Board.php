@@ -18,11 +18,11 @@ class Board
     /**
      * construct
      *
-     * @param integer $mid_price
+     * @param int $mid_price
      * @param Bid[] $bids
      * @param Ask[] $asks
      */
-    public function __construct($mid_price, $bids, $asks){
+    public function __construct(int $mid_price, array $bids, array $asks){
         $this->mid_price = $mid_price;
         $this->bids = $bids;
         $this->asks = $asks;
@@ -35,20 +35,23 @@ class Board
      *
      * @return Board
      */
-    public static function fromArray(array $data){
+    public static function fromArray(array $data) : Board
+    {
         return new self(
-            isset($data['mid_price']) ? $data['mid_price'] : null,
-            array_map(function($i){ return Bid::fromArray($i); }, isset($data['bids']) ? $data['bids'] : []),
-            array_map(function($i){ return Ask::fromArray($i); }, isset($data['asks']) ? $data['asks'] : [])
+            $data['mid_price'] ?? null,
+            array_map(function($i){ return Bid::fromArray($i); }, $data['bids'] ?? []),
+            array_map(function($i){ return Ask::fromArray($i); }, $data['asks'] ?? [])
         );
     }
     
     /**
      * get mid price
      *
-     * @return integer
+     * @return int
+     * @noinspection PhpUnused
      */
-    public function getMidPrice(){
+    public function getMidPrice() : int
+    {
         return $this->mid_price;
     }
     
@@ -56,8 +59,10 @@ class Board
      * get bids
      *
      * @return Bid[]
+     * @noinspection PhpUnused
      */
-    public function getBids(){
+    public function getBids() : array
+    {
         return $this->bids;
     }
     
@@ -66,7 +71,8 @@ class Board
      *
      * @return Ask[]
      */
-    public function getAsks(){
+    public function getAsks() : array
+    {
         return $this->asks;
     }
 }

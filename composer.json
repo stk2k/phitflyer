@@ -13,6 +13,7 @@
   ],
   "require": {
     "php": ">=7.1",
+    "ext-json": "*",
     "psr/log": "^1.0",
     "stk2k/net-driver": "~0.5"
   },

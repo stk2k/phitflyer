@@ -420,7 +420,7 @@ class PhitFlyerBenchmarkClientTest extends TestCase
         });
         
         $child_orders = $flyer->meGetChildOrders(
-            'FX_BTC_JPY', null, null, null, 'ACTIVE', null
+            'FX_BTC_JPY', null, null, null, 'ACTIVE'
         );
         
         $this->assertInternalType('array', $child_orders );

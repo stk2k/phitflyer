@@ -6,7 +6,10 @@ namespace Stk2k\PhitFlyer\Object;
 
 class Market
 {
+    /** @var string  */
     private $product_code;
+
+    /** @var string|null  */
     private $alias;
     
     /**
@@ -15,7 +18,7 @@ class Market
      * @param string $product_code
      * @param string|null $alias
      */
-    public function __construct($product_code, $alias = null){
+    public function __construct(string $product_code, string $alias = null){
         $this->product_code = $product_code;
         $this->alias = $alias;
     }
@@ -27,10 +30,11 @@ class Market
      *
      * @return Market
      */
-    public static function fromArray(array $data){
+    public static function fromArray(array $data) : Market
+    {
         return new self(
-            isset($data['product_code']) ? $data['product_code'] : null,
-            isset($data['alias']) ? $data['alias'] : null
+            $data['product_code'] ?? null,
+            $data['alias'] ?? null
         );
     }
     
@@ -39,7 +43,8 @@ class Market
      *
      * @return string|null
      */
-    public function getProductCode(){
+    public function getProductCode() : string
+    {
         return $this->product_code;
     }
     
@@ -48,7 +53,8 @@ class Market
      *
      * @return string|null
      */
-    public function getAlias(){
+    public function getAlias() : string
+    {
         return $this->alias;
     }
 }

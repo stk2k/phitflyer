@@ -24,7 +24,7 @@ class Ticker
      *
      * @param string $product_code,
      * @param string $timestamp,
-     * @param integer $tick_id,
+     * @param int $tick_id,
      * @param float $best_bid,
      * @param float $best_ask,
      * @param float $best_bid_size,
@@ -36,18 +36,18 @@ class Ticker
      * @param float $volume_by_product
      */
     public function __construct(
-        $product_code,
-        $timestamp,
-        $tick_id,
-        $best_bid,
-        $best_ask,
-        $best_bid_size,
-        $best_ask_size,
-        $total_bid_depth,
-        $total_ask_depth,
-        $ltp,
-        $volume,
-        $volume_by_product
+        string $product_code,
+        string $timestamp,
+        int $tick_id,
+        float $best_bid,
+        float $best_ask,
+        float $best_bid_size,
+        float $best_ask_size,
+        float $total_bid_depth,
+        float $total_ask_depth,
+        float $ltp,
+        float $volume,
+        float $volume_by_product
     ){
         $this->product_code = $product_code;
         $this->timestamp = $timestamp;
@@ -70,20 +70,21 @@ class Ticker
      *
      * @return Ticker
      */
-    public static function fromArray(array $data){
+    public static function fromArray(array $data) : Ticker
+    {
         return new self(
-            isset($data['product_code']) ? $data['product_code'] : null,
-            isset($data['timestamp']) ? $data['timestamp'] : null,
-            isset($data['tick_id']) ? $data['tick_id'] : null,
-            isset($data['best_bid']) ? $data['best_bid'] : null,
-            isset($data['best_ask']) ? $data['best_ask'] : null,
-            isset($data['best_bid_size']) ? $data['best_bid_size'] : null,
-            isset($data['best_ask_size']) ? $data['best_ask_size'] : null,
-            isset($data['total_bid_depth']) ? $data['total_bid_depth'] : null,
-            isset($data['total_ask_depth']) ? $data['total_ask_depth'] : null,
-            isset($data['ltp']) ? $data['ltp'] : null,
-            isset($data['volume']) ? $data['volume'] : null,
-            isset($data['volume_by_product']) ? $data['volume_by_product'] : null
+            $data['product_code'] ?? null,
+            $data['timestamp'] ?? null,
+            $data['tick_id'] ?? null,
+            $data['best_bid'] ?? null,
+            $data['best_ask'] ?? null,
+            $data['best_bid_size'] ?? null,
+            $data['best_ask_size'] ?? null,
+            $data['total_bid_depth'] ?? null,
+            $data['total_ask_depth'] ?? null,
+            $data['ltp'] ?? null,
+            $data['volume'] ?? null,
+            $data['volume_by_product'] ?? null
         );
     }
     
@@ -92,7 +93,8 @@ class Ticker
      *
      * @return string
      */
-    public function getProductCode(){
+    public function getProductCode() : string
+    {
         return $this->product_code;
     }
     
@@ -100,17 +102,21 @@ class Ticker
      * get timestamp
      *
      * @return string
+     * @noinspection PhpUnused
      */
-    public function getTimeStamp(){
+    public function getTimeStamp() : string
+    {
         return $this->timestamp;
     }
     
     /**
      * get ticker id
      *
-     * @return integer
+     * @return int
+     * @noinspection PhpUnused
      */
-    public function getTickId(){
+    public function getTickId() : int
+    {
         return $this->tick_id;
     }
     
@@ -118,26 +124,21 @@ class Ticker
      * get best bid
      *
      * @return float
+     * @noinspection PhpUnused
      */
-    public function getBestBid(){
+    public function getBestBid() : float
+    {
         return $this->best_bid;
     }
-    
-    /**
-     * get best ask
-     *
-     * @return float
-     */
-    public function getBestAsk(){
-        return $this->best_ask;
-    }
-    
+
     /**
      * get best bid size
      *
      * @return float
+     * @noinspection PhpUnused
      */
-    public function getBestBidSize(){
+    public function getBestBidSize() : float
+    {
         return $this->best_bid_size;
     }
     
@@ -146,7 +147,8 @@ class Ticker
      *
      * @return float
      */
-    public function getBestAskSize(){
+    public function getBestAskSize() : float
+    {
         return $this->best_ask_size;
     }
     
@@ -155,7 +157,8 @@ class Ticker
      *
      * @return float
      */
-    public function getTotalBidDepth(){
+    public function getTotalBidDepth() : float
+    {
         return $this->total_bid_depth;
     }
     
@@ -163,8 +166,10 @@ class Ticker
      * get total ask depth
      *
      * @return float
+     * @noinspection PhpUnused
      */
-    public function getTotalAskDepth(){
+    public function getTotalAskDepth() : float
+    {
         return $this->total_ask_depth;
     }
     
@@ -172,8 +177,10 @@ class Ticker
      * get ltp
      *
      * @return float
+     * @noinspection PhpUnused
      */
-    public function getLtp(){
+    public function getLtp() : float
+    {
         return $this->ltp;
     }
     
@@ -181,8 +188,10 @@ class Ticker
      * get volume
      *
      * @return float
+     * @noinspection PhpUnused
      */
-    public function getVolume(){
+    public function getVolume() : float
+    {
         return $this->volume;
     }
     
@@ -190,8 +199,10 @@ class Ticker
      * get volume
      *
      * @return float
+     * @noinspection PhpUnused
      */
-    public function getVolumeByProduct(){
+    public function getVolumeByProduct() : float
+    {
         return $this->volume_by_product;
     }
 }

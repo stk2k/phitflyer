@@ -27,7 +27,7 @@ class PhitFlyerLoggerClient implements PhitFlyerClientInterface, NetDriverChange
      * @param PhitFlyerClientInterface $client
      * @param LoggerInterface $logger
      */
-    public function __construct($client, $logger){
+    public function __construct(PhitFlyerClientInterface $client, LoggerInterface $logger){
         $this->client = $client;
         $this->logger = $logger;
 
@@ -37,9 +37,9 @@ class PhitFlyerLoggerClient implements PhitFlyerClientInterface, NetDriverChange
     /**
      * get last request
      *
-     * @return HttpRequest
+     * @return HttpRequest|null
      */
-    public function getLastRequest()
+    public function getLastRequest() : ?HttpRequest
     {
         return $this->client->getLastRequest();
     }
@@ -67,9 +67,9 @@ class PhitFlyerLoggerClient implements PhitFlyerClientInterface, NetDriverChange
     /**
      * get net driver
      *
-     * @return NetDriverInterface
+     * @return NetDriverInterface|null
      */
-    public function getNetDriver()
+    public function getNetDriver() : ?NetDriverInterface
     {
         return $this->client->getNetDriver();
     }
@@ -87,7 +87,7 @@ class PhitFlyerLoggerClient implements PhitFlyerClientInterface, NetDriverChange
     /**
      * [public] get markets
      *
-     * @return array
+     * @return mixed
      *
      * @throws PhitFlyerClientExceptionInterface
      */
@@ -104,7 +104,7 @@ class PhitFlyerLoggerClient implements PhitFlyerClientInterface, NetDriverChange
      *
      * @param string $product_code
      *
-     * @return array
+     * @return mixed
      *
      * @throws PhitFlyerClientExceptionInterface
      */
@@ -121,7 +121,7 @@ class PhitFlyerLoggerClient implements PhitFlyerClientInterface, NetDriverChange
      *
      * @param string $product_code
      *
-     * @return array
+     * @return mixed
      *
      * @throws PhitFlyerClientExceptionInterface
      */
@@ -141,7 +141,7 @@ class PhitFlyerLoggerClient implements PhitFlyerClientInterface, NetDriverChange
      * @param integer $after
      * @param integer $count
      *
-     * @return array
+     * @return mixed
      *
      * @throws PhitFlyerClientExceptionInterface
      */
@@ -158,7 +158,7 @@ class PhitFlyerLoggerClient implements PhitFlyerClientInterface, NetDriverChange
      *
      * @param string $product_code
      *
-     * @return array
+     * @return mixed
      *
      * @throws PhitFlyerClientExceptionInterface
      */
@@ -173,7 +173,7 @@ class PhitFlyerLoggerClient implements PhitFlyerClientInterface, NetDriverChange
     /**
      * [public] get health
      *
-     * @return array
+     * @return mixed
      *
      * @throws PhitFlyerClientExceptionInterface
      */
@@ -190,7 +190,7 @@ class PhitFlyerLoggerClient implements PhitFlyerClientInterface, NetDriverChange
      *
      * @param string $from_date
      *
-     * @return array
+     * @return mixed
      *
      * @throws PhitFlyerClientExceptionInterface
      */
@@ -205,7 +205,7 @@ class PhitFlyerLoggerClient implements PhitFlyerClientInterface, NetDriverChange
     /**
      * [private] get permissions
      *
-     * @return array
+     * @return mixed
      *
      * @throws PhitFlyerClientExceptionInterface
      */
@@ -220,7 +220,7 @@ class PhitFlyerLoggerClient implements PhitFlyerClientInterface, NetDriverChange
     /**
      * [private] get balance
      *
-     * @return array
+     * @return mixed
      *
      * @throws PhitFlyerClientExceptionInterface
      */
@@ -235,7 +235,7 @@ class PhitFlyerLoggerClient implements PhitFlyerClientInterface, NetDriverChange
     /**
      * [private] get collateral
      *
-     * @return array
+     * @return mixed
      *
      * @throws PhitFlyerClientExceptionInterface
      */
@@ -250,7 +250,7 @@ class PhitFlyerLoggerClient implements PhitFlyerClientInterface, NetDriverChange
     /**
      * [private] get collateral accounts
      *
-     * @return array
+     * @return mixed
      *
      * @throws PhitFlyerClientExceptionInterface
      */
@@ -265,7 +265,7 @@ class PhitFlyerLoggerClient implements PhitFlyerClientInterface, NetDriverChange
     /**
      * [private] get address
      *
-     * @return array
+     * @return mixed
      *
      * @throws PhitFlyerClientExceptionInterface
      */
@@ -284,7 +284,7 @@ class PhitFlyerLoggerClient implements PhitFlyerClientInterface, NetDriverChange
      * @param integer $after
      * @param integer $count
      *
-     * @return array
+     * @return mixed
      *
      * @throws PhitFlyerClientExceptionInterface
      */
@@ -303,7 +303,7 @@ class PhitFlyerLoggerClient implements PhitFlyerClientInterface, NetDriverChange
      * @param integer $after
      * @param integer $count
      *
-     * @return array
+     * @return mixed
      *
      * @throws PhitFlyerClientExceptionInterface
      */
@@ -318,7 +318,7 @@ class PhitFlyerLoggerClient implements PhitFlyerClientInterface, NetDriverChange
     /**
      * [private] get bank accounts
      *
-     * @return array
+     * @return mixed
      *
      * @throws PhitFlyerClientExceptionInterface
      */
@@ -337,7 +337,7 @@ class PhitFlyerLoggerClient implements PhitFlyerClientInterface, NetDriverChange
      * @param integer $after
      * @param integer $count
      *
-     * @return array
+     * @return mixed
      *
      * @throws PhitFlyerClientExceptionInterface
      */
@@ -355,15 +355,16 @@ class PhitFlyerLoggerClient implements PhitFlyerClientInterface, NetDriverChange
      * @param string $product_code
      * @param string $child_order_type
      * @param string $side
-     * @param integer $price
+     * @param int $price
      * @param float $size
-     * @param integer $minute_to_expire
-     * @param string $time_in_force
+     * @param int|null $minute_to_expire
+     * @param string|null $time_in_force
      *
-     * @return  array
+     * @return  mixed
      * @throws PhitFlyerClientExceptionInterface
      */
-    public function meSendChildOrder($product_code, $child_order_type, $side, $price, $size, $minute_to_expire = null, $time_in_force = null)
+    public function meSendChildOrder(string $product_code, string $child_order_type, string $side, int $price, float $size,
+                                     int $minute_to_expire = null, string $time_in_force = null)
     {
         $this->logger->debug('started meSendChildOrder');
         $ret = $this->client->meSendChildOrder($product_code, $child_order_type, $side, $price, $size, $minute_to_expire, $time_in_force);
@@ -379,7 +380,7 @@ class PhitFlyerLoggerClient implements PhitFlyerClientInterface, NetDriverChange
      *
      * @throws PhitFlyerClientExceptionInterface
      */
-    public function meCancelChildOrder($product_code, $child_order_id)
+    public function meCancelChildOrder(string $product_code, string $child_order_id)
     {
         $this->logger->debug('started meCancelChildOrder');
         $this->client->meCancelChildOrder($product_code, $child_order_id);
@@ -393,7 +394,7 @@ class PhitFlyerLoggerClient implements PhitFlyerClientInterface, NetDriverChange
      *
      * @throws PhitFlyerClientExceptionInterface
      */
-    public function meCancelAllChildOrders($product_code)
+    public function meCancelAllChildOrders(string $product_code)
     {
         $this->logger->debug('started meCancelAllChildOrders');
         $this->client->meCancelAllChildOrders($product_code);
@@ -404,16 +405,17 @@ class PhitFlyerLoggerClient implements PhitFlyerClientInterface, NetDriverChange
      * [private] get child orders
      *
      * @param string $product_code
-     * @param integer $before
-     * @param integer $after
-     * @param integer $count
-     * @param string $child_order_state
-     * @param string $parent_order_id
+     * @param int|null $before
+     * @param int|null $after
+     * @param int|null $count
+     * @param string|null $child_order_state
+     * @param string|null $parent_order_id
      *
-     * @return array
+     * @return mixed
      * @throws PhitFlyerClientExceptionInterface
      */
-    public function meGetChildOrders($product_code, $before = null, $after = null, $count = null, $child_order_state = null, $parent_order_id = null)
+    public function meGetChildOrders(string $product_code, int $before = null, int $after = null, int $count = null,
+                                     string $child_order_state = null, string $parent_order_id = null)
     {
         $this->logger->debug('started meGetChildOrders');
         $ret = $this->client->meGetChildOrders($product_code, $before, $after, $count, $child_order_state, $parent_order_id);
@@ -425,16 +427,17 @@ class PhitFlyerLoggerClient implements PhitFlyerClientInterface, NetDriverChange
      * [private] get executions
      *
      * @param string $product_code
-     * @param integer $before
-     * @param integer $after
-     * @param integer $count
-     * @param string $child_order_id
-     * @param string $child_order_acceptance_id
+     * @param int|null $before
+     * @param int|null $after
+     * @param int|null $count
+     * @param string|null $child_order_id
+     * @param string|null $child_order_acceptance_id
      *
-     * @return array
+     * @return mixed
      * @throws PhitFlyerClientExceptionInterface
      */
-    public function meGetExecutions($product_code, $before = null, $after = null, $count = null, $child_order_id = null, $child_order_acceptance_id = null)
+    public function meGetExecutions(string $product_code, int $before = null, int $after = null, int $count = null,
+                                    string $child_order_id = null, string $child_order_acceptance_id = null)
     {
         $this->logger->debug('started meGetExecutions');
         $ret = $this->client->meGetExecutions($product_code, $before, $after, $count, $child_order_id, $child_order_acceptance_id);
@@ -447,10 +450,10 @@ class PhitFlyerLoggerClient implements PhitFlyerClientInterface, NetDriverChange
      *
      * @param string $product_code
      *
-     * @return array
+     * @return mixed
      * @throws PhitFlyerClientExceptionInterface
      */
-    public function meGetPositions($product_code)
+    public function meGetPositions(string $product_code)
     {
         $this->logger->debug('started meGetPositions');
         $ret = $this->client->meGetPositions($product_code);
@@ -463,10 +466,10 @@ class PhitFlyerLoggerClient implements PhitFlyerClientInterface, NetDriverChange
      *
      * @param string $product_code
      *
-     * @return array
+     * @return mixed
      * @throws PhitFlyerClientExceptionInterface
      */
-    public function meGetTradingCommission($product_code)
+    public function meGetTradingCommission(string $product_code)
     {
         $this->logger->debug('started meGetTradingCommission');
         $ret = $this->client->meGetTradingCommission($product_code);

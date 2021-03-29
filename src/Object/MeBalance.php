@@ -22,7 +22,7 @@ class MeBalance
      * @param float $amount
      * @param float $available
      */
-    public function __construct($currency_code, $amount, $available){
+    public function __construct(string $currency_code, float $amount, float $available){
         $this->currency_code = $currency_code;
         $this->amount = $amount;
         $this->available = $available;
@@ -35,11 +35,12 @@ class MeBalance
      *
      * @return MeBalance
      */
-    public static function fromArray(array $data){
+    public static function fromArray(array $data) : MeBalance
+    {
         return new self(
-            isset($data['currency_code']) ? $data['currency_code'] : null,
-            isset($data['amount']) ? $data['amount'] : null,
-            isset($data['available']) ? $data['available'] : null
+            $data['currency_code'] ?? null,
+            $data['amount'] ?? null,
+            $data['available'] ?? null
         );
     }
     
@@ -48,7 +49,8 @@ class MeBalance
      *
      * @return string
      */
-    public function getCurrenecyCode(){
+    public function getCurrenecyCode() : string
+    {
         return $this->currency_code;
     }
     
@@ -57,7 +59,8 @@ class MeBalance
      *
      * @return float
      */
-    public function getAmount(){
+    public function getAmount() : float
+    {
         return $this->amount;
     }
     
@@ -66,7 +69,8 @@ class MeBalance
      *
      * @return float
      */
-    public function getAvailable(){
+    public function getAvailable() : float
+    {
         return $this->available;
     }
 }

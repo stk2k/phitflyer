@@ -50,7 +50,8 @@ class MeCoinOut
      * @param string $status
      * @param string $event_date;
      */
-    public function __construct($id, $order_id, $currency_code, $amount, $address, $tx_hash, $fee, $additional_fee, $status, $event_date){
+    public function __construct(string $id, string $order_id, string $currency_code, float $amount, string $address,
+                                string $tx_hash, float $fee, float $additional_fee, string $status, string $event_date){
         $this->id = $id;
         $this->order_id = $order_id;
         $this->currency_code = $currency_code;
@@ -70,27 +71,29 @@ class MeCoinOut
      *
      * @return MeCoinOut
      */
-    public static function fromArray(array $data){
+    public static function fromArray(array $data) : MeCoinOut
+    {
         return new self(
-            isset($data['id']) ? $data['id'] : null,
-            isset($data['order_id']) ? $data['order_id'] : null,
-            isset($data['currency_code']) ? $data['currency_code'] : null,
-            isset($data['amount']) ? $data['amount'] : null,
-            isset($data['address']) ? $data['address'] : null,
-            isset($data['tx_hash']) ? $data['tx_hash'] : null,
-            isset($data['fee']) ? $data['fee'] : null,
-            isset($data['additional_fee']) ? $data['additional_fee'] : null,
-            isset($data['status']) ? $data['status'] : null,
-            isset($data['event_date']) ? $data['event_date'] : null
+            $data['id'] ?? null,
+            $data['order_id'] ?? null,
+            $data['currency_code'] ?? null,
+            $data['amount'] ?? null,
+            $data['address'] ?? null,
+            $data['tx_hash'] ?? null,
+            $data['fee'] ?? null,
+            $data['additional_fee'] ?? null,
+            $data['status'] ?? null,
+            $data['event_date'] ?? null
         );
     }
     
     /**
      * get id
      *
-     * @return integer
+     * @return int
      */
-    public function getId(){
+    public function getId() : int
+    {
         return $this->id;
     }
     
@@ -99,7 +102,8 @@ class MeCoinOut
      *
      * @return string
      */
-    public function getOrderId(){
+    public function getOrderId() : string
+    {
         return $this->order_id;
     }
     
@@ -108,7 +112,8 @@ class MeCoinOut
      *
      * @return string
      */
-    public function getCurrencyCode(){
+    public function getCurrencyCode() : string
+    {
         return $this->currency_code;
     }
     
@@ -117,7 +122,8 @@ class MeCoinOut
      *
      * @return float
      */
-    public function getAmount(){
+    public function getAmount() : float
+    {
         return $this->amount;
     }
     
@@ -126,7 +132,8 @@ class MeCoinOut
      *
      * @return string
      */
-    public function getAddress(){
+    public function getAddress() : string
+    {
         return $this->address;
     }
     
@@ -134,8 +141,10 @@ class MeCoinOut
      * get tx hash
      *
      * @return string
+     * @noinspection PhpUnused
      */
-    public function getTxHash(){
+    public function getTxHash() : string
+    {
         return $this->tx_hash;
     }
     
@@ -143,8 +152,10 @@ class MeCoinOut
      * get fee
      *
      * @return float
+     * @noinspection PhpUnused
      */
-    public function getFee(){
+    public function getFee() : float
+    {
         return $this->fee;
     }
     
@@ -152,8 +163,10 @@ class MeCoinOut
      * get additional fee
      *
      * @return float
+     * @noinspection PhpUnused
      */
-    public function getAdditionalFee(){
+    public function getAdditionalFee() : float
+    {
         return $this->additional_fee;
     }
     
@@ -162,7 +175,8 @@ class MeCoinOut
      *
      * @return string
      */
-    public function getStatus(){
+    public function getStatus() : string
+    {
         return $this->status;
     }
     
@@ -171,7 +185,8 @@ class MeCoinOut
      *
      * @return string
      */
-    public function getEventDate(){
+    public function getEventDate() : string
+    {
         return $this->event_date;
     }
 }

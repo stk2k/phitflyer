@@ -18,7 +18,7 @@ class Bid
      * @param float $price
      * @param float $size
      */
-    public function __construct($price, $size){
+    public function __construct(float $price, float $size){
         $this->price = $price;
         $this->size = $size;
     }
@@ -30,10 +30,11 @@ class Bid
      *
      * @return Bid
      */
-    public static function fromArray(array $data){
+    public static function fromArray(array $data) : Bid
+    {
         return new self(
-            isset($data['price']) ? $data['price'] : null,
-            isset($data['size']) ? $data['size'] : null
+            $data['price'] ?? null,
+            $data['size'] ?? null
         );
     }
     
@@ -42,7 +43,8 @@ class Bid
      *
      * @return float
      */
-    public function getPrice(){
+    public function getPrice() : float
+    {
         return $this->price;
     }
     
@@ -51,7 +53,8 @@ class Bid
      *
      * @return float
      */
-    public function getSize(){
+    public function getSize() : float
+    {
         return $this->size;
     }
 }

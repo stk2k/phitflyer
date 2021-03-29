@@ -42,7 +42,8 @@ class MeCoinIn
      * @param string $status
      * @param string $event_date;
      */
-    public function __construct($id, $order_id, $currency_code, $amount, $address, $tx_hash, $status, $event_date){
+    public function __construct(string $id, string $order_id, string $currency_code, float $amount, string $address,
+                                string $tx_hash, string $status, string $event_date){
         $this->id = $id;
         $this->order_id = $order_id;
         $this->currency_code = $currency_code;
@@ -60,25 +61,27 @@ class MeCoinIn
      *
      * @return MeCoinIn
      */
-    public static function fromArray(array $data){
+    public static function fromArray(array $data) : MeCoinIn
+    {
         return new self(
-            isset($data['id']) ? $data['id'] : null,
-            isset($data['order_id']) ? $data['order_id'] : null,
-            isset($data['currency_code']) ? $data['currency_code'] : null,
-            isset($data['amount']) ? $data['amount'] : null,
-            isset($data['address']) ? $data['address'] : null,
-            isset($data['tx_hash']) ? $data['tx_hash'] : null,
-            isset($data['status']) ? $data['status'] : null,
-            isset($data['event_date']) ? $data['event_date'] : null
+            $data['id'] ?? null,
+            $data['order_id'] ?? null,
+            $data['currency_code'] ?? null,
+            $data['amount'] ?? null,
+            $data['address'] ?? null,
+            $data['tx_hash'] ?? null,
+            $data['status'] ?? null,
+            $data['event_date'] ?? null
         );
     }
     
     /**
      * get id
      *
-     * @return integer
+     * @return int
      */
-    public function getId(){
+    public function getId() : int
+    {
         return $this->id;
     }
     
@@ -87,7 +90,8 @@ class MeCoinIn
      *
      * @return string
      */
-    public function getOrderId(){
+    public function getOrderId() : string
+    {
         return $this->order_id;
     }
     
@@ -96,7 +100,8 @@ class MeCoinIn
      *
      * @return string
      */
-    public function getCurrencyCode(){
+    public function getCurrencyCode() : string
+    {
         return $this->currency_code;
     }
     
@@ -105,7 +110,8 @@ class MeCoinIn
      *
      * @return float
      */
-    public function getAmount(){
+    public function getAmount() : float
+    {
         return $this->amount;
     }
     
@@ -114,7 +120,8 @@ class MeCoinIn
      *
      * @return string
      */
-    public function getAddress(){
+    public function getAddress() : string
+    {
         return $this->address;
     }
     
@@ -122,8 +129,10 @@ class MeCoinIn
      * get tx hash
      *
      * @return string
+     * @noinspection PhpUnused
      */
-    public function getTxHash(){
+    public function getTxHash() : string
+    {
         return $this->tx_hash;
     }
     
@@ -132,7 +141,8 @@ class MeCoinIn
      *
      * @return string
      */
-    public function getStatus(){
+    public function getStatus() : string
+    {
         return $this->status;
     }
     
@@ -141,7 +151,8 @@ class MeCoinIn
      *
      * @return string
      */
-    public function getEventDate(){
+    public function getEventDate() : string
+    {
         return $this->event_date;
     }
 }

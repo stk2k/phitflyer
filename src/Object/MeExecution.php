@@ -6,19 +6,34 @@ namespace Stk2k\PhitFlyer\Object;
 
 class MeExecution
 {
+    /** @var int  */
     private $id;
+
+    /** @var string  */
     private $child_order_id;
+
+    /** @var string  */
     private $side;
+
+    /** @var float  */
     private $price;
+
+    /** @var float  */
     private $size;
+
+    /** @var string  */
     private $commission;
+
+    /** @var string  */
     private $exec_date;
+
+    /** @var string  */
     private $child_order_acceptance_id;
     
     /**
      * construct
      *
-     * @param integer $id
+     * @param int $id
      * @param string $child_order_id
      * @param string $side
      * @param float $price
@@ -28,14 +43,14 @@ class MeExecution
      * @param string $child_order_acceptance_id
      */
     public function __construct(
-        $id,
-        $child_order_id,
-        $side,
-        $price,
-        $size,
-        $commission,
-        $exec_date,
-        $child_order_acceptance_id
+        int $id,
+        string $child_order_id,
+        string $side,
+        float $price,
+        float $size,
+        string $commission,
+        string $exec_date,
+        string $child_order_acceptance_id
     ){
         $this->id = $id;
         $this->child_order_id = $child_order_id;
@@ -54,25 +69,27 @@ class MeExecution
      *
      * @return MeExecution
      */
-    public static function fromArray(array $data){
+    public static function fromArray(array $data) : MeExecution
+    {
         return new self(
-            isset($data['id']) ? $data['id'] : null,
-            isset($data['child_order_id']) ? $data['child_order_id'] : null,
-            isset($data['side']) ? $data['side'] : null,
-            isset($data['price']) ? $data['price'] : null,
-            isset($data['size']) ? $data['size'] : null,
-            isset($data['commission']) ? $data['commission'] : null,
-            isset($data['exec_date']) ? $data['exec_date'] : null,
-            isset($data['child_order_acceptance_id']) ? $data['child_order_acceptance_id'] : null
+            $data['id'] ?? null,
+            $data['child_order_id'] ?? null,
+            $data['side'] ?? null,
+            $data['price'] ?? null,
+            $data['size'] ?? null,
+            $data['commission'] ?? null,
+            $data['exec_date'] ?? null,
+            $data['child_order_acceptance_id'] ?? null
         );
     }
     
     /**
      * get id
      *
-     * @return string
+     * @return int
      */
-    public function getId(){
+    public function getId() : int
+    {
         return $this->id;
     }
     
@@ -81,7 +98,8 @@ class MeExecution
      *
      * @return string
      */
-    public function getChildOrderId(){
+    public function getChildOrderId() : string
+    {
         return $this->child_order_id;
     }
     
@@ -90,7 +108,8 @@ class MeExecution
      *
      * @return string
      */
-    public function getSide(){
+    public function getSide() : string
+    {
         return $this->side;
     }
     
@@ -99,7 +118,8 @@ class MeExecution
      *
      * @return float
      */
-    public function getPrice(){
+    public function getPrice() : float
+    {
         return $this->price;
     }
     
@@ -108,7 +128,8 @@ class MeExecution
      *
      * @return float
      */
-    public function getSize(){
+    public function getSize() : float
+    {
         return $this->size;
     }
     
@@ -117,7 +138,8 @@ class MeExecution
      *
      * @return string
      */
-    public function getCommission(){
+    public function getCommission() : string
+    {
         return $this->commission;
     }
     
@@ -126,7 +148,8 @@ class MeExecution
      *
      * @return string
      */
-    public function getExecDate(){
+    public function getExecDate() : string
+    {
         return $this->exec_date;
     }
     
@@ -134,8 +157,10 @@ class MeExecution
      * get buy child order acceptance id
      *
      * @return string
+     * @noinspection PhpUnused
      */
-    public function getBuyChildOrderAcceptanceId(){
+    public function getBuyChildOrderAcceptanceId() : string
+    {
         return $this->child_order_acceptance_id;
     }
     

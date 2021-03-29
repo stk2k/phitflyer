@@ -41,26 +41,26 @@ class MePosition
      *
      * @param string $product_code
      * @param string $side
-     * @param integer $price
+     * @param int $price
      * @param float $size
      * @param float $commission
-     * @param integer $swap_point_accumulate
-     * @param integer $require_collateral
+     * @param int $swap_point_accumulate
+     * @param int $require_collateral
      * @param string $open_date
-     * @param integer $leverage
-     * @param integer $pnl
+     * @param int $leverage
+     * @param int $pnl
      */
     public function __construct(
-        $product_code,
-        $side,
-        $price,
-        $size,
-        $commission,
-        $swap_point_accumulate,
-        $require_collateral,
-        $open_date,
-        $leverage,
-        $pnl
+        string $product_code,
+        string $side,
+        int $price,
+        float $size,
+        float $commission,
+        int $swap_point_accumulate,
+        int $require_collateral,
+        string $open_date,
+        int $leverage,
+        int $pnl
     ){
         $this->product_code = $product_code;
         $this->side = $side;
@@ -81,18 +81,18 @@ class MePosition
      *
      * @return MePosition
      */
-    public static function fromArray(array $data){
+    public static function fromArray(array $data) : MePosition{
         return new self(
-            isset($data['product_code']) ? $data['product_code'] : null,
-            isset($data['side']) ? $data['side'] : null,
-            isset($data['price']) ? $data['price'] : null,
-            isset($data['size']) ? $data['size'] : null,
-            isset($data['commission']) ? $data['commission'] : null,
-            isset($data['swap_point_accumulate']) ? $data['swap_point_accumulate'] : null,
-            isset($data['require_collateral']) ? $data['require_collateral'] : null,
-            isset($data['open_date']) ? $data['open_date'] : null,
-            isset($data['leverage']) ? $data['leverage'] : null,
-            isset($data['pnl']) ? $data['pnl'] : null
+            $data['product_code'] ?? null,
+            $data['side'] ?? null,
+            $data['price'] ?? null,
+            $data['size'] ?? null,
+            $data['commission'] ?? null,
+            $data['swap_point_accumulate'] ?? null,
+            $data['require_collateral'] ?? null,
+            $data['open_date'] ?? null,
+            $data['leverage'] ?? null,
+            $data['pnl'] ?? null
         );
     }
 
@@ -101,7 +101,8 @@ class MePosition
      *
      * @return string
      */
-    public function getProductCode(){
+    public function getProductCode() : string
+    {
         return $this->product_code;
     }
     
@@ -110,16 +111,18 @@ class MePosition
      *
      * @return string
      */
-    public function getSide(){
+    public function getSide() : string
+    {
         return $this->side;
     }
     
     /**
      * get price
      *
-     * @return integer
+     * @return int
      */
-    public function getPrice(){
+    public function getPrice() : int
+    {
         return $this->price;
     }
 
@@ -128,7 +131,8 @@ class MePosition
      *
      * @return float
      */
-    public function getSize(){
+    public function getSize() : float
+    {
         return $this->size;
     }
     
@@ -137,25 +141,29 @@ class MePosition
      *
      * @return float
      */
-    public function getCommission(){
+    public function getCommission() : float
+    {
         return $this->commission;
     }
     
     /**
      * get swap point accumulate
      *
-     * @return integer
+     * @return int
+     * @noinspection PhpUnused
      */
-    public function getSwapPointAccumulate(){
+    public function getSwapPointAccumulate() : int
+    {
         return $this->swap_point_accumulate;
     }
 
     /**
      * get require collateral
      *
-     * @return integer
+     * @return int
      */
-    public function getRequireCollateral(){
+    public function getRequireCollateral() : int
+    {
         return $this->require_collateral;
     }
     
@@ -164,25 +172,29 @@ class MePosition
      *
      * @return string
      */
-    public function getOpenDate(){
+    public function getOpenDate() : string
+    {
         return $this->open_date;
     }
     
     /**
      * get leverage
      *
-     * @return integer
+     * @return int
      */
-    public function getLeverage(){
+    public function getLeverage() : int
+    {
         return $this->leverage;
     }
     
     /**
      * get pnl
      *
-     * @return integer
+     * @return int
+     * @noinspection PhpUnused
      */
-    public function getPnl(){
+    public function getPnl() : int
+    {
         return $this->pnl;
     }
     

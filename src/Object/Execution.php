@@ -6,18 +6,31 @@ namespace Stk2k\PhitFlyer\Object;
 
 class Execution
 {
+    /** @var int  */
     private $id;
+
+    /** @var string  */
     private $side;
+
+    /** @var float  */
     private $price;
+
+    /** @var float  */
     private $size;
+
+    /** @var string  */
     private $exec_date;
+
+    /** @var string  */
     private $buy_child_order_acceptance_id;
+
+    /** @var string  */
     private $sell_child_order_acceptance_id;
     
     /**
      * construct
      *
-     * @param integer $id
+     * @param int $id
      * @param string $side
      * @param float $price
      * @param float $size
@@ -26,13 +39,13 @@ class Execution
      * @param string $sell_child_order_acceptance_id
      */
     public function __construct(
-        $id,
-        $side,
-        $price,
-        $size,
-        $exec_date,
-        $buy_child_order_acceptance_id,
-        $sell_child_order_acceptance_id
+        int $id,
+        string $side,
+        float $price,
+        float $size,
+        string $exec_date,
+        string $buy_child_order_acceptance_id,
+        string $sell_child_order_acceptance_id
     ){
         $this->id = $id;
         $this->side = $side;
@@ -50,24 +63,26 @@ class Execution
      *
      * @return Execution
      */
-    public static function fromArray(array $data){
+    public static function fromArray(array $data) : Execution
+    {
         return new self(
-            isset($data['id']) ? $data['id'] : null,
-            isset($data['side']) ? $data['side'] : null,
-            isset($data['price']) ? $data['price'] : null,
-            isset($data['size']) ? $data['size'] : null,
-            isset($data['exec_date']) ? $data['exec_date'] : null,
-            isset($data['buy_child_order_acceptance_id']) ? $data['buy_child_order_acceptance_id'] : null,
-            isset($data['sell_child_order_acceptance_id']) ? $data['sell_child_order_acceptance_id'] : null
+            $data['id'] ?? null,
+            $data['side'] ?? null,
+            $data['price'] ?? null,
+            $data['size'] ?? null,
+            $data['exec_date'] ?? null,
+            $data['buy_child_order_acceptance_id'] ?? null,
+            $data['sell_child_order_acceptance_id'] ?? null
         );
     }
     
     /**
      * get id
      *
-     * @return string
+     * @return int
      */
-    public function getId(){
+    public function getId() : int
+    {
         return $this->id;
     }
     
@@ -76,7 +91,8 @@ class Execution
      *
      * @return string
      */
-    public function getSide(){
+    public function getSide() : string
+    {
         return $this->side;
     }
     
@@ -85,7 +101,8 @@ class Execution
      *
      * @return float
      */
-    public function getPrice(){
+    public function getPrice() : float
+    {
         return $this->price;
     }
     
@@ -94,7 +111,8 @@ class Execution
      *
      * @return float
      */
-    public function getSize(){
+    public function getSize() : float
+    {
         return $this->size;
     }
     
@@ -103,7 +121,8 @@ class Execution
      *
      * @return string
      */
-    public function getExecDate(){
+    public function getExecDate() : string
+    {
         return $this->exec_date;
     }
     
@@ -111,8 +130,10 @@ class Execution
      * get buy child order acceptance id
      *
      * @return string
+     * @noinspection PhpUnused
      */
-    public function getBuyChildOrderAcceptanceId(){
+    public function getBuyChildOrderAcceptanceId() : string
+    {
         return $this->buy_child_order_acceptance_id;
     }
     
@@ -121,7 +142,8 @@ class Execution
      *
      * @return string
      */
-    public function getSellChildOrderAcceptanceId(){
+    public function getSellChildOrderAcceptanceId() : string
+    {
         return $this->sell_child_order_acceptance_id;
     }
 }

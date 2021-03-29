@@ -57,7 +57,7 @@ class MeChildOrder
     /**
      * construct
      *
-     * @param integer $id
+     * @param int $id
      * @param string $child_order_id
      * @param string $product_code
      * @param string $side
@@ -75,22 +75,22 @@ class MeChildOrder
      * @param string $total_commission
      */
     public function __construct(
-        $id,
-        $child_order_id,
-        $product_code,
-        $side,
-        $child_order_type,
-        $price,
-        $average_price,
-        $size,
-        $child_order_state,
-        $expire_date,
-        $child_order_date,
-        $child_order_acceptance_id,
-        $outstanding_size,
-        $cancel_size,
-        $executed_size,
-        $total_commission
+        int $id,
+        string $child_order_id,
+        string $product_code,
+        string $side,
+        string $child_order_type,
+        string $price,
+        string $average_price,
+        string $size,
+        string $child_order_state,
+        string $expire_date,
+        string $child_order_date,
+        string $child_order_acceptance_id,
+        string $outstanding_size,
+        string $cancel_size,
+        string $executed_size,
+        string $total_commission
     ){
         $this->id = $id;
         $this->child_order_id = $child_order_id;
@@ -117,33 +117,35 @@ class MeChildOrder
      *
      * @return MeChildOrder
      */
-    public static function fromArray(array $data){
+    public static function fromArray(array $data) : MeChildOrder
+    {
         return new self(
-            isset($data['id']) ? $data['id'] : null,
-            isset($data['child_order_id']) ? $data['child_order_id'] : null,
-            isset($data['product_code']) ? $data['product_code'] : null,
-            isset($data['side']) ? $data['side'] : null,
-            isset($data['child_order_type']) ? $data['child_order_type'] : null,
-            isset($data['price']) ? $data['price'] : null,
-            isset($data['average_price']) ? $data['average_price']: null,
-            isset($data['size']) ? $data['size'] : null,
-            isset($data['child_order_state']) ? $data['child_order_state'] : null,
-            isset($data['expire_date']) ? $data['expire_date'] : null,
-            isset($data['child_order_date']) ? $data['child_order_date'] : null,
-            isset($data['child_order_acceptance_id']) ? $data['child_order_acceptance_id'] : null,
-            isset($data['outstanding_size']) ? $data['outstanding_size'] : null,
-            isset($data['cancel_size']) ? $data['cancel_size'] : null,
-            isset($data['executed_size']) ? $data['executed_size'] : null,
-            isset($data['total_commission']) ? $data['total_commission'] : null
+            $data['id'] ?? null,
+            $data['child_order_id'] ?? null,
+            $data['product_code'] ?? null,
+            $data['side'] ?? null,
+            $data['child_order_type'] ?? null,
+            $data['price'] ?? null,
+            $data['average_price'] ?? null,
+            $data['size'] ?? null,
+            $data['child_order_state'] ?? null,
+            $data['expire_date'] ?? null,
+            $data['child_order_date'] ?? null,
+            $data['child_order_acceptance_id'] ?? null,
+            $data['outstanding_size'] ?? null,
+            $data['cancel_size'] ?? null,
+            $data['executed_size'] ?? null,
+            $data['total_commission'] ?? null
         );
     }
     
     /**
      * get id
      *
-     * @return integer
+     * @return int
      */
-    public function getId(){
+    public function getId() : int
+    {
         return $this->id;
     }
     
@@ -152,7 +154,8 @@ class MeChildOrder
      *
      * @return string
      */
-    public function getChildOrderId(){
+    public function getChildOrderId() : string
+    {
         return $this->child_order_id;
     }
     
@@ -161,7 +164,8 @@ class MeChildOrder
      *
      * @return string
      */
-    public function getProductCode(){
+    public function getProductCode() : string
+    {
         return $this->product_code;
     }
     
@@ -170,7 +174,8 @@ class MeChildOrder
      *
      * @return string
      */
-    public function getSide(){
+    public function getSide() : string
+    {
         return $this->side;
     }
     
@@ -179,25 +184,29 @@ class MeChildOrder
      *
      * @return string
      */
-    public function getChildOrderType(){
+    public function getChildOrderType() : string
+    {
         return $this->child_order_type;
     }
     
     /**
      * get price
      *
-     * @return integer
+     * @return int
      */
-    public function getPrice(){
+    public function getPrice() : int
+    {
         return $this->price;
     }
     
     /**
      * get average price
      *
-     * @return integer
+     * @return int
+     * @noinspection PhpUnused
      */
-    public function getAveragePrice(){
+    public function getAveragePrice() : int
+    {
         return $this->average_price;
     }
     
@@ -206,7 +215,8 @@ class MeChildOrder
      *
      * @return float
      */
-    public function getSize(){
+    public function getSize() : float
+    {
         return $this->size;
     }
     
@@ -215,7 +225,8 @@ class MeChildOrder
      *
      * @return string
      */
-    public function getChildOrderState(){
+    public function getChildOrderState() : string
+    {
         return $this->child_order_state;
     }
     
@@ -224,7 +235,8 @@ class MeChildOrder
      *
      * @return string
      */
-    public function getExpireDate(){
+    public function getExpireDate() : string
+    {
         return $this->expire_date;
     }
     
@@ -233,7 +245,8 @@ class MeChildOrder
      *
      * @return string
      */
-    public function getChildOrderDate(){
+    public function getChildOrderDate() : string
+    {
         return $this->child_order_date;
     }
     
@@ -242,7 +255,8 @@ class MeChildOrder
      *
      * @return string
      */
-    public function getChildOrderAcceptanceId(){
+    public function getChildOrderAcceptanceId() : string
+    {
         return $this->child_order_acceptance_id;
     }
     
@@ -250,8 +264,10 @@ class MeChildOrder
      * get outstanding size
      *
      * @return float
+     * @noinspection PhpUnused
      */
-    public function getOutstandingSize(){
+    public function getOutstandingSize() : float
+    {
         return $this->outstanding_size;
     }
     
@@ -260,7 +276,8 @@ class MeChildOrder
      *
      * @return float
      */
-    public function getCancelSize(){
+    public function getCancelSize() : float
+    {
         return $this->cancel_size;
     }
     
@@ -269,7 +286,8 @@ class MeChildOrder
      *
      * @return float
      */
-    public function getExecutedSize(){
+    public function getExecutedSize() : float
+    {
         return $this->executed_size;
     }
     
@@ -278,7 +296,8 @@ class MeChildOrder
      *
      * @return float
      */
-    public function getTotalCommission(){
+    public function getTotalCommission() : float
+    {
         return $this->total_commission;
     }
     

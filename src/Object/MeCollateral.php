@@ -26,7 +26,7 @@ class MeCollateral
      * @param float $require_collateral
      * @param float $keep_rate
      */
-    public function __construct($collateral, $open_position_pnl, $require_collateral, $keep_rate){
+    public function __construct(string $collateral, float $open_position_pnl, float $require_collateral, float $keep_rate){
         $this->collateral = $collateral;
         $this->open_position_pnl = $open_position_pnl;
         $this->require_collateral = $require_collateral;
@@ -40,12 +40,13 @@ class MeCollateral
      *
      * @return MeCollateral
      */
-    public static function fromArray(array $data){
+    public static function fromArray(array $data) : MeCollateral
+    {
         return new self(
-            isset($data['collateral']) ? $data['collateral'] : null,
-            isset($data['open_position_pnl']) ? $data['open_position_pnl'] : null,
-            isset($data['require_collateral']) ? $data['require_collateral'] : null,
-            isset($data['keep_rate']) ? $data['keep_rate'] : null
+            $data['collateral'] ?? null,
+            $data['open_position_pnl'] ?? null,
+            $data['require_collateral'] ?? null,
+            $data['keep_rate'] ?? null
         );
     }
     
@@ -54,7 +55,8 @@ class MeCollateral
      *
      * @return string
      */
-    public function getCollateral(){
+    public function getCollateral() : string
+    {
         return $this->collateral;
     }
     
@@ -62,8 +64,10 @@ class MeCollateral
      * get open position Pnl
      *
      * @return float
+     * @noinspection PhpUnused
      */
-    public function getOpenPositionPnl(){
+    public function getOpenPositionPnl() : float
+    {
         return $this->open_position_pnl;
     }
     
@@ -72,7 +76,8 @@ class MeCollateral
      *
      * @return float
      */
-    public function getRequireCollateral(){
+    public function getRequireCollateral() : float
+    {
         return $this->require_collateral;
     }
     
@@ -81,7 +86,8 @@ class MeCollateral
      *
      * @return float
      */
-    public function getKeepRate(){
+    public function getKeepRate() : float
+    {
         return $this->keep_rate;
     }
 }

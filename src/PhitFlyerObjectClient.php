@@ -41,7 +41,7 @@ class PhitFlyerObjectClient implements PhitFlyerClientInterface
      *
      * @param PhitFlyerClientInterface $flyer
      */
-    public function __construct($flyer){
+    public function __construct(PhitFlyerClientInterface $flyer){
         $this->client = $flyer;
     }
 
@@ -50,7 +50,7 @@ class PhitFlyerObjectClient implements PhitFlyerClientInterface
      *
      * @return HttpRequest
      */
-    public function getLastRequest()
+    public function getLastRequest() : HttpRequest
     {
         return $this->client->getLastRequest();
     }
@@ -70,7 +70,7 @@ class PhitFlyerObjectClient implements PhitFlyerClientInterface
      *
      * @return NetDriverInterface
      */
-    public function getNetDriver()
+    public function getNetDriver() : NetDriverInterface
     {
         return $this->client->getNetDriver();
     }
@@ -88,16 +88,16 @@ class PhitFlyerObjectClient implements PhitFlyerClientInterface
     /**
      * [public] get markets
      *
-     * @return Market[]|null
+     * @return Market[]
      *
      * @throws PhitFlyerClientExceptionInterface
      */
-    public function getMarkets()
+    public function getMarkets() : array
     {
         // get result from server
         $json = $this->client->getMarkets();
         // make market list
-        $items = array();
+        $items = [];
         foreach ($json as $item){
             $items[] = Market::fromArray($item);
         }
@@ -113,7 +113,7 @@ class PhitFlyerObjectClient implements PhitFlyerClientInterface
      *
      * @throws PhitFlyerClientExceptionInterface
      */
-    public function getBoard($product_code = null)
+    public function getBoard($product_code = null) : Board
     {
         // get result from server
         $json = $this->client->getBoard($product_code);
@@ -130,7 +130,7 @@ class PhitFlyerObjectClient implements PhitFlyerClientInterface
      *
      * @throws PhitFlyerClientExceptionInterface
      */
-    public function getTicker($product_code = null)
+    public function getTicker($product_code = null) : Ticker
     {
         // get result from server
         $json = $this->client->getTicker($product_code);
@@ -150,7 +150,7 @@ class PhitFlyerObjectClient implements PhitFlyerClientInterface
      *
      * @throws PhitFlyerClientExceptionInterface
      */
-    public function getExecutions($product_code = null, $before = null, $after = null, $count = null)
+    public function getExecutions($product_code = null, $before = null, $after = null, $count = null) : array
     {
         // get result from server
         $json = $this->client->getExecutions($product_code, $before, $after, $count);
@@ -171,7 +171,7 @@ class PhitFlyerObjectClient implements PhitFlyerClientInterface
      *
      * @throws PhitFlyerClientExceptionInterface
      */
-    public function getBoardState($product_code = null)
+    public function getBoardState($product_code = null) : BoardState
     {
         // get result from server
         $json = $this->client->getBoardState($product_code);
@@ -186,7 +186,7 @@ class PhitFlyerObjectClient implements PhitFlyerClientInterface
      *
      * @throws PhitFlyerClientExceptionInterface
      */
-    public function getHealth()
+    public function getHealth() : Health
     {
         // get result from server
         $json = $this->client->getHealth();
@@ -203,7 +203,7 @@ class PhitFlyerObjectClient implements PhitFlyerClientInterface
      *
      * @throws PhitFlyerClientExceptionInterface
      */
-    public function getChats($from_date = null)
+    public function getChats($from_date = null) : array
     {
         // get result from server
         $json = $this->client->getChats($from_date);
@@ -222,11 +222,10 @@ class PhitFlyerObjectClient implements PhitFlyerClientInterface
      *
      * @throws PhitFlyerClientExceptionInterface
      */
-    public function meGetPermissions()
+    public function meGetPermissions() : array
     {
         // get result from server
-        $json = $this->client->meGetPermissions();
-        return $json;
+        return $this->client->meGetPermissions();
     }
     
     /**
@@ -236,7 +235,7 @@ class PhitFlyerObjectClient implements PhitFlyerClientInterface
      *
      * @throws PhitFlyerClientExceptionInterface
      */
-    public function meGetBalance()
+    public function meGetBalance() : array
     {
         // get result from server
         $json = $this->client->meGetBalance();
@@ -255,7 +254,7 @@ class PhitFlyerObjectClient implements PhitFlyerClientInterface
      *
      * @throws PhitFlyerClientExceptionInterface
      */
-    public function meGetCollateral()
+    public function meGetCollateral() : MeCollateral
     {
         // get result from server
         $json = $this->client->meGetCollateral();
@@ -270,7 +269,7 @@ class PhitFlyerObjectClient implements PhitFlyerClientInterface
      *
      * @throws PhitFlyerClientExceptionInterface
      */
-    public function meGetCollateralAccounts()
+    public function meGetCollateralAccounts() : array
     {
         // get result from server
         $json = $this->client->meGetCollateralAccounts();
@@ -289,7 +288,7 @@ class PhitFlyerObjectClient implements PhitFlyerClientInterface
      *
      * @throws PhitFlyerClientExceptionInterface
      */
-    public function meGetAddress()
+    public function meGetAddress() : array
     {
         // get result from server
         $json = $this->client->meGetAddress();
@@ -312,7 +311,7 @@ class PhitFlyerObjectClient implements PhitFlyerClientInterface
      *
      * @throws PhitFlyerClientExceptionInterface
      */
-    public function meGetCoinIns($before = null, $after = null, $count = null)
+    public function meGetCoinIns($before = null, $after = null, $count = null) : array
     {
         // get result from server
         $json = $this->client->meGetCoinIns($before, $after, $count);
@@ -335,7 +334,7 @@ class PhitFlyerObjectClient implements PhitFlyerClientInterface
      *
      * @throws PhitFlyerClientExceptionInterface
      */
-    public function meGetCoinOuts($before = null, $after = null, $count = null)
+    public function meGetCoinOuts($before = null, $after = null, $count = null) : array
     {
         // get result from server
         $json = $this->client->meGetCoinOuts($before, $after, $count);
@@ -354,7 +353,7 @@ class PhitFlyerObjectClient implements PhitFlyerClientInterface
      *
      * @throws PhitFlyerClientExceptionInterface
      */
-    public function meGetBankAccounts()
+    public function meGetBankAccounts() : array
     {
         // get result from server
         $json = $this->client->meGetBankAccounts();
@@ -377,7 +376,7 @@ class PhitFlyerObjectClient implements PhitFlyerClientInterface
      *
      * @throws PhitFlyerClientExceptionInterface
      */
-    public function meGetDeposits($before = null, $after = null, $count = null)
+    public function meGetDeposits($before = null, $after = null, $count = null) : array
     {
         // get result from server
         $json = $this->client->meGetDeposits($before, $after, $count);
@@ -395,16 +394,17 @@ class PhitFlyerObjectClient implements PhitFlyerClientInterface
      * @param string $product_code
      * @param string $child_order_type
      * @param string $side
-     * @param integer $price
+     * @param int $price
      * @param float $size
-     * @param integer $minute_to_expire
-     * @param string $time_in_force
+     * @param int|null $minute_to_expire
+     * @param string|null $time_in_force
      *
      * @return MeChildOrderResult
      *
      * @throws PhitFlyerClientExceptionInterface
      */
-    public function meSendChildOrder($product_code, $child_order_type, $side, $price, $size, $minute_to_expire = null, $time_in_force = null)
+    public function meSendChildOrder(string $product_code, string $child_order_type, string $side, int $price, float $size,
+                                     int $minute_to_expire = null, string $time_in_force = null) : MeChildOrderResult
     {
         // get result from server
         $json = $this->client->meSendChildOrder($product_code, $child_order_type, $side, $price, $size, $minute_to_expire, $time_in_force);
@@ -420,7 +420,7 @@ class PhitFlyerObjectClient implements PhitFlyerClientInterface
      *
      * @throws PhitFlyerClientExceptionInterface
      */
-    public function meCancelChildOrder($product_code, $child_order_id)
+    public function meCancelChildOrder(string $product_code, string $child_order_id)
     {
         // get result from server
         $this->client->meCancelChildOrder($product_code, $child_order_id);
@@ -433,7 +433,7 @@ class PhitFlyerObjectClient implements PhitFlyerClientInterface
      *
      * @throws PhitFlyerClientExceptionInterface
      */
-    public function meCancelAllChildOrders($product_code)
+    public function meCancelAllChildOrders(string $product_code)
     {
         // get result from server
         $this->client->meCancelAllChildOrders($product_code);
@@ -443,17 +443,18 @@ class PhitFlyerObjectClient implements PhitFlyerClientInterface
      * [private] get child orders
      *
      * @param string $product_code
-     * @param integer $before
-     * @param integer $after
-     * @param integer $count
-     * @param string $child_order_state
-     * @param string $parent_order_id
+     * @param int|null $before
+     * @param int|null $after
+     * @param int|null $count
+     * @param string|null $child_order_state
+     * @param string|null $parent_order_id
      *
      * @return MeChildOrder[]
      *
      * @throws PhitFlyerClientExceptionInterface
      */
-    public function meGetChildOrders($product_code, $before = null, $after = null, $count = null, $child_order_state = null, $parent_order_id = null)
+    public function meGetChildOrders(string $product_code, int $before = null, int $after = null, int $count = null,
+                                     string $child_order_state = null, string $parent_order_id = null) : array
     {
         // get result from server
         $json = $this->client->meGetChildOrders($product_code, $before, $after, $count, $child_order_state, $parent_order_id);
@@ -469,20 +470,21 @@ class PhitFlyerObjectClient implements PhitFlyerClientInterface
      * [private] get executions
      *
      * @param string $product_code
-     * @param integer $before
-     * @param integer $after
-     * @param integer $count
-     * @param string $child_order_id
-     * @param string $child_order_acceptance_id
+     * @param int|null $before
+     * @param int|null $after
+     * @param int|null $count
+     * @param string|null $child_order_id
+     * @param string|null $child_order_acceptance_id
      *
      * @return MeExecution[]
      *
      * @throws PhitFlyerClientExceptionInterface
      */
-    public function meGetExecutions($product_code, $before = null, $after = null, $count = null, $child_order_id = null, $child_order_acceptance_id = null)
+    public function meGetExecutions(string $product_code, int $before = null, int $after = null, int $count = null,
+                                    string $child_order_id = null, string $child_order_acceptance_id = null) : array
     {
         // get result from server
-        $json = $this->client->meGetChildOrders($before, $after, $count);
+        $json = $this->client->meGetExecutions($product_code, $before, $after, $count, $child_order_id, $child_order_acceptance_id);
         // make child order list
         $items = array();
         foreach ($json as $item){
@@ -500,7 +502,7 @@ class PhitFlyerObjectClient implements PhitFlyerClientInterface
      *
      * @throws PhitFlyerClientExceptionInterface
      */
-    public function meGetPositions($product_code)
+    public function meGetPositions(string $product_code) : array
     {
         // get result from server
         $json = $this->client->meGetPositions($product_code);
@@ -521,7 +523,7 @@ class PhitFlyerObjectClient implements PhitFlyerClientInterface
      *
      * @throws PhitFlyerClientExceptionInterface
      */
-    public function meGetTradingCommission($product_code)
+    public function meGetTradingCommission(string $product_code) : MeCommission
     {
         // get result from server
         $json = $this->client->meGetTradingCommission($product_code);

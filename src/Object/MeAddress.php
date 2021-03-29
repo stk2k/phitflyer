@@ -22,7 +22,7 @@ class MeAddress
      * @param string $currency_code
      * @param string $address
      */
-    public function __construct($type, $currency_code, $address){
+    public function __construct(string $type, string $currency_code, string $address){
         $this->type = $type;
         $this->currency_code = $currency_code;
         $this->address = $address;
@@ -35,11 +35,12 @@ class MeAddress
      *
      * @return MeAddress
      */
-    public static function fromArray(array $data){
+    public static function fromArray(array $data) : MeAddress
+    {
         return new self(
-            isset($data['type']) ? $data['type'] : null,
-            isset($data['currency_code']) ? $data['currency_code'] : null,
-            isset($data['address']) ? $data['address'] : null
+            $data['type'] ?? null,
+            $data['currency_code'] ?? null,
+            $data['address'] ?? null
         );
     }
     
@@ -48,7 +49,8 @@ class MeAddress
      *
      * @return string
      */
-    public function getType(){
+    public function getType() : string
+    {
         return $this->type;
     }
     
@@ -57,7 +59,8 @@ class MeAddress
      *
      * @return string
      */
-    public function getCurrencyCode(){
+    public function getCurrencyCode() : string
+    {
         return $this->currency_code;
     }
     
@@ -66,7 +69,8 @@ class MeAddress
      *
      * @return string
      */
-    public function getAddress(){
+    public function getAddress() : string
+    {
         return $this->address;
     }
 }

@@ -22,7 +22,7 @@ class BoardState
      * @param string $state
      * @param array $data
      */
-    public function __construct($health, $state, $data = []){
+    public function __construct(string $health, string $state, array $data = []){
         $this->health = $health;
         $this->state = $state;
         $this->data = $data;
@@ -35,11 +35,12 @@ class BoardState
      *
      * @return BoardState
      */
-    public static function fromArray(array $data){
+    public static function fromArray(array $data) : BoardState
+    {
         return new self(
-            isset($data['health']) ? $data['health'] : null,
-            isset($data['state']) ? $data['state'] : null,
-            isset($data['data']) ? $data['data'] : []
+            $data['health'] ?? null,
+            $data['state'] ?? null,
+            $data['data'] ?? []
         );
     }
     
@@ -48,7 +49,8 @@ class BoardState
      *
      * @return string
      */
-    public function getHealth(){
+    public function getHealth() : string
+    {
         return $this->state;
     }
     
@@ -57,7 +59,8 @@ class BoardState
      *
      * @return string
      */
-    public function getState(){
+    public function getState() : string
+    {
         return $this->state;
     }
     
@@ -66,7 +69,8 @@ class BoardState
      *
      * @return array
      */
-    public function getData(){
+    public function getData() : array
+    {
         return $this->data;
     }
     

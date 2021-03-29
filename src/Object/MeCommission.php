@@ -6,7 +6,7 @@ namespace Stk2k\PhitFlyer\Object;
 
 class MeCommission
 {
-    /** @var float  */
+    /** @var string  */
     private $commission_rate;
     
     /**
@@ -14,7 +14,7 @@ class MeCommission
      *
      * @param float $commission_rate
      */
-    public function __construct($commission_rate){
+    public function __construct(float $commission_rate){
         $this->commission_rate = $commission_rate;
     }
     
@@ -25,9 +25,10 @@ class MeCommission
      *
      * @return MeCommission
      */
-    public static function fromArray(array $data){
+    public static function fromArray(array $data) : MeCommission
+    {
         return new self(
-            isset($data['commission_rate']) ? $data['commission_rate'] : null
+            $data['commission_rate'] ?? null
         );
     }
 
@@ -36,7 +37,8 @@ class MeCommission
      *
      * @return string
      */
-    public function getCommissionRate(){
+    public function getCommissionRate() : string
+    {
         return $this->commission_rate;
     }
     

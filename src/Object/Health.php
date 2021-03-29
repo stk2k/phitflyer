@@ -14,7 +14,7 @@ class Health
      *
      * @param string $status
      */
-    public function __construct($status){
+    public function __construct(string $status){
         $this->status = $status;
     }
     
@@ -25,9 +25,10 @@ class Health
      *
      * @return Health
      */
-    public static function fromArray(array $data){
+    public static function fromArray(array $data) : Health
+    {
         return new self(
-            isset($data['status']) ? $data['status'] : null
+            $data['status'] ?? null
         );
     }
     
@@ -36,7 +37,7 @@ class Health
      *
      * @return string
      */
-    public function getStatus(){
+    public function getStatus() : string{
         return $this->status;
     }
     

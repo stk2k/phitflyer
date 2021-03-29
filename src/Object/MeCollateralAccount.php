@@ -26,7 +26,7 @@ class MeCollateralAccount
      * @param float $require_collateral
      * @param float $keep_rate
      */
-    public function __construct($currency_code, $amount, $require_collateral, $keep_rate){
+    public function __construct(string $currency_code, float $amount, float $require_collateral, float $keep_rate){
         $this->currency_code = $currency_code;
         $this->amount = $amount;
         $this->require_collateral = $require_collateral;
@@ -40,12 +40,13 @@ class MeCollateralAccount
      *
      * @return MeCollateralAccount
      */
-    public static function fromArray(array $data){
+    public static function fromArray(array $data) : MeCollateralAccount
+    {
         return new self(
-            isset($data['currency_code']) ? $data['currency_code'] : null,
-            isset($data['amount']) ? $data['amount'] : null,
-            isset($data['require_collateral']) ? $data['require_collateral'] : null,
-            isset($data['keep_rate']) ? $data['keep_rate'] : null
+            $data['currency_code'] ?? null,
+            $data['amount'] ?? null,
+            $data['require_collateral'] ?? null,
+            $data['keep_rate'] ?? null
         );
     }
     
@@ -54,7 +55,8 @@ class MeCollateralAccount
      *
      * @return string
      */
-    public function getCurrencyCode(){
+    public function getCurrencyCode() : string
+    {
         return $this->currency_code;
     }
     
@@ -63,7 +65,8 @@ class MeCollateralAccount
      *
      * @return float
      */
-    public function getAmount(){
+    public function getAmount() : float
+    {
         return $this->amount;
     }
     

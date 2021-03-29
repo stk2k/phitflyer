@@ -14,7 +14,7 @@ class MeChildOrderResult
      *
      * @param string $child_order_acceptance_id
      */
-    public function __construct($child_order_acceptance_id){
+    public function __construct(string $child_order_acceptance_id){
         $this->child_order_acceptance_id = $child_order_acceptance_id;
     }
     
@@ -25,9 +25,10 @@ class MeChildOrderResult
      *
      * @return MeChildOrderResult
      */
-    public static function fromArray(array $data){
+    public static function fromArray(array $data) : MeChildOrderResult
+    {
         return new self(
-            isset($data['child_order_acceptance_id']) ? $data['child_order_acceptance_id'] : null
+            $data['child_order_acceptance_id'] ?? null
         );
     }
     
@@ -36,7 +37,8 @@ class MeChildOrderResult
      *
      * @return string
      */
-    public function getChildOrderAcceptanceId(){
+    public function getChildOrderAcceptanceId() : string
+    {
         return $this->child_order_acceptance_id;
     }
     

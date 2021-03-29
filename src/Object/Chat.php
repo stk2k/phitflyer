@@ -22,7 +22,7 @@ class Chat
      * @param string $message
      * @param string $date
      */
-    public function __construct($nickname, $message, $date){
+    public function __construct(string $nickname, string $message, string $date){
         $this->nickname = $nickname;
         $this->message = $message;
         $this->date = $date;
@@ -35,11 +35,12 @@ class Chat
      *
      * @return Chat
      */
-    public static function fromArray(array $data){
+    public static function fromArray(array $data) : Chat
+    {
         return new self(
-            isset($data['nickname']) ? $data['nickname'] : null,
-            isset($data['message']) ? $data['message'] : null,
-            isset($data['date']) ? $data['date'] : null
+            $data['nickname'] ?? null,
+            $data['message'] ?? null,
+            $data['date'] ?? null
         );
     }
     
@@ -47,8 +48,10 @@ class Chat
      * get nickname
      *
      * @return string
+     * @noinspection PhpUnused
      */
-    public function getNickname(){
+    public function getNickname() : string
+    {
         return $this->nickname;
     }
     
@@ -57,7 +60,7 @@ class Chat
      *
      * @return string
      */
-    public function getMessage(){
+    public function getMessage() : string{
         return $this->message;
     }
     
@@ -66,7 +69,8 @@ class Chat
      *
      * @return string
      */
-    public function getDate(){
+    public function getDate() : string
+    {
         return $this->date;
     }
     
