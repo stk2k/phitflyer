@@ -3,7 +3,7 @@ require_once dirname(dirname(__FILE__)) . '/vendor/autoload.php';
 require_once 'include/autoload.php';
 require_once 'include/sample.inc.php';
 
-use PhitFlyer\PhitFlyerClient;
+use Stk2k\PhitFlyer\PhitFlyerClient;
 
 list($api_key, $api_secret) = bitflyer_credentials();
 

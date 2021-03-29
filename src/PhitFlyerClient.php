@@ -1,17 +1,19 @@
 <?php
-namespace PhitFlyer;
+declare(strict_types=1);
 
-use NetDriver\NetDriverInterface;
-use NetDriver\NetDriverHandleInterface;
-use NetDriver\Http\HttpRequest;
-use NetDriver\Http\HttpGetRequest;
-use NetDriver\Http\JsonPostRequest;
-use NetDriver\NetDriver\Curl\CurlNetDriver;
+namespace Stk2k\PhitFlyer;
 
-use PhitFlyer\Exception\PhitFlyerClientExceptionInterface;
-use PhitFlyer\Exception\PhitFlyerClientException;
-use PhitFlyer\Exception\WebApiCallException;
-use PhitFlyer\Exception\ServerResponseFormatException;
+use Stk2k\NetDriver\NetDriverInterface;
+use Stk2k\NetDriver\NetDriverHandleInterface;
+use Stk2k\NetDriver\Http\HttpRequest;
+use Stk2k\NetDriver\Http\HttpGetRequest;
+use Stk2k\NetDriver\Http\JsonPostRequest;
+use Stk2k\NetDriver\NetDriver\Curl\CurlNetDriver;
+
+use Stk2k\PhitFlyer\Exception\PhitFlyerClientExceptionInterface;
+use Stk2k\PhitFlyer\Exception\PhitFlyerClientException;
+use Stk2k\PhitFlyer\Exception\WebApiCallException;
+use Stk2k\PhitFlyer\Exception\ServerResponseFormatException;
 
 /**
  * PhitFlyer client class

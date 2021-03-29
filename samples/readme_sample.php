@@ -5,10 +5,10 @@ require_once 'include/sample.inc.php';
 
 use Wa72\SimpleLogger\EchoLogger;
 
-use PhitFlyer\PhitFlyerClient;
-use PhitFlyer\PhitFlyerObjectClient;
-use PhitFlyer\PhitFlyerBenchmarkClient;
-use PhitFlyer\PhitFlyerLoggerClient;
+use Stk2k\PhitFlyer\PhitFlyerClient;
+use Stk2k\PhitFlyer\PhitFlyerObjectClient;
+use Stk2k\PhitFlyer\PhitFlyerBenchmarkClient;
+use Stk2k\PhitFlyer\PhitFlyerLoggerClient;
 
 class YourLogger extends EchoLogger {}
 

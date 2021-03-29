@@ -1,5 +1,7 @@
 <?php
-namespace PhitFlyer\Object;
+declare(strict_types=1);
+
+namespace Stk2k\PhitFlyer\Object;
 
 
 class MeCollateralAccount

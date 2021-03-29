@@ -1,9 +1,14 @@
 <?php
+declare(strict_types=1);
 
-use PhitFlyer\PhitFlyerClient;
-use PhitFlyer\PhitFlyerObjectClient;
+namespace Stk2k\PhitFlyer\Test;
 
-class PhitFlyerObjectClientTest extends PHPUnit_Framework_TestCase
+use PHPUnit\Framework\TestCase;
+
+use Stk2k\PhitFlyer\PhitFlyerClient;
+use Stk2k\PhitFlyer\PhitFlyerObjectClient;
+
+class PhitFlyerObjectClientTest extends TestCase
 {
     /** @var PhitFlyerClient */
     private $client;
@@ -295,7 +300,7 @@ class PhitFlyerObjectClientTest extends PHPUnit_Framework_TestCase
         $client = new PhitFlyerObjectClient($this->client);
     
         $child_orders = $client->meGetChildOrders(
-            'FX_BTC_JPY', null, null, null, 'ACTIVE', null
+            'FX_BTC_JPY', null, null, null, 'ACTIVE'
         );
     
         $this->assertInternalType('array', $child_orders );

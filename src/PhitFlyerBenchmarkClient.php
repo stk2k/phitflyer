@@ -1,15 +1,17 @@
 <?php
-namespace PhitFlyer;
+declare(strict_types=1);
 
-use NetDriver\Http\HttpRequest;
-use NetDriver\NetDriverInterface;
+namespace Stk2k\PhitFlyer;
 
-use PhitFlyer\Object\Market;
-use PhitFlyer\Object\Board;
-use PhitFlyer\Object\Ticker;
-use PhitFlyer\Object\Execution;
-use PhitFlyer\Object\Health;
-use PhitFlyer\Object\Chat;
+use Stk2k\NetDriver\Http\HttpRequest;
+use Stk2k\NetDriver\NetDriverInterface;
+
+use Stk2k\PhitFlyer\Object\Market;
+use Stk2k\PhitFlyer\Object\Board;
+use Stk2k\PhitFlyer\Object\Ticker;
+use Stk2k\PhitFlyer\Object\Execution;
+use Stk2k\PhitFlyer\Object\Health;
+use Stk2k\PhitFlyer\Object\Chat;
 
 /**
  * Benchmark decorator

@@ -17,7 +17,7 @@ phitFlyerはbitFLyer-APIを呼び出す機能を持つPHPライブラリです�
 
 ### シンプルかつ最速の例:
 ```php
-use PhitFlyer\PhitFlyerClient;
+use Stk2k\PhitFlyer\PhitFlyerClient;
  
 $client = new PhitFlyerClient();
  
@@ -33,8 +33,8 @@ foreach($markets as $idx => $market){
 
 ### オブジェクトアクセスの例:
 ```php
-use PhitFlyer\PhitFlyerClient;
-use PhitFlyer\PhitFlyerObjectClient;
+use Stk2k\PhitFlyer\PhitFlyerClient;
+use Stk2k\PhitFlyer\PhitFlyerObjectClient;
  
 $client = new PhitFlyerObjectClient(new PhitFlyerClient());
  
@@ -50,8 +50,8 @@ foreach($markets as $idx => $market){
 
 ### ベンチマークの例:
 ```php
-use PhitFlyer\PhitFlyerClient;
-use PhitFlyer\PhitFlyerBenchmarkClient;
+use Stk2k\PhitFlyer\PhitFlyerClient;
+use Stk2k\PhitFlyer\PhitFlyerBenchmarkClient;
  
 $client = new PhitFlyerBenchmarkClient(
             new PhitFlyerClient(), 
@@ -66,8 +66,8 @@ $client->getMarkets();
 
 ### ロガーの例:
 ```php
-use PhitFlyer\PhitFlyerClient;
-use PhitFlyer\PhitFlyerLoggerClient;
+use Stk2k\PhitFlyer\PhitFlyerClient;
+use Stk2k\PhitFlyer\PhitFlyerLoggerClient;
  
 $client = new PhitFlyerLoggerClient(
             new PhitFlyerClient(), 
@@ -78,8 +78,8 @@ $client->getNetDriver()->setVerbose(true);      // 詳細なログを出力
 
 ### 独自ネットドライバの使用例:
 ```php
-use PhitFlyer\PhitFlyerClient;
-use NetDriver\NetDriver\Php\PhpNetDriver;
+use Stk2k\PhitFlyer\PhitFlyerClient;
+use Stk2k\NetDriver\NetDriver\Php\PhpNetDriver;
 
 $client = new PhitFlyerClient();
 $client->setNetDriver(new PhpNetDriver());      // cURL関数の代わりにfile_get_contentsを使ってWebAPIをコールします

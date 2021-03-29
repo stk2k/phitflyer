@@ -1,18 +1,7 @@
 <?php
-namespace PhitFlyer;
+declare(strict_types=1);
 
-use Grasshopper\Grasshopper;
-use Grasshopper\Event\SuccessEvent;
-use Grasshopper\Event\ErrorEvent;
-use Grasshopper\curl\CurlRequest;
-use Grasshopper\HttpGetRequest;
-//use Grasshopper\HttpPostRequest;
-
-use PhitFlyer\Exception\BitflyerClientException;
-use PhitFlyer\Exception\BitflyerApiErrorResponseException;
-use PhitFlyer\Exception\GrasshopperErrorException;
-use PhitFlyer\Exception\JsonFormatException;
-use PhitFlyer\Exception\ServerResponseFormatException;
+namespace Stk2k\PhitFlyer;
 
 /**
  * PhitFlyer API consts class

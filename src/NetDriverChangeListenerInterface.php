@@ -1,7 +1,9 @@
 <?php
-namespace PhitFlyer;
+declare(strict_types=1);
 
-use NetDriver\NetDriverInterface;
+namespace Stk2k\PhitFlyer;
+
+use Stk2k\NetDriver\NetDriverInterface;
 
 interface NetDriverChangeListenerInterface
 {

@@ -1,9 +1,14 @@
 <?php
+declare(strict_types=1);
 
-use PhitFlyer\PhitFlyerClient;
-use PhitFlyer\PhitFlyerBenchmarkClient;
+namespace Stk2k\PhitFlyer\Test;
 
-class PhitFlyerBenchmarkClientTest extends PHPUnit_Framework_TestCase
+use PHPUnit\Framework\TestCase;
+
+use Stk2k\PhitFlyer\PhitFlyerClient;
+use Stk2k\PhitFlyer\PhitFlyerBenchmarkClient;
+
+class PhitFlyerBenchmarkClientTest extends TestCase
 {
     /** @var PhitFlyerClient */
     private $flyer;

@@ -12,17 +12,22 @@
     }
   ],
   "require": {
-    "php": ">=5.5.0",
+    "php": ">=7.1",
     "psr/log": "^1.0",
-    "stk2k/net-driver": "~0.2"
+    "stk2k/net-driver": "~0.5"
   },
   "require-dev": {
-    "phpunit/phpunit": "3.7.*",
+    "phpunit/phpunit": "^6.3.0",
     "wa72/simplelogger": "~v1.1.0"
   },
   "autoload": {
     "psr-4": {
-      "PhitFlyer\\": "src/"
+      "Stk2k\\PhitFlyer\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Stk2k\\PhitFlyer\\Test\\": "test/"
     }
   }
 }

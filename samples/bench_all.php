@@ -1,9 +1,9 @@
 <?php
 require dirname(dirname(__FILE__)) . '/vendor/autoload.php';
 
-use PhitFlyer\PhitFlyerClient;
-use PhitFlyer\PhitFlyerApi;
-use PhitFlyer\PhitFlyerBenchmarkClient;
+use Stk2k\PhitFlyer\PhitFlyerClient;
+use Stk2k\PhitFlyer\PhitFlyerApi;
+use Stk2k\PhitFlyer\PhitFlyerBenchmarkClient;
 
 $api_key = getenv('PHITFLYER_API_KEY');
 $api_secret = getenv('PHITFLYER_API_SECRET');

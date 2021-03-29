@@ -1,14 +1,18 @@
 <?php
+declare(strict_types=1);
 
-use NetDriver\Http\HttpGetRequest;
+namespace Stk2k\PhitFlyer\Test;
+
+use PHPUnit\Framework\TestCase;
+use Stk2k\NetDriver\Http\HttpGetRequest;
 
 use Wa72\SimpleLogger\EchoLogger;
 
-use PhitFlyer\PhitFlyerApi;
-use PhitFlyer\PhitFlyerClient;
-use PhitFlyer\PhitFlyerLoggerClient;
+use Stk2k\PhitFlyer\PhitFlyerApi;
+use Stk2k\PhitFlyer\PhitFlyerClient;
+use Stk2k\PhitFlyer\PhitFlyerLoggerClient;
 
-class PhitFlyerLoggerClientTest extends PHPUnit_Framework_TestCase
+class PhitFlyerLoggerClientTest extends TestCase
 {
     /** @var PhitFlyerClient */
     private $client;
@@ -309,7 +313,7 @@ class PhitFlyerLoggerClientTest extends PHPUnit_Framework_TestCase
     public function testMeGetChildOrders()
     {
         $child_orders = $this->client->meGetChildOrders(
-            'FX_BTC_JPY', null, null, null, 'ACTIVE', null
+            'FX_BTC_JPY', null, null, null, 'ACTIVE'
         );
 
         /** @var HttpGetRequest $req */

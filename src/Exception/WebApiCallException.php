@@ -1,5 +1,7 @@
 <?php
-namespace PhitFlyer\Exception;
+declare(strict_types=1);
+
+namespace Stk2k\PhitFlyer\Exception;
 
 class WebApiCallException extends \Exception implements PhitFlyerClientExceptionInterface
 {

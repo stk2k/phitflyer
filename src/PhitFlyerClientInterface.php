@@ -1,10 +1,12 @@
 <?php
-namespace PhitFlyer;
+declare(strict_types=1);
 
-use NetDriver\Http\HttpRequest;
-use NetDriver\NetDriverInterface;
+namespace Stk2k\PhitFlyer;
 
-use PhitFlyer\Exception\PhitFlyerClientExceptionInterface;
+use Stk2k\NetDriver\Http\HttpRequest;
+use Stk2k\NetDriver\NetDriverInterface;
+
+use Stk2k\PhitFlyer\Exception\PhitFlyerClientExceptionInterface;
 
 /**
  * PhitFlyer interface

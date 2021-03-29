@@ -1,31 +1,33 @@
 <?php
-namespace PhitFlyer;
+declare(strict_types=1);
 
-use NetDriver\Http\HttpRequest;
-use NetDriver\NetDriverInterface;
+namespace Stk2k\PhitFlyer;
 
-use PhitFlyer\Object\Market;
-use PhitFlyer\Object\Board;
-use PhitFlyer\Object\Ticker;
-use PhitFlyer\Object\Execution;
-use PhitFlyer\Object\BoardState;
-use PhitFlyer\Object\Health;
-use PhitFlyer\Object\Chat;
-use PhitFlyer\Object\MeBalance;
-use PhitFlyer\Object\MeCollateral;
-use PhitFlyer\Object\MeCollateralAccount;
-use PhitFlyer\Object\MeAddress;
-use PhitFlyer\Object\MeCoinIn;
-use PhitFlyer\Object\MeCoinOut;
-use PhitFlyer\Object\MeBankAccount;
-use PhitFlyer\Object\MeDeposit;
-use PhitFlyer\Object\MeChildOrderResult;
-use PhitFlyer\Object\MeChildOrder;
-use PhitFlyer\Object\MeExecution;
-use PhitFlyer\Object\MePosition;
-use PhitFlyer\Object\MeCommission;
+use Stk2k\NetDriver\Http\HttpRequest;
+use Stk2k\NetDriver\NetDriverInterface;
 
-use PhitFlyer\Exception\PhitFlyerClientExceptionInterface;
+use Stk2k\PhitFlyer\Object\Market;
+use Stk2k\PhitFlyer\Object\Board;
+use Stk2k\PhitFlyer\Object\Ticker;
+use Stk2k\PhitFlyer\Object\Execution;
+use Stk2k\PhitFlyer\Object\BoardState;
+use Stk2k\PhitFlyer\Object\Health;
+use Stk2k\PhitFlyer\Object\Chat;
+use Stk2k\PhitFlyer\Object\MeBalance;
+use Stk2k\PhitFlyer\Object\MeCollateral;
+use Stk2k\PhitFlyer\Object\MeCollateralAccount;
+use Stk2k\PhitFlyer\Object\MeAddress;
+use Stk2k\PhitFlyer\Object\MeCoinIn;
+use Stk2k\PhitFlyer\Object\MeCoinOut;
+use Stk2k\PhitFlyer\Object\MeBankAccount;
+use Stk2k\PhitFlyer\Object\MeDeposit;
+use Stk2k\PhitFlyer\Object\MeChildOrderResult;
+use Stk2k\PhitFlyer\Object\MeChildOrder;
+use Stk2k\PhitFlyer\Object\MeExecution;
+use Stk2k\PhitFlyer\Object\MePosition;
+use Stk2k\PhitFlyer\Object\MeCommission;
+
+use Stk2k\PhitFlyer\Exception\PhitFlyerClientExceptionInterface;
 
 /**
  * Object decorator
