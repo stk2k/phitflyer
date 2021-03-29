@@ -456,7 +456,7 @@ class PhitFlyerObjectClient implements PhitFlyerClientInterface
     public function meGetChildOrders($product_code, $before = null, $after = null, $count = null, $child_order_state = null, $parent_order_id = null)
     {
         // get result from server
-        $json = $this->client->meGetChildOrders($before, $after, $count);
+        $json = $this->client->meGetChildOrders($product_code, $before, $after, $count, $child_order_state, $parent_order_id);
         // make child order list
         $items = array();
         foreach ($json as $item){
