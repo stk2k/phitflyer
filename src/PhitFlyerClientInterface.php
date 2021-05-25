@@ -84,7 +84,7 @@ interface PhitFlyerClientInterface
      *
      * @throws PhitFlyerClientExceptionInterface
      */
-    public function getExecutions($product_code = null, $before = null, $after = null, $count = null);
+    public function getExecutions(?string $product_code = null, ?int $before = null, ?int $after = null, ?int $count = null);
     
     
     /**
@@ -96,7 +96,7 @@ interface PhitFlyerClientInterface
      *
      * @throws PhitFlyerClientExceptionInterface
      */
-    public function getBoardState($product_code = null);
+    public function getBoardState(?string $product_code = null);
     
     /**
      * get health
@@ -116,7 +116,7 @@ interface PhitFlyerClientInterface
      *
      * @throws PhitFlyerClientExceptionInterface
      */
-    public function getChats($from_date = null);
+    public function getChats(?string $from_date = null);
     
     /**
      * [private] get permissions
@@ -174,7 +174,7 @@ interface PhitFlyerClientInterface
      *
      * @throws PhitFlyerClientExceptionInterface
      */
-    public function meGetCoinIns($before = null, $after = null, $count = null);
+    public function meGetCoinIns(?int $before = null, ?int $after = null, ?int $count = null);
     
     /**
      * [private] get coin outs
@@ -187,7 +187,7 @@ interface PhitFlyerClientInterface
      *
      * @throws PhitFlyerClientExceptionInterface
      */
-    public function meGetCoinOuts($before = null, $after = null, $count = null);
+    public function meGetCoinOuts(?int $before = null, ?int $after = null, ?int $count = null);
     
     /**
      * [private] get bank accounts
@@ -209,7 +209,7 @@ interface PhitFlyerClientInterface
      *
      * @throws PhitFlyerClientExceptionInterface
      */
-    public function meGetDeposits($before = null, $after = null, $count = null);
+    public function meGetDeposits(?int $before = null, ?int $after = null, ?int $count = null);
     
     /**
      * [private] send child order
@@ -262,8 +262,8 @@ interface PhitFlyerClientInterface
      *
      * @throws PhitFlyerClientExceptionInterface
      */
-    public function meGetChildOrders(string $product_code, int $before = null, int $after = null, int $count = null,
-                                     string $child_order_state = null, string $parent_order_id = null);
+    public function meGetChildOrders(string $product_code, ?int $before = null, ?int $after = null, ?int $count = null,
+                                     ?string $child_order_state = null, ?string $parent_order_id = null);
     
     /**
      * [private] get executions
@@ -279,8 +279,8 @@ interface PhitFlyerClientInterface
      *
      * @throws PhitFlyerClientExceptionInterface
      */
-    public function meGetExecutions(string $product_code, int $before = null, int $after = null, int $count = null,
-                                    string $child_order_id = null, string $child_order_acceptance_id = null);
+    public function meGetExecutions(string $product_code, ?int $before = null, ?int $after = null, ?int $count = null,
+                                    ?string $child_order_id = null, ?string $child_order_acceptance_id = null);
     
     /**
      * [private] get positions
