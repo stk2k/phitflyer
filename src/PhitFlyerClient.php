@@ -267,7 +267,7 @@ class PhitFlyerClient implements PhitFlyerClientInterface
             }
             return $json;
         }
-        catch(Throwable $e)
+        catch(Exception $e)
         {
             throw new PhitFlyerClientException('NetDriver#sendRequest() failed: ' . $e->getMessage(), $e);
         }
