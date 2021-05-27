@@ -95,7 +95,8 @@ $markets = $client->getMarkets();
 ## Requirement
 
 PHP 5.5 or later
-
+php-mbstring
+php-xml
 
 ## Installing phitFlyer
 
